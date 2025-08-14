@@ -11,6 +11,11 @@ export const Container = styled.div`
   outline: 1px solid black;
 `;
 
+export const Bar = styled.div`
+  position: absolute;
+  display: flex;
+`;
+
 export const Background = styled.div`
   position: absolute;
   display: flex;
@@ -38,7 +43,7 @@ export const SchoolInput = styled.input`
   top: 166px;
   margin-bottom: 6px;
   padding: 12px;
-  width: 280px;
+  width: 275px;
   justify-content: center;
   align-self: center;
   align-items: center;
@@ -56,4 +61,72 @@ export const SchoolInput = styled.input`
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+`;
+
+export const Btn = styled.div`
+  position: relative;
+  top: 35px;
+  margin-bottom: 6px;
+  padding: 12px;
+  width: 275px;
+  justify-content: center;
+  align-self: center;
+  align-items: center;
+  border-radius: 10px;
+  border: 1px solid #695739;
+  background: #fff;
+  color: var(--, #000);
+  text-align: center;
+  z-index: 3;
+
+  /* R20 */
+  font-family: Pretendard;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+`;
+
+export const SubText = styled.div`
+  color: #695739;
+  margin-bottom: 5px; /* 입력창과의 간격을 줍니다 */
+
+  /* R20 */
+  font-family: Pretendard;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+`;
+
+export const MajorInput = styled.input`
+  position: relative;
+  top: 166px;
+  margin-bottom: 6px;
+  padding: 12px;
+  width: 275px;
+  justify-content: center;
+  align-self: center;
+  align-items: center;
+  border-radius: 10px;
+  border: 1px solid #695739;
+  outline: none;
+  background: #fff;
+  color: var(--, #000);
+  text-align: center;
+  z-index: 3;
+
+  /* R20 */
+  font-family: Pretendard;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+`;
+
+export const BackBtn = styled.div`
+  position: absolute;
+  display: flex;
+  margin-top: 680px;
+  left: 48px;
 `;
