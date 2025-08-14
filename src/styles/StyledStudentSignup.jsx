@@ -9,6 +9,11 @@ export const Container = styled.div`
   height: 100vh;
   background: #fff;
   outline: 1px solid black;
+
+  #CategoryBox {
+    margin-top: 77px;
+    margin-left: 40px;
+  }
 `;
 
 export const Bar = styled.div`
@@ -35,15 +40,15 @@ export const Title = styled.div`
   font-size: 24px;
   font-style: normal;
   font-weight: 700;
-  line-height: normal;
+  line-height: 1.3;
 `;
 
 export const SchoolInput = styled.input`
   position: relative;
-  top: 166px;
+  top: 163px;
   margin-bottom: 6px;
   padding: 12px;
-  width: 275px;
+  width: 273px;
   justify-content: center;
   align-self: center;
   align-items: center;
@@ -68,7 +73,7 @@ export const Btn = styled.div`
   top: 35px;
   margin-bottom: 6px;
   padding: 12px;
-  width: 275px;
+  width: 273px;
   justify-content: center;
   align-self: center;
   align-items: center;
@@ -87,9 +92,25 @@ export const Btn = styled.div`
   line-height: normal;
 `;
 
-export const SubText = styled.div`
+export const SubText1 = styled.div`
   color: #695739;
   margin-bottom: 5px; /* 입력창과의 간격을 줍니다 */
+  margin-left: 54px;
+  margin-top: 50px;
+
+  /* R20 */
+  font-family: Pretendard;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+`;
+
+export const SubText2 = styled.div`
+  color: #695739;
+  margin-bottom: 5px; /* 입력창과의 간격을 줍니다 */
+  margin-left: 54px;
+  margin-top: 75px;
 
   /* R20 */
   font-family: Pretendard;
@@ -101,10 +122,8 @@ export const SubText = styled.div`
 
 export const MajorInput = styled.input`
   position: relative;
-  top: 166px;
-  margin-bottom: 6px;
   padding: 12px;
-  width: 275px;
+  width: 273px;
   justify-content: center;
   align-self: center;
   align-items: center;
@@ -122,6 +141,46 @@ export const MajorInput = styled.input`
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+`;
+
+export const SubTitle = styled.div`
+  position: relative;
+  color: #000;
+  align-self: center;
+  bottom: 13px;
+  left: 40px;
+
+  /* R16 */
+  font-family: Pretendard;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 0%;
+`;
+
+export const Category = styled.div`
+  position: relative;
+  display: inline-flex;
+  padding: 13px 19px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 10px;
+  border: 1.5px solid;
+  background: #fff;
+  cursor: pointer;
+  text-align: center;
+  border-color: ${(props) => (props.isSelected ? "#695739" : "#dfdfdf")};
+  color: ${(props) => (props.isSelected ? " #000" : "#dfdfdf")};
+
+  /* R20 */
+  font-family: Pretendard;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin-left: 8px;
+  margin-bottom: 6px;
 `;
 
 export const BackBtn = styled.div`

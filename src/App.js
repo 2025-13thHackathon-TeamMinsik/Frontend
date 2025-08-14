@@ -4,6 +4,8 @@ import Splash4 from "./pages/Splash4";
 import StudentSignup1 from "./pages/StudentSignup1";
 import StudentSignup2 from "./pages/StudentSignup2";
 import StudentSignup3 from "./pages/StudentSignup3";
+import StudentSignup4 from "./pages/StudentSignup4";
+import BusinessSignup3 from "./pages/BusinessSignup3";
 
 function App() {
   return (
@@ -13,6 +15,8 @@ function App() {
         <Route path="/StudentSignup1" element={<StudentSignup1 />} />
         <Route path="/StudentSignup2" element={<StudentSignup2 />} />
         <Route path="/StudentSignup3" element={<StudentSignup3 />} />
+        <Route path="/StudentSignup4" element={<StudentSignup4 />} />
+        <Route path="/BusinessSignup3" element={<BusinessSignup3 />} />
       </Routes>
     </BrowserRouter>
   );
