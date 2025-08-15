@@ -38,7 +38,7 @@ export const Btn = styled.div`
   top: 166px;
   margin-bottom: 6px;
   padding: 12px;
-  width: 280px;
+  width: 273px;
   justify-content: center;
   align-self: center;
   align-items: center;
