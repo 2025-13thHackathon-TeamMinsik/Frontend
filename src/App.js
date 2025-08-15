@@ -6,6 +6,7 @@ import StudentSignup2 from "./pages/StudentSignup2";
 import StudentSignup3 from "./pages/StudentSignup3";
 import StudentSignup4 from "./pages/StudentSignup4";
 import BusinessSignup3 from "./pages/BusinessSignup3";
+import StudentPost from "./pages/StudentPost";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/StudentSignup3" element={<StudentSignup3 />} />
         <Route path="/StudentSignup4" element={<StudentSignup4 />} />
         <Route path="/BusinessSignup3" element={<BusinessSignup3 />} />
+        <Route path="/StudentPost" element={<StudentPost />} />
       </Routes>
     </BrowserRouter>
   );
