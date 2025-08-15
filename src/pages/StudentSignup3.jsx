@@ -21,10 +21,7 @@ const StudentSignup3 = () => {
         />
       </S.Background>
       <S.Title>전공은 무엇인가요?</S.Title>
-      <S.SubText1>본전공</S.SubText1>
-      <S.MajorInput type="text"></S.MajorInput>
-      <S.SubText2>복수전공 (선택)</S.SubText2>
-      <S.MajorInput type="text"></S.MajorInput>
+      <S.SchoolInput type="text"></S.SchoolInput>
       <S.BackBtn>
         <img
           src={`${process.env.PUBLIC_URL}/images/backBtn.svg`}

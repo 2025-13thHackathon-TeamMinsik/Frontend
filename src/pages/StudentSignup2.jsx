@@ -1,7 +1,19 @@
 import React from "react";
+import { useState } from "react";
 import * as S from "../styles/StyledStudentSignup";
 
 const StudentSignup2 = () => {
+  const [selected, setSelected] = useState();
+
+  const grades = [
+    "1학년",
+    "2학년",
+    "3학년",
+    "4학년 이상",
+    "휴학 중",
+    "졸업 예정",
+  ];
+
   return (
     <S.Container>
       <S.Bar>
@@ -21,12 +33,16 @@ const StudentSignup2 = () => {
         />
       </S.Background>
       <S.Title>현재 몇 학년인가요?</S.Title>
-      <S.Btn>1학년</S.Btn>
-      <S.Btn>2학년</S.Btn>
-      <S.Btn>3학년</S.Btn>
-      <S.Btn>4학년</S.Btn>
-      <S.Btn>휴학 중</S.Btn>
-      <S.Btn>졸업 예정</S.Btn>
+      {grades.map((grade, idx) => (
+        <S.Btn
+          key={idx}
+          $active={selected === idx} //선택된 상태 전달
+          onClick={() => setSelected(idx)} //클릭 시 해당 버튼 선택
+        >
+          {grade}
+        </S.Btn>
+      ))}
+
       <S.BackBtn>
         <img
           src={`${process.env.PUBLIC_URL}/images/backBtn.svg`}

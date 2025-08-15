@@ -12,16 +12,20 @@ const StudentSignup1 = () => {
           height="14px"
         />
       </S.Bar>
-      <S.Background>
+      <S.Background2>
         <img
-          src={`${process.env.PUBLIC_URL}/images/background1.svg`}
-          alt="background1"
-          width="auto"
-          height="357.5px"
+          src={`${process.env.PUBLIC_URL}/images/background2.svg`}
+          alt="background2"
         />
-      </S.Background>
+      </S.Background2>
       <S.Title>어느 학교에 다니고 있나요?</S.Title>
       <S.SchoolInput type="text"></S.SchoolInput>
+      <S.Toggle>
+        <img
+          src={`${process.env.PUBLIC_URL}/images/toggleDown.svg`}
+          alt="toggleDown"
+        />
+      </S.Toggle>
       <S.BackBtn>
         <img
           src={`${process.env.PUBLIC_URL}/images/backBtn.svg`}

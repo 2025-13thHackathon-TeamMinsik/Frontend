@@ -19,6 +19,7 @@ export const Container = styled.div`
 export const Bar = styled.div`
   position: absolute;
   display: flex;
+  z-index: 2;
 `;
 
 export const Background = styled.div`
@@ -26,6 +27,13 @@ export const Background = styled.div`
   display: flex;
   right: 0px;
   top: 290px;
+`;
+
+export const Background2 = styled.div`
+  position: absolute;
+  display: flex;
+  right: 0px;
+  bottom: 720px;
 `;
 
 export const Title = styled.div`
@@ -45,7 +53,7 @@ export const Title = styled.div`
 
 export const SchoolInput = styled.input`
   position: relative;
-  top: 163px;
+  top: 70px;
   margin-bottom: 6px;
   padding: 12px;
   width: 273px;
@@ -78,60 +86,10 @@ export const Btn = styled.div`
   align-self: center;
   align-items: center;
   border-radius: 10px;
-  border: 1px solid #695739;
+  border: 1px solid #dfdfdf;
   background: #fff;
-  color: var(--, #000);
-  text-align: center;
-  z-index: 3;
-
-  /* R20 */
-  font-family: Pretendard;
-  font-size: 20px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-`;
-
-export const SubText1 = styled.div`
-  color: #695739;
-  margin-bottom: 5px; /* 입력창과의 간격을 줍니다 */
-  margin-left: 54px;
-  margin-top: 50px;
-
-  /* R20 */
-  font-family: Pretendard;
-  font-size: 20px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-`;
-
-export const SubText2 = styled.div`
-  color: #695739;
-  margin-bottom: 5px; /* 입력창과의 간격을 줍니다 */
-  margin-left: 54px;
-  margin-top: 75px;
-
-  /* R20 */
-  font-family: Pretendard;
-  font-size: 20px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-`;
-
-export const MajorInput = styled.input`
-  position: relative;
-  padding: 12px;
-  width: 273px;
-  justify-content: center;
-  align-self: center;
-  align-items: center;
-  border-radius: 10px;
-  border: 1px solid #695739;
-  outline: none;
-  background: #fff;
-  color: var(--, #000);
+  color: ${({ $active }) => ($active ? "#000" : "#dfdfdf")};
+  border-color: ${({ $active }) => ($active ? "#695739" : "#dfdfdf")};
   text-align: center;
   z-index: 3;
 
@@ -181,6 +139,14 @@ export const Category = styled.div`
   line-height: normal;
   margin-left: 8px;
   margin-bottom: 6px;
+`;
+
+export const Toggle = styled.div`
+  position: relative;
+  margin: 0 auto;
+  left: 120px;
+  top: 26px;
+  z-index: 4;
 `;
 
 export const BackBtn = styled.div`
