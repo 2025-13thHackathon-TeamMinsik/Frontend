@@ -13,20 +13,6 @@ const StudentPost = () => {
             height="39px"
           />
         </P.BackBtn>
-        <P.MyMenu>
-          <img
-            src={`${process.env.PUBLIC_URL}/images/alert.svg`}
-            alt="alert"
-            width="25px"
-            height="35px"
-          />
-          <img
-            src={`${process.env.PUBLIC_URL}/images/user.svg`}
-            alt="user"
-            width="25px"
-            id="logoutIcon"
-          />
-        </P.MyMenu>
       </div>
       <P.Box1>
         <P.FilterIcon>봉사</P.FilterIcon>
@@ -59,7 +45,85 @@ const StudentPost = () => {
           </div>
         </P.TextBox1>
         <P.Line></P.Line>
+        <P.TextBox2>
+          <P.Title>
+            <img
+              src={`${process.env.PUBLIC_URL}/images/titleIcon.svg`}
+              alt="titleIcon"
+              id="titleIcon"
+            />
+            나눔 내용
+          </P.Title>
+          <P.SubText>
+            <img
+              src={`${process.env.PUBLIC_URL}/images/subTextIcon.svg`}
+              alt="subTextIcon"
+              width="16px"
+              height="15.714px"
+              id="subTextIcon"
+            />
+            <span id="subText1">기간/시간 | </span>
+            <span id="subText2">월화수 4시간/ 기간 1달 협의</span>
+            <br />
+            <img
+              src={`${process.env.PUBLIC_URL}/images/subTextIcon.svg`}
+              alt="subTextIcon"
+              width="16px"
+              height="15.714px"
+              id="subTextIcon"
+            />
+            <span id="subText1">급여 방식 | </span>
+            <span id="subText2">시급 11,000원</span>
+          </P.SubText>
+          <P.PostContent1>
+            저희 카페의 감성 있는 디저트와 공간을 널리
+            <br /> 알릴 홍보 및 디자인 도우미를 찾습니다.
+            <br /> SNS 콘텐츠 제작, 포스터·배너 디자인, 이벤
+            <br />트 홍보에 관심 있는 분 환영! 포토샵, 일러스
+            <br />트 등 기본 디자인 툴 사용 가능자 우대.성실
+            <br />
+            하고 밝은 성향의 분이면 누구나 지원 가능. <br />
+            함께 카페의 매력을 세상에 보여주세요!
+          </P.PostContent1>
+        </P.TextBox2>
       </P.Box1>
+      <P.Box2>
+        <P.TextBox2>
+          <P.Title>
+            <img
+              src={`${process.env.PUBLIC_URL}/images/titleIcon.svg`}
+              alt="titleIcon"
+              id="titleIcon"
+            />
+            나눔 동기 작성하기
+          </P.Title>
+          <P.PostContent2></P.PostContent2>
+          <P.Btn1>포트폴리오 수정하기</P.Btn1>
+          <P.Btn2>재능 나누기</P.Btn2>
+        </P.TextBox2>
+      </P.Box2>
+      <P.TabBar>
+        <div id="tabBarIcon">
+          <img
+            src={`${process.env.PUBLIC_URL}/images/tabBar1_on.svg`}
+            alt="tabBar1"
+            width="41px"
+            height="60px"
+          />
+          <img
+            src={`${process.env.PUBLIC_URL}/images/tabBar2_off.svg`}
+            alt="tabBar2"
+            width="66px"
+            height="59px"
+          />
+          <img
+            src={`${process.env.PUBLIC_URL}/images/tabBar3_off.svg`}
+            alt="tabBar3"
+            width="32px"
+            height="58px"
+          />
+        </div>
+      </P.TabBar>
     </P.Container>
   );
 };
