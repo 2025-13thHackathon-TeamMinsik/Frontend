@@ -1,0 +1,50 @@
+import { styled } from "styled-components";
+
+export const Container = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: column; /* 세로로 배치 */
+  margin: 0 auto;
+  width: 393px;
+  height: 100vh;
+  background: #fff;
+  outline: 1px solid black;
+
+`;
+
+export const Background = styled.div`
+  position: absolute;
+  display: flex;
+  right: 0px;
+  top: 290px;
+`;
+
+export const Title = styled.div`
+color: #000;
+
+/* B24 */
+font-family: Pretendard;
+font-size: 24px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+
+margin-top: 240px;
+margin-left: 60px;
+
+`;
+
+export const Text = styled.div`
+color: var(--400, #6C6C6C);
+
+/* R16 */
+font-family: Pretendard;
+font-size: 16px;
+font-style: normal;
+font-weight: 400;
+
+
+margin-top: 19px;
+margin-left: 60px;
+display: block;
+`;
