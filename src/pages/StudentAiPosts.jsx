@@ -1,18 +1,31 @@
 import React from "react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import * as A from "../styles/StyledAiPosts";
 
 const StudentAiPosts = () => {
+  const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isInfoOpen, setIsInfoOpen] = useState(false);
   const [selected, setSelected] = useState("거리순");
   const [selectedFilter, setSelectedFilter] = useState("전체");
   const [isHeartClick, setIsHeartClick] = useState(false);
+  const [tabBar, setTabBar] = useState("tabBar1");
 
   const sorts = ["거리순", "인기순", "최신순", "찜 콕"];
+
+  const goAlert = () => {
+    navigate(`/MyAlert`);
+  };
 
   //토글 아이콘
   const handleToggle = () => {
     setIsMenuOpen(!isMenuOpen);
+  };
+
+  //나에게 딱 맞는 정보 아이콘
+  const handleInfoIcon = () => {
+    setIsInfoOpen(!isInfoOpen);
   };
 
   const handleSelected = (sort) => {
@@ -30,6 +43,11 @@ const StudentAiPosts = () => {
     setIsHeartClick(!isHeartClick);
   };
 
+  //탭 바
+  const handleTabBar = (menu) => {
+    setTabBar(menu);
+  };
+
   return (
     <A.Container>
       <div id="header">
@@ -39,6 +57,7 @@ const StudentAiPosts = () => {
           width="25px"
           height="auto"
           id="alert"
+          onClick={goAlert}
         />
         <img
           src={`${process.env.PUBLIC_URL}/images/logout.svg`}
@@ -87,7 +106,9 @@ const StudentAiPosts = () => {
             width="25px"
             height="auto"
             id="info"
+            onClick={handleInfoIcon}
           />
+          {isInfoOpen && <A.InfoToggle>AI 재능·거리순</A.InfoToggle>}
           <img
             src={`${process.env.PUBLIC_URL}/images/location.svg`}
             alt="location"
@@ -469,22 +490,31 @@ const StudentAiPosts = () => {
       <A.TabBar>
         <div id="tabBarIcon">
           <img
-            src={`${process.env.PUBLIC_URL}/images/tabBar1_on.svg`}
+            src={`${process.env.PUBLIC_URL}/images/${
+              tabBar === "tabBar1" ? "tabBar1_on.svg" : "tabBar1_off.svg"
+            }`}
             alt="tabBar1"
             width="41px"
             height="60px"
+            onClick={() => handleTabBar("tabBar1")}
           />
           <img
-            src={`${process.env.PUBLIC_URL}/images/tabBar2_off.svg`}
+            src={`${process.env.PUBLIC_URL}/images/${
+              tabBar === "tabBar2" ? "tabBar2_on.svg" : "tabBar2_off.svg"
+            }`}
             alt="tabBar2"
             width="66px"
             height="59px"
+            onClick={() => handleTabBar("tabBar2")}
           />
           <img
-            src={`${process.env.PUBLIC_URL}/images/tabBar3_off.svg`}
+            src={`${process.env.PUBLIC_URL}/images/${
+              tabBar === "tabBar3" ? "tabBar3_on.svg" : "tabBar3_off.svg"
+            }`}
             alt="tabBar3"
             width="32px"
             height="58px"
+            onClick={() => handleTabBar("tabBar3")}
           />
         </div>
       </A.TabBar>
