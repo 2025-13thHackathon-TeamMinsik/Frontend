@@ -36,6 +36,15 @@ export const Background2 = styled.div`
   top: -60px;
 `;
 
+
+export const Background3 = styled.div`
+  position: absolute;
+  display: flex;
+  right: 92px;
+  top: 425.61px;
+`;
+
+
 export const Title = styled.div`
   color: #000;
   text-align: left;
@@ -265,6 +274,7 @@ export const email = styled.div`
 export const emailInput = styled.input`
 color: var(--, #000);
 
+
 /* R20 */
 font-family: Pretendard;
 font-size: 20px;
@@ -301,4 +311,19 @@ gap: 10px;
 
 export const Bbtn = styled.div`
 margin-top: 20px;
+`;
+
+
+export const Title3 = styled.div`
+color: #000;
+
+/* B24 */
+font-family: Pretendard;
+font-size: 24px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+
+margin-top: 201px;
+margin-left: 66px;
 `;
