@@ -33,6 +33,7 @@ export const MyMenu = styled.div`
 
 export const Box1 = styled.div`
   display: flex;
+  position: relative;
   flex-direction: column; /* 세로로 배치 */
   margin: 0 auto;
   width: 333px;
@@ -42,6 +43,21 @@ export const Box1 = styled.div`
   border: 1.177px solid var(--200, #dfdfdf);
   background: var(--, #fff);
   box-shadow: 0 0 11.773px 0 rgba(0, 0, 0, 0.15);
+  z-index: 3;
+`;
+
+export const Overlay = styled.div`
+  position: absolute;
+  display: flex;
+  flex-items: center;
+  justify-content: center;
+  border-radius: 5.887px;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.1);
+  z-index: 10;
 `;
 
 export const FilterIcon = styled.div`
@@ -57,7 +73,7 @@ export const FilterIcon = styled.div`
   border: 0.389px solid #695739;
   background: #695739;
   color: var(--100, #f6f6f6);
-  right: 43px;
+  right: 10px;
   margin-top: 10px;
 
   /* B12 */
@@ -74,6 +90,7 @@ export const TextBox1 = styled.div`
   margin-right: 30px;
   margin-top: 34px;
   margin-bottom: 22px;
+  z-index: 8;
 `;
 
 export const Pic = styled.div`
@@ -157,6 +174,7 @@ export const TextBox2 = styled.div`
   margin-right: 30px;
   margin-top: 20px;
   margin-bottom: 34px;
+  z-index: 5;
 `;
 
 export const SubText = styled.div`
@@ -201,6 +219,7 @@ export const PostContent1 = styled.div`
   color: var(--, #000);
   padding: 13px 14.5px;
   margin-top: 18px;
+  z-index: 5;
 
   /* R14 */
   font-family: Pretendard;
@@ -308,4 +327,24 @@ export const TabBar = styled.div`
     align-items: center;
     margin-top: 25.5px;
   }
+`;
+
+export const StudentReviewBox = styled.div`
+  display: flex;
+  position: relative;
+  top: 10px;
+  flex-direction: column; /* 세로로 배치 */
+  margin: 0 auto;
+  width: 333px;
+  height: 428px;
+  flex-shrink: 0;
+  border-radius: 5.887px;
+  border: 1.177px solid var(--200, #dfdfdf);
+  background: var(--, #fff);
+  box-shadow: 0 0 11.773px 0 rgba(0, 0, 0, 0.15);
+`;
+
+export const StarReview = styled.div`
+  display: flex;
+  margin: 0 auto;
 `;
