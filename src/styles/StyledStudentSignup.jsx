@@ -155,3 +155,87 @@ export const BackBtn = styled.div`
   margin-top: 680px;
   left: 48px;
 `;
+
+export const TextBox = styled.div`
+margin-left: 54px;
+margin-top: 26px;
+display: flex;
+gap: 8px;
+flex-direction: column
+`;
+
+export const Text = styled.div`
+color: #695739;
+
+/* R20 */
+font-family: Pretendard;
+font-size: 20px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+`;
+
+export const Input = styled.input`
+color: #A3A3A3;
+
+/* R20 */
+font-family: Pretendard;
+font-size: 20px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+
+  background: transparent; /* 배경 투명 */
+  border: none;           /* 테두리 없앰 */
+  outline: none;   
+  border-bottom:solid #695739 1px;
+  padding-bottom: 7px;
+  width: 139px;
+`;
+
+export const Title2 = styled.div`
+  color: #000;
+  text-align: left;
+  margin-top: 201px;
+  margin-left: 54px;
+  z-index: 3;
+
+  /* B24 */
+  font-family: Pretendard;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 1.3;
+`;
+export const Box1 = styled.div`
+display: flex;
+gap: 93px;
+`;
+
+export const Box2 = styled.div`
+display: flex;
+gap: 25px;
+`;
+
+export const Btn2 = styled.div`
+color: var(--300, #A3A3A3);
+
+/* R20 */
+font-family: Pretendard;
+font-size: 20px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+
+  span {
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .selected { /* 클릭 시 배경 검정 */
+    color: black;            /* 글자 흰색 */
+  }
+
+display: flex;
+gap: 5px;
+`;

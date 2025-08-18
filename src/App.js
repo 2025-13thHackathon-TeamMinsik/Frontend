@@ -8,6 +8,8 @@ import StudentSignup1 from "./pages/StudentSignup1";
 import StudentSignup2 from "./pages/StudentSignup2";
 import StudentSignup3 from "./pages/StudentSignup3";
 import StudentSignup4 from "./pages/StudentSignup4";
+import StudentSignup5 from "./pages/StudentSignup5";
+import StudentSignup6 from "./pages/StudentSignup6";
 import BusinessSignup3 from "./pages/BusinessSignup3";
 import StudentPost from "./pages/StudentPost";
 import BusinessPost from "./pages/BusinessPost";
@@ -24,6 +26,8 @@ function App() {
         <Route path="/StudentSignup2" element={<StudentSignup2 />} />
         <Route path="/StudentSignup3" element={<StudentSignup3 />} />
         <Route path="/StudentSignup4" element={<StudentSignup4 />} />
+         <Route path="/StudentSignup5" element={<StudentSignup5 />} />
+          <Route path="/StudentSignup6" element={<StudentSignup6 />} />
         <Route path="/BusinessSignup3" element={<BusinessSignup3 />} />
         <Route path="/StudentPost" element={<StudentPost />} />
         <Route path="/BusinessPost" element={<BusinessPost />} />
