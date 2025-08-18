@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as P from "../styles/StyledPost";
 
-const StudentPost = () => {
+const StudentReview = () => {
   const navigate = useNavigate();
   const [tabBar, setTabBar] = useState("tabBar1");
 
@@ -30,6 +30,7 @@ const StudentPost = () => {
           />
         </P.BackBtn>
       </div>
+
       <P.Box1>
         <P.FilterIcon>봉사</P.FilterIcon>
         <P.TextBox1>
@@ -102,8 +103,16 @@ const StudentPost = () => {
             함께 카페의 매력을 세상에 보여주세요!
           </P.PostContent1>
         </P.TextBox2>
+        <P.Overlay>
+          <img
+            src={`${process.env.PUBLIC_URL}/images/checkStamp.svg`}
+            alt="checkStamp"
+            width="150.692px"
+            height="auto"
+          />
+        </P.Overlay>
       </P.Box1>
-      <P.Box2>
+      <P.StudentReviewBox>
         <P.TextBox2>
           <P.Title>
             <img
@@ -111,13 +120,45 @@ const StudentPost = () => {
               alt="titleIcon"
               id="titleIcon"
             />
-            나눔 동기 작성하기
+            후기 작성하기
           </P.Title>
+          <P.StarReview>
+            <img
+              src={`${process.env.PUBLIC_URL}/images/Star-off.svg`}
+              alt="star-off"
+              width="35px"
+              height="auto"
+            />
+            <img
+              src={`${process.env.PUBLIC_URL}/images/Star-off.svg`}
+              alt="star-off"
+              width="35px"
+              height="auto"
+            />
+            <img
+              src={`${process.env.PUBLIC_URL}/images/Star-off.svg`}
+              alt="star-off"
+              width="35px"
+              height="auto"
+            />
+            <img
+              src={`${process.env.PUBLIC_URL}/images/Star-off.svg`}
+              alt="star-off"
+              width="35px"
+              height="auto"
+            />
+            <img
+              src={`${process.env.PUBLIC_URL}/images/Star-off.svg`}
+              alt="star-off"
+              width="35px"
+              height="auto"
+            />
+          </P.StarReview>
           <P.PostContent2></P.PostContent2>
           <P.Btn1>포트폴리오 수정하기</P.Btn1>
           <P.Btn2>재능 나누기</P.Btn2>
         </P.TextBox2>
-      </P.Box2>
+      </P.StudentReviewBox>
       <P.TabBar>
         <div id="tabBarIcon">
           <img
@@ -153,4 +194,4 @@ const StudentPost = () => {
   );
 };
 
-export default StudentPost;
+export default StudentReview;

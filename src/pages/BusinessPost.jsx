@@ -1,22 +1,7 @@
 import React from "react";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import * as P from "../styles/StyledPost";
 
-const StudentPost = () => {
-  const navigate = useNavigate();
-  const [tabBar, setTabBar] = useState("tabBar1");
-
-  //탭 바
-  const handleTabBar = (menu) => {
-    setTabBar(menu);
-  };
-
-  //뒤로가기
-  const goBack = () => {
-    navigate(-1);
-  };
-
+const BusinessPost = () => {
   return (
     <P.Container>
       <div id="header">
@@ -26,7 +11,6 @@ const StudentPost = () => {
             alt="backBtn"
             width="19.5px"
             height="39px"
-            onClick={goBack}
           />
         </P.BackBtn>
       </div>
@@ -103,49 +87,26 @@ const StudentPost = () => {
           </P.PostContent1>
         </P.TextBox2>
       </P.Box1>
-      <P.Box2>
-        <P.TextBox2>
-          <P.Title>
-            <img
-              src={`${process.env.PUBLIC_URL}/images/titleIcon.svg`}
-              alt="titleIcon"
-              id="titleIcon"
-            />
-            나눔 동기 작성하기
-          </P.Title>
-          <P.PostContent2></P.PostContent2>
-          <P.Btn1>포트폴리오 수정하기</P.Btn1>
-          <P.Btn2>재능 나누기</P.Btn2>
-        </P.TextBox2>
-      </P.Box2>
+
       <P.TabBar>
         <div id="tabBarIcon">
           <img
-            src={`${process.env.PUBLIC_URL}/images/${
-              tabBar === "tabBar1" ? "tabBar1_on.svg" : "tabBar1_off.svg"
-            }`}
+            src={`${process.env.PUBLIC_URL}/images/tabBar1_on.svg`}
             alt="tabBar1"
             width="41px"
             height="60px"
-            onClick={() => handleTabBar("tabBar1")}
           />
           <img
-            src={`${process.env.PUBLIC_URL}/images/${
-              tabBar === "tabBar2" ? "tabBar2_on.svg" : "tabBar2_off.svg"
-            }`}
+            src={`${process.env.PUBLIC_URL}/images/tabBar2_off.svg`}
             alt="tabBar2"
             width="66px"
             height="59px"
-            onClick={() => handleTabBar("tabBar2")}
           />
           <img
-            src={`${process.env.PUBLIC_URL}/images/${
-              tabBar === "tabBar3" ? "tabBar3_on.svg" : "tabBar3_off.svg"
-            }`}
+            src={`${process.env.PUBLIC_URL}/images/tabBar3_off.svg`}
             alt="tabBar3"
             width="32px"
             height="58px"
-            onClick={() => handleTabBar("tabBar3")}
           />
         </div>
       </P.TabBar>
@@ -153,4 +114,4 @@ const StudentPost = () => {
   );
 };
 
-export default StudentPost;
+export default BusinessPost;
