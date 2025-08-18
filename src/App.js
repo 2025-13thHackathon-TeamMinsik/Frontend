@@ -13,6 +13,7 @@ import StudentPost from "./pages/StudentPost";
 import BusinessPost from "./pages/BusinessPost";
 import StudentAiPosts from "./pages/StudentAiPosts";
 import MyAlert from "./pages/MyAlert";
+import StudentReview from "./pages/StudentReview";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
         <Route path="/Splash2" element={<Splash2 />} />
         <Route path="/Splash3" element={<Splash3 />} />
         <Route path="/MyAlert" element={<MyAlert />} />
+        <Route path="/StudentReview" element={<StudentReview />} />
       </Routes>
     </BrowserRouter>
   );
