@@ -176,7 +176,8 @@ line-height: normal;
 `;
 
 export const Input = styled.input`
-color: #A3A3A3;
+color: var(--, #000);
+
 
 /* R20 */
 font-family: Pretendard;
@@ -191,6 +192,24 @@ line-height: normal;
   border-bottom:solid #695739 1px;
   padding-bottom: 7px;
   width: 139px;
+`;
+
+export const Input2 = styled.input`
+color: var(--, #000);
+
+/* R20 */
+font-family: Pretendard;
+font-size: 20px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+
+  background: transparent; /* 배경 투명 */
+  border: none;           /* 테두리 없앰 */
+  outline: none;   
+  border-bottom:solid #695739 1px;
+  padding-bottom: 7px;
+  width: 204px;
 `;
 
 export const Title2 = styled.div`
@@ -238,4 +257,48 @@ line-height: normal;
 
 display: flex;
 gap: 5px;
+`;
+
+export const email = styled.div`
+`;
+
+export const emailInput = styled.input`
+color: var(--, #000);
+
+/* R20 */
+font-family: Pretendard;
+font-size: 20px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+
+  background: transparent; /* 배경 투명 */
+  border: none;           /* 테두리 없앰 */
+  outline: none;   
+  border-bottom:solid #695739 1px;
+  padding-bottom: 7px;
+  width: 92px;
+`;
+
+export const emailBox = styled.div`
+display: flex;
+gap: 10px;
+
+
+`;
+
+export const Box3 = styled.div`
+display: flex;
+flex-direction: row;
+gap: 175px;
+`;
+
+export const Box4 = styled.div`
+display: flex;
+flex-direction: row;
+gap: 10px;
+`;
+
+export const Bbtn = styled.div`
+margin-top: 20px;
 `;
