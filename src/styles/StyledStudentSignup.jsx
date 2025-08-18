@@ -33,7 +33,7 @@ export const Background2 = styled.div`
   position: absolute;
   display: flex;
   right: 0px;
-  bottom: 720px;
+  top: -60px;
 `;
 
 export const Title = styled.div`
