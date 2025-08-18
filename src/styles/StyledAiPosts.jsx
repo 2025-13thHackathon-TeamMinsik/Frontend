@@ -136,6 +136,7 @@ export const StudentAiCardBox = styled.div`
 `;
 
 export const AiTitle = styled.div`
+  position: relative;
   color: #000;
   display: flex;
   align-items: center;
@@ -159,6 +160,28 @@ export const AiTitle = styled.div`
     top: 2px;
     left: 132px;
   }
+`;
+
+export const InfoToggle = styled.div`
+  position: absolute;
+  right: 110px;
+  bottom: 29px;
+  display: flex;
+  padding: 8.5px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 5px 5px 5px 0;
+  background: #bfb3a0;
+  color: #fff;
+
+  /* B14 */
+  font-family: Pretendard;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: -0.4px;
 `;
 
 export const CardList = styled.div`

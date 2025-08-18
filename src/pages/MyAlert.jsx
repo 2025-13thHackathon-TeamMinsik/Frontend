@@ -1,7 +1,15 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import * as M from "../styles/StyledMyAlert";
 
 const MyAlert = () => {
+  const navigate = useNavigate();
+
+  //뒤로가기
+  const goBack = () => {
+    navigate(-1);
+  };
+
   return (
     <M.Container>
       <div id="header">
@@ -11,6 +19,7 @@ const MyAlert = () => {
             alt="backBtn"
             width="19.5px"
             height="39px"
+            onClick={goBack}
           />
         </M.BackBtn>
         <M.Title>알림</M.Title>
