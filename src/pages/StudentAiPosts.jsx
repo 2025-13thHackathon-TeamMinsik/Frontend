@@ -11,6 +11,8 @@ const StudentAiPosts = () => {
   const [selectedFilter, setSelectedFilter] = useState("전체");
   const [isHeartClick, setIsHeartClick] = useState(false);
   const [tabBar, setTabBar] = useState("tabBar1");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isApplied, setIsApplied] = useState(false);
 
   const sorts = ["거리순", "인기순", "최신순", "찜 콕"];
 
@@ -48,6 +50,12 @@ const StudentAiPosts = () => {
     setTabBar(menu);
   };
 
+  //모달 닫기
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+    setIsApplied(true);
+  };
+
   return (
     <A.Container>
       <div id="header">
@@ -64,6 +72,7 @@ const StudentAiPosts = () => {
           alt="logout"
           width="33px"
           height="auto"
+          onClick={() => setIsModalOpen(true)}
         />
       </div>
       <A.TitleBox>
@@ -210,6 +219,7 @@ const StudentAiPosts = () => {
               id="heart"
               onClick={handleHeartIcon}
             />
+            <A.FilterIcon2>광고</A.FilterIcon2>
           </A.Card>
           <A.Card>
             <A.CardImg>
@@ -518,6 +528,28 @@ const StudentAiPosts = () => {
           />
         </div>
       </A.TabBar>
+      {isModalOpen && (
+        <A.ModalOverlay>
+          <A.ApplyModal>
+            <img
+              src={`${process.env.PUBLIC_URL}/images/modalIcon.svg`}
+              alt="modalIcon"
+              width="29px"
+              height="auto"
+              id="modalIcon"
+            />
+            <div id="modalTextBox">
+              <A.ModalTitle>로그아웃 하시겠습니까?</A.ModalTitle>
+              <A.ModalLine></A.ModalLine>
+              <div id="modalLogoutText">
+                <A.ModalBtn1 onClick={handleModalClose}>예</A.ModalBtn1>
+                <A.ModalLine2></A.ModalLine2>
+                <A.ModalBtn2 onClick={handleModalClose}>아니오</A.ModalBtn2>
+              </div>
+            </div>
+          </A.ApplyModal>
+        </A.ModalOverlay>
+      )}
     </A.Container>
   );
 };

@@ -6,6 +6,10 @@ import * as P from "../styles/StyledPost";
 const StudentReview = () => {
   const navigate = useNavigate();
   const [tabBar, setTabBar] = useState("tabBar1");
+  const [rating, SetRating] = useState(0);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [buttonText, setButtonText] = useState("재능 나누기");
+  const [isApplied, setIsApplied] = useState(false);
 
   //탭 바
   const handleTabBar = (menu) => {
@@ -15,6 +19,13 @@ const StudentReview = () => {
   //뒤로가기
   const goBack = () => {
     navigate(-1);
+  };
+
+  //모달 닫기
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+    setButtonText("대기 중");
+    setIsApplied(true);
   };
 
   return (
@@ -123,40 +134,34 @@ const StudentReview = () => {
             후기 작성하기
           </P.Title>
           <P.StarReview>
-            <img
-              src={`${process.env.PUBLIC_URL}/images/Star-off.svg`}
-              alt="star-off"
-              width="35px"
-              height="auto"
-            />
-            <img
-              src={`${process.env.PUBLIC_URL}/images/Star-off.svg`}
-              alt="star-off"
-              width="35px"
-              height="auto"
-            />
-            <img
-              src={`${process.env.PUBLIC_URL}/images/Star-off.svg`}
-              alt="star-off"
-              width="35px"
-              height="auto"
-            />
-            <img
-              src={`${process.env.PUBLIC_URL}/images/Star-off.svg`}
-              alt="star-off"
-              width="35px"
-              height="auto"
-            />
-            <img
-              src={`${process.env.PUBLIC_URL}/images/Star-off.svg`}
-              alt="star-off"
-              width="35px"
-              height="auto"
-            />
+            {Array.from({ length: 5 }, (_, idx) => (
+              <P.StarImage
+                key={idx}
+                src={`${process.env.PUBLIC_URL}/images/Star-${
+                  idx < rating ? "on" : "off"
+                }.svg`}
+                alt="star"
+                onClick={() => SetRating(idx + 1 === rating ? 0 : idx + 1)}
+              ></P.StarImage>
+            ))}
           </P.StarReview>
-          <P.PostContent2></P.PostContent2>
-          <P.Btn1>포트폴리오 수정하기</P.Btn1>
-          <P.Btn2>재능 나누기</P.Btn2>
+          <P.ReviewContent placeholder="어떤 작업을 했는지 상세히 적어주세요."></P.ReviewContent>
+          <P.Title>
+            <img
+              src={`${process.env.PUBLIC_URL}/images/titleIcon.svg`}
+              alt="titleIcon"
+              id="titleIcon"
+            />
+            급여 방식 선택하기
+            <P.SubTitle>(필수 택 1)</P.SubTitle>
+          </P.Title>
+          <P.PayOptionBox>
+            <P.PayOption1>지역화폐</P.PayOption1>
+            <P.PayOption2>봉사시간</P.PayOption2>
+          </P.PayOptionBox>
+          <P.ReviewSubmit onClick={() => setIsModalOpen(true)}>
+            후기 보내기
+          </P.ReviewSubmit>
         </P.TextBox2>
       </P.StudentReviewBox>
       <P.TabBar>
@@ -190,6 +195,24 @@ const StudentReview = () => {
           />
         </div>
       </P.TabBar>
+      {isModalOpen && (
+        <P.ModalOverlay>
+          <P.ApplyModal>
+            <img
+              src={`${process.env.PUBLIC_URL}/images/modalIcon.svg`}
+              alt="modalIcon"
+              width="29px"
+              height="auto"
+              id="modalIcon"
+            />
+            <div id="modalTextBox">
+              <P.ModalTitle>재능 나눔 지원이 완료되었습니다.</P.ModalTitle>
+              <P.ModalLine></P.ModalLine>
+              <P.ModalBtn onClick={handleModalClose}>확인</P.ModalBtn>
+            </div>
+          </P.ApplyModal>
+        </P.ModalOverlay>
+      )}
     </P.Container>
   );
 };

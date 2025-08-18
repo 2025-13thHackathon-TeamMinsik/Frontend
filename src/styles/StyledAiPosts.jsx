@@ -380,6 +380,30 @@ export const FilterIcon = styled.div`
   line-height: normal;
 `;
 
+export const FilterIcon2 = styled.div`
+  display: flex;
+  width: 39px;
+  height: 22px;
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  gap: 3.893px;
+  flex-shrink: 0;
+  border-radius: 3.893px;
+  border: 1px solid #dfdfdf;
+  background: #fff;
+  color: var(--100, #dfdfdf);
+  right: 10px;
+  bottom: 10px;
+
+  /* B12 */
+  font-family: Pretendard;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+`;
+
 export const FilterToggle = styled.div`
   position: absolute;
   padding: 14px 19px;
@@ -401,4 +425,104 @@ export const FilterToggle = styled.div`
   font-style: normal;
   font-weight: 400;
   line-height: 1.8; /* 0 */
+`;
+
+export const ModalOverlay = styled.div`
+  position: absolute;
+  display: flex;
+  flex-items: center;
+  justify-content: center;
+  width: 393px;
+  height: 1364px;
+  flex-shrink: 0;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 150;
+`;
+
+export const ApplyModal = styled.div`
+  display: flex;
+  position: relative;
+  flex-items: center;
+  justify-content: center;
+  margin-top: 242px;
+  width: 333px;
+  height: 194px;
+  flex-shrink: 0;
+  border-radius: 5.887px;
+  border: 1.177px solid var(--200, #dfdfdf);
+  background: #fff;
+
+  #modalIcon {
+    position: absolute;
+    top: 35px;
+  }
+
+  #modalTextBox {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+
+  #modalLogoutText {
+    display: flex;
+    align-self: center;
+    gap: 120px;
+    margin-top: 60px;
+  }
+`;
+
+export const ModalTitle = styled.div`
+  color: #000;
+  posiiton: relative;
+  margin-top: 75px;
+  align-self: center;
+
+  /* B20 */
+  font-family: Pretendard;
+  font-size: 19px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+`;
+
+export const ModalLine = styled.div`
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 283px;
+  border-top: 1.5px solid #dfdfdf;
+  bottom: 61px;
+`;
+
+export const ModalBtn1 = styled.div`
+  color: #000;
+
+  /* R16 */
+  font-family: Pretendard;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 0%; /* 0 */
+`;
+
+export const ModalBtn2 = styled.div`
+  color: #000;
+  position: relative;
+  left: 15px;
+
+  /* R16 */
+  font-family: Pretendard;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 0%; /* 0 */
+`;
+
+export const ModalLine2 = styled.div`
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 40px;
+  border-right: 1.5px solid #dfdfdf;
 `;

@@ -155,6 +155,7 @@ export const Title = styled.div`
   color: #000;
   display: flex;
   align-items: center;
+  position: relative;
   gap: 7px;
 
   /* B20 */
@@ -346,5 +347,191 @@ export const StudentReviewBox = styled.div`
 
 export const StarReview = styled.div`
   display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 17px;
+  padding: 28px 0px;
+`;
+
+export const StarImage = styled.img`
+  width: 30px;
+  height: auto;
+`;
+
+export const ReviewContent = styled.textarea`
+  width: 244px;
+  height: 76.286px;
+  flex-shrink: 0;
+  border-radius: 5px;
+  background: var(--100, #f6f6f6);
+  border: none;
+  outline: none;
+  resize: none;
+  color: var(--, #000);
+  padding: 13px 14.5px;
+  margin-top: px;
+  margin-bottom: 15px;
+
+  /* R14 */
+  font-family: Pretendard;
+  font-size: 13.5px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.25;
+  letter-spacing: -0.1px;
+
+  &::placeholder {
+    color: var(--300, #a3a3a3);
+  }
+`;
+
+export const SubTitle = styled.div`
+  color: #000;
+  position: relative;
+  top: 2px;
+  right: 4px;
+
+  /* R16 */
+  font-family: Pretendard;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 0%;
+`;
+
+export const PayOptionBox = styled.div`
+  display: flex;
+  padding: 19px 0px;
+  gap: 11px;
+  /* R16 */
+  font-family: Pretendard;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 0%; /* 0 */
+`;
+
+export const PayOption1 = styled.div`
+  display: flex;
+  width: 131px;
+  padding: 18px 8px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 10px;
+  border: 1px solid #695739;
+  background: var(--, #fff);
+  color: var(--, #000);
+`;
+
+export const PayOption2 = styled.div`
+  display: flex;
+  width: 131px;
+  padding: 18px 8px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 10px;
+  border-radius: 10px;
+  border: 1px solid #dfdfdf;
+  background: var(--, #fff);
+  color: var(--200, #dfdfdf);
+`;
+
+export const ReviewSubmit = styled.div`
+  display: flex;
   margin: 0 auto;
+  width: 273px;
+  height: 49.679px;
+
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  border: 1px solid #695739;
+  background: #695739;
+  color: #fff;
+
+  /* B16 */
+  font-family: Pretendard;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 0%; /* 0 */
+`;
+
+export const ModalOverlay = styled.div`
+  position: absolute;
+  display: flex;
+  flex-items: center;
+  justify-content: center;
+  width: 393px;
+  height: 1364px;
+  flex-shrink: 0;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 150;
+`;
+
+export const ApplyModal = styled.div`
+  display: flex;
+  position: relative;
+  flex-items: center;
+  justify-content: center;
+  margin-top: 242px;
+  width: 333px;
+  height: 194px;
+  flex-shrink: 0;
+  border-radius: 5.887px;
+  border: 1.177px solid var(--200, #dfdfdf);
+  background: #fff;
+
+  #modalIcon {
+    position: absolute;
+    top: 35px;
+  }
+
+  #modalTextBox {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+`;
+
+export const ModalTitle = styled.div`
+  color: #000;
+  posiiton: relative;
+  margin-top: 75px;
+  align-self: center;
+
+  /* B20 */
+  font-family: Pretendard;
+  font-size: 19px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+`;
+
+export const ModalLine = styled.div`
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 283px;
+  border-top: 1.5px solid #dfdfdf;
+  bottom: 61px;
+`;
+
+export const ModalBtn = styled.div`
+  position: absolute;
+  bottom: 31px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #000;
+
+  /* R16 */
+  font-family: Pretendard;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 0%; /* 0 */
 `;
