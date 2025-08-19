@@ -20,6 +20,7 @@ import BusinessPost from "./pages/BusinessPost";
 import StudentAiPosts from "./pages/StudentAiPosts";
 import MyAlert from "./pages/MyAlert";
 import StudentReview from "./pages/StudentReview";
+import BusinessAiPosts from "./pages/BusinessAiPosts";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
         <Route path="/StudentSignup4" element={<StudentSignup4 />} />
         <Route path="/StudentSignup5" element={<StudentSignup5 />} />
         <Route path="/StudentSignup6" element={<StudentSignup6 />} />
+
         <Route path="/BusinessSignup1" element={<BusinessSignup1 />} />
         <Route path="/BusinessSignup2" element={<BusinessSignup2 />} />
         <Route path="/BusinessSignup3" element={<BusinessSignup3 />} />
@@ -45,6 +47,7 @@ function App() {
         <Route path="/Splash3" element={<Splash3 />} />
         <Route path="/MyAlert" element={<MyAlert />} />
         <Route path="/StudentReview" element={<StudentReview />} />
+        <Route path="/BusinessAiPosts" element={<BusinessAiPosts />} />
       </Routes>
     </BrowserRouter>
   );
