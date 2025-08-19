@@ -10,7 +10,11 @@ import StudentSignup3 from "./pages/StudentSignup3";
 import StudentSignup4 from "./pages/StudentSignup4";
 import StudentSignup5 from "./pages/StudentSignup5";
 import StudentSignup6 from "./pages/StudentSignup6";
+import BusinessSignup1 from "./pages/BusinessSignup1";
+import BusinessSignup2 from "./pages/BusinessSignup2";
 import BusinessSignup3 from "./pages/BusinessSignup3";
+import BusinessSignup4 from "./pages/BusinessSignup4";
+import BusinessSignup5 from "./pages/BusinessSignup5";
 import StudentPost from "./pages/StudentPost";
 import BusinessPost from "./pages/BusinessPost";
 import StudentAiPosts from "./pages/StudentAiPosts";
@@ -29,7 +33,12 @@ function App() {
         <Route path="/StudentSignup4" element={<StudentSignup4 />} />
         <Route path="/StudentSignup5" element={<StudentSignup5 />} />
         <Route path="/StudentSignup6" element={<StudentSignup6 />} />
+
+        <Route path="/BusinessSignup1" element={<BusinessSignup1 />} />
+        <Route path="/BusinessSignup2" element={<BusinessSignup2 />} />
         <Route path="/BusinessSignup3" element={<BusinessSignup3 />} />
+        <Route path="/BusinessSignup4" element={<BusinessSignup4 />} />
+        <Route path="/BusinessSignup5" element={<BusinessSignup5 />} />
         <Route path="/StudentPost" element={<StudentPost />} />
         <Route path="/BusinessPost" element={<BusinessPost />} />
         <Route path="/StudentAiPosts" element={<StudentAiPosts />} />
