@@ -1,7 +1,10 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import * as S from "../styles/StyledSplash4";
 
 const Splash4 = () => {
+  const navigate = useNavigate();
+
   return (
     <S.Container>
       <S.Background>

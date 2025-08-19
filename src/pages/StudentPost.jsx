@@ -20,6 +20,11 @@ const StudentPost = () => {
     navigate(-1);
   };
 
+  //AI 공고
+  const goAiPosts = () => {
+    navigate("/StudentAiPosts");
+  };
+
   //모달 닫기
   const handleModalClose = () => {
     setIsModalOpen(false);
@@ -137,7 +142,10 @@ const StudentPost = () => {
             alt="tabBar1"
             width="41px"
             height="60px"
-            onClick={() => handleTabBar("tabBar1")}
+            onClick={() => {
+              handleTabBar("tabBar1");
+              goAiPosts();
+            }}
           />
           <img
             src={`${process.env.PUBLIC_URL}/images/${
