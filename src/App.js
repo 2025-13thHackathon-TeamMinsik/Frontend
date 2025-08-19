@@ -16,6 +16,7 @@ import BusinessPost from "./pages/BusinessPost";
 import StudentAiPosts from "./pages/StudentAiPosts";
 import MyAlert from "./pages/MyAlert";
 import StudentReview from "./pages/StudentReview";
+import BusinessAiPosts from "./pages/BusinessAiPosts";
 
 function App() {
   return (
@@ -26,8 +27,8 @@ function App() {
         <Route path="/StudentSignup2" element={<StudentSignup2 />} />
         <Route path="/StudentSignup3" element={<StudentSignup3 />} />
         <Route path="/StudentSignup4" element={<StudentSignup4 />} />
-         <Route path="/StudentSignup5" element={<StudentSignup5 />} />
-          <Route path="/StudentSignup6" element={<StudentSignup6 />} />
+        <Route path="/StudentSignup5" element={<StudentSignup5 />} />
+        <Route path="/StudentSignup6" element={<StudentSignup6 />} />
         <Route path="/BusinessSignup3" element={<BusinessSignup3 />} />
         <Route path="/StudentPost" element={<StudentPost />} />
         <Route path="/BusinessPost" element={<BusinessPost />} />
@@ -37,6 +38,7 @@ function App() {
         <Route path="/Splash3" element={<Splash3 />} />
         <Route path="/MyAlert" element={<MyAlert />} />
         <Route path="/StudentReview" element={<StudentReview />} />
+        <Route path="/BusinessAiPosts" element={<BusinessAiPosts />} />
       </Routes>
     </BrowserRouter>
   );

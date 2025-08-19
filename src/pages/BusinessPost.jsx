@@ -1,7 +1,22 @@
 import React from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import * as P from "../styles/StyledPost";
 
 const BusinessPost = () => {
+  const navigate = useNavigate();
+  const [tabBar, setTabBar] = useState("tabBar1");
+
+  //탭 바
+  const handleTabBar = (menu) => {
+    setTabBar(menu);
+  };
+
+  //뒤로가기
+  const goBack = () => {
+    navigate(-1);
+  };
+
   return (
     <P.Container>
       <div id="header">
@@ -11,6 +26,7 @@ const BusinessPost = () => {
             alt="backBtn"
             width="19.5px"
             height="39px"
+            onClick={goBack}
           />
         </P.BackBtn>
       </div>
@@ -91,22 +107,31 @@ const BusinessPost = () => {
       <P.TabBar>
         <div id="tabBarIcon">
           <img
-            src={`${process.env.PUBLIC_URL}/images/tabBar1_on.svg`}
+            src={`${process.env.PUBLIC_URL}/images/${
+              tabBar === "tabBar1" ? "tabBar1_on.svg" : "tabBar1_off.svg"
+            }`}
             alt="tabBar1"
             width="41px"
             height="60px"
+            onClick={() => handleTabBar("tabBar1")}
           />
           <img
-            src={`${process.env.PUBLIC_URL}/images/tabBar2_off.svg`}
-            alt="tabBar2"
-            width="66px"
-            height="59px"
+            src={`${process.env.PUBLIC_URL}/images/${
+              tabBar === "tabBar4" ? "tabBar4_on.svg" : "tabBar4_off.svg"
+            }`}
+            alt="tabBar4"
+            width="52px"
+            height="57px"
+            onClick={() => handleTabBar("tabBar4")}
           />
           <img
-            src={`${process.env.PUBLIC_URL}/images/tabBar3_off.svg`}
-            alt="tabBar3"
-            width="32px"
-            height="58px"
+            src={`${process.env.PUBLIC_URL}/images/${
+              tabBar === "tabBar5" ? "tabBar5_on.svg" : "tabBar5_off.svg"
+            }`}
+            alt="tabBar5"
+            width="45px"
+            height="56px"
+            onClick={() => handleTabBar("tabBar5")}
           />
         </div>
       </P.TabBar>

@@ -59,7 +59,15 @@ export const Title = styled.div`
 export const CategoryBox = styled.div`
   position: relative;
   margin-top: 43px;
-  right: 10px;
+  margin-left: -10px;
+  display: flex;
+  gap: 8px;
+`;
+
+export const CategoryBox2 = styled.div`
+  position: relative;
+  margin-top: 43px;
+  right: 20px;
   display: flex;
   gap: 8px;
 `;
@@ -181,6 +189,28 @@ export const InfoToggle = styled.div`
   font-style: normal;
   font-weight: 600;
   line-height: normal;
+  letter-spacing: -0.4px;
+`;
+
+export const InfoToggle2 = styled.div`
+  position: absolute;
+  right: 70px;
+  bottom: 29px;
+  display: flex;
+  padding: 8.5px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 5px 5px 5px 0;
+  background: #bfb3a0;
+  color: #fff;
+
+  /* B14 */
+  font-family: Pretendard;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 1.3;
   letter-spacing: -0.4px;
 `;
 
@@ -525,4 +555,109 @@ export const ModalLine2 = styled.div`
   transform: translateX(-50%);
   height: 40px;
   border-right: 1.5px solid #dfdfdf;
+`;
+
+export const ProfileList = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  gap: 9.7px;
+  overflow-x: auto;
+  overflow-y: visible;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  padding-top: 15px;
+  padding-bottom: 13px;
+  padding-left: 30px;
+`;
+
+export const Profile = styled.div`
+  position: relative;
+  z-index: 10;
+  width: 145px;
+  height: 196px;
+  flex-shrink: 0;
+  border-radius: 5.887px;
+  border: 1.177px solid #dfdfdf;
+  background: #fff;
+  box-shadow: 0 0 11.773px 0 rgba(0, 0, 0, 0.15);
+
+  #profileHeart {
+    position: absolute;
+    right: 0;
+    top: 12px;
+    right: 10px;
+  }
+`;
+
+export const ProfileInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+`;
+
+export const ProfileImage = styled.div`
+  position: relative;
+  top: 16px;
+  width: 51px;
+  height: 51px;
+  border-radius: 50%;
+  overflow: hidden;
+`;
+
+export const MyProfileImage = styled.div`
+  width: 100%;
+  height: 100%;
+`;
+
+export const ProfileTitle = styled.div`
+  color: #000;
+  margin-top: 25px;
+  margin-bottom: 15px;
+
+  /* B14 */
+  font-family: Pretendard;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+`;
+
+export const ProfileLine = styled.div`
+  position: relative;
+  width: 108px;
+  border-top: 1.5px solid #dfdfdf;
+  margin-bottom: 4.5px;
+`;
+
+export const RatingBox = styled.div`
+  display: flex;
+  justify-content: center;
+  justify-content: space-between;
+  padding: 0px 15px;
+  margin-bottom: 0.5px;
+`;
+
+export const RatingText = styled.div`
+  display: flex;
+  align-items: center;
+  color: var(--300, #a3a3a3);
+  font-family: Pretendard;
+  font-size: 9.5px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+`;
+
+export const Star = styled.div`
+  display: flex;
+  gap: 4.5px;
+`;
+
+export const WriteBtn = styled.div`
+  z-index: 100;
+  position: fixed;
+  bottom: 155px;
+  margin-left: 320px;
 `;
