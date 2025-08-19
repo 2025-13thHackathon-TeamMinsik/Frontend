@@ -327,3 +327,192 @@ line-height: normal;
 margin-top: 201px;
 margin-left: 66px;
 `;
+
+export const Box5 = styled.div` 
+//세로 
+display: flex; 
+flex-direction: column
+
+
+`;
+
+export const Box6 = styled.div`
+  // 가로
+  display: flex; 
+  flex-direction: row;
+  gap: 57px;
+  margin-left: 48px;
+  margin-top: 58px;
+`;
+
+export const Box7 = styled.div`
+  margin-top: 22px;
+  margin-left: 48px;
+  display: flex; 
+  flex-direction: column;
+
+  gap: 10px;
+`;
+
+
+export const Box8 = styled.div`
+display: flex;
+flex-direction: row;
+
+gap: 3px;
+
+`;
+
+export const Input3 = styled.input`
+  /* 입력 텍스트 색상 */
+  color: #000;
+
+  /* 폰트 */
+  font-family: Pretendard;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+
+  /* 플레이스홀더 색상 */
+  &::placeholder {
+    color: #A3A3A3; /* var(--300) 대신 직접 색상 지정 */
+  }
+
+  /* 테두리, 배경 등 필요 시 */
+ background: transparent; /* 배경 투명 */
+  border: none;           /* 테두리 없앰 */
+  outline: none;   
+  border-bottom:solid #695739 1px;
+  padding-bottom: 7px;
+  width: 121px;
+`;
+
+export const Input4 = styled.input`
+ /* 입력 텍스트 색상 */
+  color: #000;
+
+  /* 폰트 */
+  font-family: Pretendard;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+
+  /* 플레이스홀더 색상 */
+  &::placeholder {
+    color: #A3A3A3; /* var(--300) 대신 직접 색상 지정 */
+  }
+
+  /* 테두리, 배경 등 필요 시 */
+ background: transparent; /* 배경 투명 */
+  border: none;           /* 테두리 없앰 */
+  outline: none;   
+  border-bottom:solid #695739 1px;
+  padding-bottom: 7px;
+  width: 121px;
+`;
+
+export const In = styled.div`
+color: #695739;
+
+/* R20 */
+font-family: Pretendard;
+font-size: 20px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+`;
+
+export const SelBox = styled.div`
+  display: inline-flex; /* 한 줄로 나열 */
+  white-space: nowrap;  /* 줄바꿈 금지 */
+  color: ${(props) => (props.isSelected ? "#000" : "#DFDFDF")}; // 클릭 시 글자색
+  border: 1px solid ${(props) => (props.isSelected ? "#695739" : "#DFDFDF")}; // 클릭 시 테두리
+  border-radius: 5px;
+  background-color: #fff; // 배경은 항상 흰색
+  padding: 8px 5px;
+  font-family: Pretendard; // 글자체 고정
+  font-size: 20px;
+  font-weight: 400;
+  line-height: normal;
+  cursor: pointer;
+  margin-right: 10px;
+`;
+
+export const Box9 = styled.div`
+margin-left: 48px;
+display: flex;
+flex-direction: row;
+margin-top: 60px;
+`;
+
+export const Box10 = styled.div`
+margin-left: 48px;
+display: flex;
+flex-direction: row;
+margin-top: 11px;
+`;
+
+export const Info1 = styled.div`
+color: var(--300, #A3A3A3);
+
+/* R12 */
+font-family: Pretendard;
+font-size: 12px;
+font-style: normal;
+font-weight: 400;
+
+margin-top: 15px;
+margin-left: 3px;
+`;
+
+
+export const Info2 = styled.div`
+color: var(--300, #A3A3A3);
+
+/* R12 */
+font-family: Pretendard;
+font-size: 12px;
+font-style: normal;
+font-weight: 400;
+
+margin-left: 3px;
+`;
+
+export const CamBox = styled.div`
+border-radius: 10px;
+border: 1px solid #695739;
+background:  #FFF;
+display: flex;
+justify-content: center;
+align-items: center;
+width: 298px;
+height: 54px;
+
+justify-content: center;
+align-items: center;
+flex-shrink: 0;
+margin-left: 48px;
+margin-top: 15px;
+`;
+
+
+export const Info3 = styled.div`
+color: var(--200, #DFDFDF);
+
+/* R12 */
+font-family: Pretendard;
+font-size: 12px;
+font-style: normal;
+font-weight: 400;
+margin-top: 11px;
+margin-left: 82px;
+`;
+
+export const BackBtn2 = styled.div`
+  position: absolute;
+  display: flex;
+  margin-top: 800px;
+  left: 48px;
+`;
