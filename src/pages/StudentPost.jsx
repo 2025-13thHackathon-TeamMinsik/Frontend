@@ -6,6 +6,9 @@ import * as P from "../styles/StyledPost";
 const StudentPost = () => {
   const navigate = useNavigate();
   const [tabBar, setTabBar] = useState("tabBar1");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [buttonText, setButtonText] = useState("재능 나누기");
+  const [isApplied, setIsApplied] = useState(false);
 
   //탭 바
   const handleTabBar = (menu) => {
@@ -15,6 +18,13 @@ const StudentPost = () => {
   //뒤로가기
   const goBack = () => {
     navigate(-1);
+  };
+
+  //모달 닫기
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+    setButtonText("대기 중");
+    setIsApplied(true);
   };
 
   return (
@@ -115,7 +125,7 @@ const StudentPost = () => {
           </P.Title>
           <P.PostContent2></P.PostContent2>
           <P.Btn1>포트폴리오 수정하기</P.Btn1>
-          <P.Btn2>재능 나누기</P.Btn2>
+          <P.Btn2 onClick={() => setIsModalOpen(true)}>{buttonText}</P.Btn2>
         </P.TextBox2>
       </P.Box2>
       <P.TabBar>
@@ -149,6 +159,24 @@ const StudentPost = () => {
           />
         </div>
       </P.TabBar>
+      {isModalOpen && (
+        <P.ModalOverlay>
+          <P.ApplyModal>
+            <img
+              src={`${process.env.PUBLIC_URL}/images/modalIcon.svg`}
+              alt="modalIcon"
+              width="29px"
+              height="auto"
+              id="modalIcon"
+            />
+            <div id="modalTextBox">
+              <P.ModalTitle>재능 나눔 지원이 완료되었습니다.</P.ModalTitle>
+              <P.ModalLine></P.ModalLine>
+              <P.ModalBtn onClick={handleModalClose}>확인</P.ModalBtn>
+            </div>
+          </P.ApplyModal>
+        </P.ModalOverlay>
+      )}
     </P.Container>
   );
 };
