@@ -21,6 +21,7 @@ import StudentAiPosts from "./pages/StudentAiPosts";
 import MyAlert from "./pages/MyAlert";
 import StudentReview from "./pages/StudentReview";
 import BusinessAiPosts from "./pages/BusinessAiPosts";
+import StudentAiPortfolio from "./pages/StudentAiPortfolio"
 
 function App() {
   return (
@@ -48,6 +49,7 @@ function App() {
         <Route path="/MyAlert" element={<MyAlert />} />
         <Route path="/StudentReview" element={<StudentReview />} />
         <Route path="/BusinessAiPosts" element={<BusinessAiPosts />} />
+        <Route path="/StudentAiPortfolio" element={<StudentAiPortfolio />} />
       </Routes>
     </BrowserRouter>
   );
