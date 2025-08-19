@@ -3,10 +3,16 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as P from "../styles/StyledPost";
 
-const StudentReview = () => {
+const BusinessReview = () => {
   const navigate = useNavigate();
-  const [tabBar, setTabBar] = useState("tabBar1");
-  const [rating, SetRating] = useState(0);
+  const [tabBar, setTabBar] = useState("tabBar4");
+  const [rating, SetRating] = useState({
+    op1: 0, //참여도
+    op2: 0, //성실함
+    op3: 0, //시간 준수
+    op4: 0, //밝은 태도
+    op5: 0, //예의 바름
+  });
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [buttonText, setButtonText] = useState("재능 나누기");
   const [isApplied, setIsApplied] = useState(false);
@@ -23,7 +29,7 @@ const StudentReview = () => {
 
   //AI 공고
   const goAiPosts = () => {
-    navigate("/StudentAiPosts");
+    navigate("/BusinessAiPosts");
   };
 
   //모달 닫기
@@ -31,6 +37,14 @@ const StudentReview = () => {
     setIsModalOpen(false);
     setButtonText("대기 중");
     setIsApplied(true);
+  };
+
+  //별점 클릭
+  const handleStarClick = (category, idx) => {
+    SetRating((prev) => ({
+      ...prev,
+      [category]: prev[category] === idx + 1 ? 0 : idx + 1,
+    }));
   };
 
   return (
@@ -138,38 +152,111 @@ const StudentReview = () => {
             />
             후기 작성하기
           </P.Title>
-          <P.StarReview>
-            {Array.from({ length: 5 }, (_, idx) => (
-              <P.StarImage
-                key={idx}
-                src={`${process.env.PUBLIC_URL}/images/Star-${
-                  idx < rating ? "on" : "off"
-                }.svg`}
-                alt="star"
-                onClick={() => SetRating(idx + 1 === rating ? 0 : idx + 1)}
-              ></P.StarImage>
-            ))}
-          </P.StarReview>
-          <P.ReviewContent placeholder="어떤 작업을 했는지 상세히 적어주세요."></P.ReviewContent>
-          <P.Title>
-            <img
-              src={`${process.env.PUBLIC_URL}/images/titleIcon.svg`}
-              alt="titleIcon"
-              id="titleIcon"
-            />
-            급여 방식 선택하기
-            <P.SubTitle>(필수 택 1)</P.SubTitle>
-          </P.Title>
-          <P.PayOptionBox>
-            <P.PayOption1>지역화폐</P.PayOption1>
-            <P.PayOption2>봉사시간</P.PayOption2>
-          </P.PayOptionBox>
-          <P.ReviewSubmit
-            $active={isApplied}
+          <P.ProfileInfo>
+            <P.ProfileImage>
+              <P.MyProfileImage>
+                <img
+                  src={`${process.env.PUBLIC_URL}/images/defaultProfile.svg`}
+                  alt="defaultProfile"
+                  width="79.746px"
+                  height="auto"
+                />
+              </P.MyProfileImage>
+            </P.ProfileImage>
+            <P.ProfileTitle>솜사탕12</P.ProfileTitle>
+            <P.ProfileLine></P.ProfileLine>
+          </P.ProfileInfo>
+          <div class="RatingArea">
+            <P.RatingBox>
+              <P.RatingText>참여도</P.RatingText>
+              <P.StarBox>
+                {Array.from({ length: 5 }, (_, idx) => (
+                  <P.Star
+                    key={idx}
+                    src={`${process.env.PUBLIC_URL}/images/Star-${
+                      idx < rating.op1 ? "on" : "off"
+                    }.svg`}
+                    alt="star"
+                    onClick={() => handleStarClick("op1", idx)}
+                  ></P.Star>
+                ))}
+              </P.StarBox>
+            </P.RatingBox>
+          </div>
+          <div class="RatingArea">
+            <P.RatingBox>
+              <P.RatingText>성실함</P.RatingText>
+              <P.StarBox>
+                {Array.from({ length: 5 }, (_, idx) => (
+                  <P.Star
+                    key={idx}
+                    src={`${process.env.PUBLIC_URL}/images/Star-${
+                      idx < rating.op2 ? "on" : "off"
+                    }.svg`}
+                    alt="star"
+                    onClick={() => handleStarClick("op2", idx)}
+                  ></P.Star>
+                ))}
+              </P.StarBox>
+            </P.RatingBox>
+          </div>
+          <div class="RatingArea">
+            <P.RatingBox>
+              <P.RatingText>시간 준수</P.RatingText>
+              <P.StarBox>
+                {Array.from({ length: 5 }, (_, idx) => (
+                  <P.Star
+                    key={idx}
+                    src={`${process.env.PUBLIC_URL}/images/Star-${
+                      idx < rating.op3 ? "on" : "off"
+                    }.svg`}
+                    alt="star"
+                    onClick={() => handleStarClick("op3", idx)}
+                  ></P.Star>
+                ))}
+              </P.StarBox>
+            </P.RatingBox>
+          </div>
+          <div class="RatingArea">
+            <P.RatingBox>
+              <P.RatingText>밝은 태도</P.RatingText>
+              <P.StarBox>
+                {Array.from({ length: 5 }, (_, idx) => (
+                  <P.Star
+                    key={idx}
+                    src={`${process.env.PUBLIC_URL}/images/Star-${
+                      idx < rating.op4 ? "on" : "off"
+                    }.svg`}
+                    alt="star"
+                    onClick={() => handleStarClick("op4", idx)}
+                  ></P.Star>
+                ))}
+              </P.StarBox>
+            </P.RatingBox>
+          </div>
+          <div class="RatingArea">
+            <P.RatingBox>
+              <P.RatingText>예의 바름</P.RatingText>
+              <P.StarBox>
+                {Array.from({ length: 5 }, (_, idx) => (
+                  <P.Star
+                    key={idx}
+                    src={`${process.env.PUBLIC_URL}/images/Star-${
+                      idx < rating.op5 ? "on" : "off"
+                    }.svg`}
+                    alt="star"
+                    onClick={() => handleStarClick("op5", idx)}
+                  ></P.Star>
+                ))}
+              </P.StarBox>
+            </P.RatingBox>
+          </div>
+          <P.ReviewSubmit2
             onClick={() => setIsModalOpen(true)}
+            $active={isApplied}
           >
-            후기 보내기
-          </P.ReviewSubmit>
+            저장하기
+          </P.ReviewSubmit2>
         </P.TextBox2>
       </P.StudentReviewBox>
       <P.TabBar>
@@ -188,21 +275,21 @@ const StudentReview = () => {
           />
           <img
             src={`${process.env.PUBLIC_URL}/images/${
-              tabBar === "tabBar2" ? "tabBar2_on.svg" : "tabBar2_off.svg"
+              tabBar === "tabBar4" ? "tabBar4_on.svg" : "tabBar4_off.svg"
             }`}
-            alt="tabBar2"
-            width="66px"
-            height="59px"
-            onClick={() => handleTabBar("tabBar2")}
+            alt="tabBar4"
+            width="52px"
+            height="57px"
+            onClick={() => handleTabBar("tabBar4")}
           />
           <img
             src={`${process.env.PUBLIC_URL}/images/${
-              tabBar === "tabBar3" ? "tabBar3_on.svg" : "tabBar3_off.svg"
+              tabBar === "tabBar5" ? "tabBar5_on.svg" : "tabBar5_off.svg"
             }`}
-            alt="tabBar3"
-            width="32px"
-            height="58px"
-            onClick={() => handleTabBar("tabBar3")}
+            alt="tabBar5"
+            width="45px"
+            height="56px"
+            onClick={() => handleTabBar("tabBar5")}
           />
         </div>
       </P.TabBar>
@@ -230,4 +317,4 @@ const StudentReview = () => {
   );
 };
 
-export default StudentReview;
+export default BusinessReview;

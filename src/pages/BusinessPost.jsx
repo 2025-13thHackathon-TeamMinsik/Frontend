@@ -17,6 +17,11 @@ const BusinessPost = () => {
     navigate(-1);
   };
 
+  //AI 공고
+  const goAiPosts = () => {
+    navigate("/BusinessAiPosts");
+  };
+
   return (
     <P.Container>
       <div id="header">
@@ -113,7 +118,10 @@ const BusinessPost = () => {
             alt="tabBar1"
             width="41px"
             height="60px"
-            onClick={() => handleTabBar("tabBar1")}
+            onClick={() => {
+              handleTabBar("tabBar1");
+              goAiPosts();
+            }}
           />
           <img
             src={`${process.env.PUBLIC_URL}/images/${

@@ -345,6 +345,21 @@ export const StudentReviewBox = styled.div`
   box-shadow: 0 0 11.773px 0 rgba(0, 0, 0, 0.15);
 `;
 
+export const ViewReviewBox = styled.div`
+  display: flex;
+  position: relative;
+  top: 10px;
+  flex-direction: column; /* 세로로 배치 */
+  margin: 0 auto;
+  width: 333px;
+  height: 262px;
+  flex-shrink: 0;
+  border-radius: 5.887px;
+  border: 1.177px solid var(--200, #dfdfdf);
+  background: var(--, #fff);
+  box-shadow: 0 0 11.773px 0 rgba(0, 0, 0, 0.15);
+`;
+
 export const StarReview = styled.div`
   display: flex;
   justify-content: center;
@@ -383,6 +398,29 @@ export const ReviewContent = styled.textarea`
   &::placeholder {
     color: var(--300, #a3a3a3);
   }
+`;
+
+export const ReviewContent2 = styled.div`
+  width: 244px;
+  height: 76.286px;
+  flex-shrink: 0;
+  border-radius: 5px;
+  background: var(--100, #f6f6f6);
+  border: none;
+  outline: none;
+  resize: none;
+  color: var(--, #000);
+  padding: 13px 14.5px;
+  margin-top: px;
+  margin-bottom: 15px;
+
+  /* R14 */
+  font-family: Pretendard;
+  font-size: 13.5px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.25;
+  letter-spacing: -0.1px;
 `;
 
 export const SubTitle = styled.div`
@@ -449,10 +487,32 @@ export const ReviewSubmit = styled.div`
   gap: 10px;
   flex-shrink: 0;
   border-radius: 10px;
-  border: 1px solid #695739;
-  background: #695739;
-  color: #fff;
+  border: 1px solid ${({ $active }) => ($active ? "#DFDFDF" : "#695739")};
+  background: ${({ $active }) => ($active ? "#fff" : "#695739")};
+  color: ${({ $active }) => ($active ? "#DFDFDF" : "#fff")};
 
+  /* B16 */
+  font-family: Pretendard;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 0%; /* 0 */
+`;
+
+export const ReviewSubmit2 = styled.div`
+  display: flex;
+  margin: 0 auto;
+  width: 273px;
+  height: 49.679px;
+  margin-top: 22px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  border: 1px solid ${({ $active }) => ($active ? "#DFDFDF" : "#695739")};
+  background: ${({ $active }) => ($active ? "#fff" : "#695739")};
+  color: ${({ $active }) => ($active ? "#DFDFDF" : "#fff")};
   /* B16 */
   font-family: Pretendard;
   font-size: 15px;
@@ -534,4 +594,73 @@ export const ModalBtn = styled.div`
   font-style: normal;
   font-weight: 400;
   line-height: 0%; /* 0 */
+`;
+
+export const ProfileInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+`;
+
+export const ProfileImage = styled.div`
+  position: relative;
+  top: 27px;
+  width: 79.746px;
+  height: 79.746px;
+  border-radius: 50%;
+  overflow: hidden;
+`;
+
+export const MyProfileImage = styled.div`
+  width: 100%;
+  height: 100%;
+`;
+
+export const ProfileTitle = styled.div`
+  color: #000;
+  margin-top: 43px;
+  margin-bottom: 23px;
+
+  /* B14 */
+  font-family: Pretendard;
+  font-size: 21px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+`;
+
+export const ProfileLine = styled.div`
+  position: relative;
+  width: 168.873px;
+  border-top: 1.5px solid #dfdfdf;
+  margin-bottom: 4.5px;
+`;
+
+export const RatingBox = styled.div`
+  display: flex;
+  justify-content: center;
+  justify-content: space-between;
+  padding: 0px 45px;
+  margin-bottom: 0.5px;
+`;
+
+export const RatingText = styled.div`
+  display: flex;
+  align-items: center;
+  color: var(--300, #a3a3a3);
+  font-family: Pretendard;
+  font-size: 14.6px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+`;
+
+export const StarBox = styled.div`
+  display: flex;
+  gap: 6.9px;
+`;
+
+export const Star = styled.img`
+  width: 15px;
 `;

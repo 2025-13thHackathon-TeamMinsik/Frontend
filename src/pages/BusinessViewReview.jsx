@@ -3,9 +3,9 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as P from "../styles/StyledPost";
 
-const StudentReview = () => {
+const BusinessViewReview = () => {
   const navigate = useNavigate();
-  const [tabBar, setTabBar] = useState("tabBar1");
+  const [tabBar, setTabBar] = useState("tabBar5");
   const [rating, SetRating] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [buttonText, setButtonText] = useState("재능 나누기");
@@ -23,7 +23,7 @@ const StudentReview = () => {
 
   //AI 공고
   const goAiPosts = () => {
-    navigate("/StudentAiPosts");
+    navigate("/BusinessAiPosts");
   };
 
   //모달 닫기
@@ -128,7 +128,7 @@ const StudentReview = () => {
           />
         </P.Overlay>
       </P.Box1>
-      <P.StudentReviewBox>
+      <P.ViewReviewBox>
         <P.TextBox2>
           <P.Title>
             <img
@@ -136,42 +136,20 @@ const StudentReview = () => {
               alt="titleIcon"
               id="titleIcon"
             />
-            후기 작성하기
+            받은 후기
           </P.Title>
           <P.StarReview>
             {Array.from({ length: 5 }, (_, idx) => (
               <P.StarImage
                 key={idx}
-                src={`${process.env.PUBLIC_URL}/images/Star-${
-                  idx < rating ? "on" : "off"
-                }.svg`}
+                src={`${process.env.PUBLIC_URL}/images/Star-off.svg`}
                 alt="star"
-                onClick={() => SetRating(idx + 1 === rating ? 0 : idx + 1)}
               ></P.StarImage>
             ))}
           </P.StarReview>
-          <P.ReviewContent placeholder="어떤 작업을 했는지 상세히 적어주세요."></P.ReviewContent>
-          <P.Title>
-            <img
-              src={`${process.env.PUBLIC_URL}/images/titleIcon.svg`}
-              alt="titleIcon"
-              id="titleIcon"
-            />
-            급여 방식 선택하기
-            <P.SubTitle>(필수 택 1)</P.SubTitle>
-          </P.Title>
-          <P.PayOptionBox>
-            <P.PayOption1>지역화폐</P.PayOption1>
-            <P.PayOption2>봉사시간</P.PayOption2>
-          </P.PayOptionBox>
-          <P.ReviewSubmit
-            $active={isApplied}
-            onClick={() => setIsModalOpen(true)}
-          >
-            후기 보내기
-          </P.ReviewSubmit>
+          <P.ReviewContent2>에그타르트 먹고싶다..</P.ReviewContent2>
         </P.TextBox2>
-      </P.StudentReviewBox>
+      </P.ViewReviewBox>
       <P.TabBar>
         <div id="tabBarIcon">
           <img
@@ -188,21 +166,21 @@ const StudentReview = () => {
           />
           <img
             src={`${process.env.PUBLIC_URL}/images/${
-              tabBar === "tabBar2" ? "tabBar2_on.svg" : "tabBar2_off.svg"
+              tabBar === "tabBar4" ? "tabBar4_on.svg" : "tabBar4_off.svg"
             }`}
-            alt="tabBar2"
-            width="66px"
-            height="59px"
-            onClick={() => handleTabBar("tabBar2")}
+            alt="tabBar4"
+            width="52px"
+            height="57px"
+            onClick={() => handleTabBar("tabBar4")}
           />
           <img
             src={`${process.env.PUBLIC_URL}/images/${
-              tabBar === "tabBar3" ? "tabBar3_on.svg" : "tabBar3_off.svg"
+              tabBar === "tabBar5" ? "tabBar5_on.svg" : "tabBar5_off.svg"
             }`}
-            alt="tabBar3"
-            width="32px"
-            height="58px"
-            onClick={() => handleTabBar("tabBar3")}
+            alt="tabBar5"
+            width="45px"
+            height="56px"
+            onClick={() => handleTabBar("tabBar5")}
           />
         </div>
       </P.TabBar>
@@ -230,4 +208,4 @@ const StudentReview = () => {
   );
 };
 
-export default StudentReview;
+export default BusinessViewReview;
