@@ -26,6 +26,10 @@ import BusinessViewReview from "./pages/BusinessViewReview";
 import BusinessApplications from "./pages/BusinessApplications";
 import StudentAiPortfolio from "./pages/StudentAiPortfolio"
 import StuInfoModi from "./pages/StuInfoModi";
+import StuIntroModi from "./pages/StuIntroModi";
+import StuActModi from "./pages/StuActModi";
+import StuTalModi from "./pages/StuTalModi";
+import Login from "./pages/Login";
 
 
 function App() {
@@ -62,6 +66,10 @@ function App() {
         />
         <Route path="/StudentAiPortfolio" element={<StudentAiPortfolio />} />
         <Route path="/StuInfoModi" element={<StuInfoModi />}/>
+        <Route path="/StuIntroModi" element={<StuIntroModi />}/>
+        <Route path="/StuActModi" element={<StuActModi />}/>
+        <Route path="/StuTalModi" element={<StuTalModi />}/>
+        <Route path="/Login" element={<Login />}/>
       </Routes>
     </BrowserRouter>
   );
