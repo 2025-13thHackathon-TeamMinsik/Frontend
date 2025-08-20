@@ -7,14 +7,14 @@ const StudentAiPosts = () => {
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isInfoOpen, setIsInfoOpen] = useState(false);
-  const [selected, setSelected] = useState("거리순");
+  const [selected, setSelected] = useState("최신순");
   const [selectedFilter, setSelectedFilter] = useState("전체");
   const [isHeartClick, setIsHeartClick] = useState(false);
   const [tabBar, setTabBar] = useState("tabBar1");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isApplied, setIsApplied] = useState(false);
 
-  const sorts = ["거리순", "인기순", "최신순", "찜 콕"];
+  const sorts = ["최신순", "인기순", "거리순", "찜 콕"];
 
   const goAlert = () => {
     navigate(`/MyAlert`);
