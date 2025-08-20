@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 import * as S from "../styles/StyledStuInfoModi";
 
 const StuInfoModi = () => {
@@ -224,16 +225,19 @@ const StuInfoModi = () => {
         </S.SelBox>
       </S.Box7>
       <S.Line></S.Line>
-      <S.Box7><S.Text2>추천 도우미 노출 여부</S.Text2>     
-      <S.Unclick onClick={() => setIsClicked(!isClicked)}>
-        <img
-          src={`${process.env.PUBLIC_URL}/images/${isClicked ? "click.svg" : "unclick.svg"}`}
-          alt={isClicked ? "click" : "unclick"}
-        />
-      </S.Unclick></S.Box7>
+      <S.Box7>
+        <S.Text2>추천 도우미 노출 여부</S.Text2>
+        <S.Unclick onClick={() => setIsClicked(!isClicked)}>
+          <img
+            src={`${process.env.PUBLIC_URL}/images/${
+              isClicked ? "click.svg" : "unclick.svg"
+            }`}
+            alt={isClicked ? "click" : "unclick"}
+          />
+        </S.Unclick>
+      </S.Box7>
       <S.Info>AI가 선정한 추천 도우미 표시 여부를 설정합니다.</S.Info>
     </S.Container>
-
   );
 };
 
