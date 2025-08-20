@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import * as P from "../styles/StyledBusinessApplications";
 
 const BusinessApplications = () => {
@@ -57,8 +58,8 @@ const BusinessApplications = () => {
         <P.ApplicationsTitle>내 공고</P.ApplicationsTitle>
       </div>
       <P.Box>
+        <P.FilterIcon>봉사</P.FilterIcon>
         <P.DateText>250812</P.DateText>
-
         <P.TextBox2>
           <P.Title>
             <img

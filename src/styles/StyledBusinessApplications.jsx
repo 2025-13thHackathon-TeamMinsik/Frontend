@@ -92,7 +92,7 @@ export const DateText = styled.div`
   justify-content: center;
   align-items: center;
   right: 30px;
-  margin-top: 32px;
+  margin-top: 34px;
 
   color: var(--300, #a3a3a3);
 
@@ -348,4 +348,28 @@ export const NewText = styled.div`
   font-style: normal;
   font-weight: 400;
   line-height: 0%; /* 0 */
+`;
+
+export const FilterIcon = styled.div`
+  display: flex;
+  width: 39px;
+  height: 22px;
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  gap: 3.893px;
+  flex-shrink: 0;
+  border-radius: 3.893px;
+  border: 0.389px solid #695739;
+  background: #695739;
+  color: var(--100, #f6f6f6);
+  right: 80px;
+  margin-top: 23px;
+
+  /* B12 */
+  font-family: Pretendard;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
 `;

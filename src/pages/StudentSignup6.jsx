@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 import * as S from "../styles/StyledStudentSignup";
 
 const StudentSignup5 = () => {
@@ -11,9 +12,7 @@ const StudentSignup5 = () => {
 
   return (
     <S.Container>
-
       <S.Title3>회원가입이 완료되었습니다.</S.Title3>
-
 
       <S.Background3>
         <img

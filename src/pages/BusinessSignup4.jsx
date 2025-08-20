@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 import * as S from "../styles/StyledStudentSignup";
 
 const BusinessSignup4 = () => {
@@ -93,14 +94,14 @@ const BusinessSignup4 = () => {
         />
       </S.Background2>
 
-         <S.BackBtn2>
-              <img
-                src={`${process.env.PUBLIC_URL}/images/backBtn.svg`}
-                alt="backBtn"
-                width="19.5px"
-                height="39px"
-              />
-        </S.BackBtn2>
+      <S.BackBtn2>
+        <img
+          src={`${process.env.PUBLIC_URL}/images/backBtn.svg`}
+          alt="backBtn"
+          width="19.5px"
+          height="39px"
+        />
+      </S.BackBtn2>
     </S.Container>
   );
 };

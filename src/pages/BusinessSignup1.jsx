@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 import * as S from "../styles/StyledStudentSignup";
 
 const BusinessSignup1 = () => {
@@ -6,7 +7,7 @@ const BusinessSignup1 = () => {
 
   const categories = [
     ["음식점·카페", "생활·서비스", "기타"],
-    ["패션·잡화", "가전·디지털", "미용·뷰티"]
+    ["패션·잡화", "가전·디지털", "미용·뷰티"],
   ];
 
   const handleSelect = (category) => {
@@ -61,31 +62,39 @@ const BusinessSignup1 = () => {
           </S.Box8>
         ))}
       </S.Box7>
-    <S.Box5>
-      <S.Box9>
-                 <img
-          src={`${process.env.PUBLIC_URL}/images/checkbtn.svg`}
-          alt="btn" width={17}
-        />
-        <S.Info1>해당 자료는 확인 후 즉시 폐기되며<br></br>
-        다른 목적으로 절대 사용하지 않습니다.</S.Info1>
-        
-      </S.Box9>
+      <S.Box5>
+        <S.Box9>
+          <img
+            src={`${process.env.PUBLIC_URL}/images/checkbtn.svg`}
+            alt="btn"
+            width={17}
+          />
+          <S.Info1>
+            해당 자료는 확인 후 즉시 폐기되며<br></br>
+            다른 목적으로 절대 사용하지 않습니다.
+          </S.Info1>
+        </S.Box9>
 
-      <S.Box10>
-                 <img
-          src={`${process.env.PUBLIC_URL}/images/checkbtn.svg`}
-          alt="btn" width={17}
-        />
-        <S.Info2>제출 시 개인정보 수집 및 이용에 동의하신 것으로 간주됩니다.</S.Info2>
-      </S.Box10>
-    </S.Box5>
-    <S.CamBox> <img
+        <S.Box10>
+          <img
+            src={`${process.env.PUBLIC_URL}/images/checkbtn.svg`}
+            alt="btn"
+            width={17}
+          />
+          <S.Info2>
+            제출 시 개인정보 수집 및 이용에 동의하신 것으로 간주됩니다.
+          </S.Info2>
+        </S.Box10>
+      </S.Box5>
+      <S.CamBox>
+        {" "}
+        <img
           src={`${process.env.PUBLIC_URL}/images/camera.svg`}
-          alt="btn" width={32}
+          alt="btn"
+          width={32}
         />
-    </S.CamBox>
-    <S.Info3>발급일이 3개월 이내인 jpg파일을 제출해 주세요.</S.Info3>
+      </S.CamBox>
+      <S.Info3>발급일이 3개월 이내인 jpg파일을 제출해 주세요.</S.Info3>
     </S.Container>
   );
 };

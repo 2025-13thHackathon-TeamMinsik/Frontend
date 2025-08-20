@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import * as S from "../styles/StyledSplash4";
 
 const Splash4 = () => {
