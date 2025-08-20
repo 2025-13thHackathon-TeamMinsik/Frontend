@@ -25,6 +25,7 @@ import BusinessReview from "./pages/BusinessReview";
 import BusinessViewReview from "./pages/BusinessViewReview";
 import BusinessApplications from "./pages/BusinessApplications";
 import StudentAiPortfolio from "./pages/StudentAiPortfolio"
+import StuInfoModi from "./pages/StuInfoModi";
 
 
 function App() {
@@ -60,6 +61,7 @@ function App() {
           element={<BusinessApplications />}
         />
         <Route path="/StudentAiPortfolio" element={<StudentAiPortfolio />} />
+        <Route path="/StuInfoModi" element={<StuInfoModi />}/>
       </Routes>
     </BrowserRouter>
   );
