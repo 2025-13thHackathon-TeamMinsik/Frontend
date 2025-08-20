@@ -13,7 +13,7 @@ const Login = () => {
 
   const handleLogin = async (event) => {
     //폼 제출 시 페이지 새로고침 막기
-    event.preventDefalte();
+    event.preventDefault();
     try {
       const email = `${emailId}@${emailDomain}`;
       const data = {
