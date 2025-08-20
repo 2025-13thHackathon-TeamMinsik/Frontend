@@ -23,6 +23,9 @@ import StudentReview from "./pages/StudentReview";
 import BusinessAiPosts from "./pages/BusinessAiPosts";
 import StudentAiPortfolio from "./pages/StudentAiPortfolio"
 import StuInfoModi from "./pages/StuInfoModi";
+import StuIntroModi from "./pages/StuIntroModi";
+import StuActModi from "./pages/StuActModi";
+import StuTalModi from "./pages/StuTalModi";
 
 function App() {
   return (
@@ -52,6 +55,9 @@ function App() {
         <Route path="/BusinessAiPosts" element={<BusinessAiPosts />} />
         <Route path="/StudentAiPortfolio" element={<StudentAiPortfolio />} />
         <Route path="/StuInfoModi" element={<StuInfoModi />}/>
+        <Route path="/StuIntroModi" element={<StuIntroModi />}/>
+        <Route path="/StuActModi" element={<StuActModi />}/>
+        <Route path="/StuTalModi" element={<StuTalModi />}/>
       </Routes>
     </BrowserRouter>
   );
