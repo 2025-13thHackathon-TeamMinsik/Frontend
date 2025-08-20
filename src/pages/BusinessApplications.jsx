@@ -57,8 +57,8 @@ const BusinessApplications = () => {
         <P.ApplicationsTitle>내 공고</P.ApplicationsTitle>
       </div>
       <P.Box>
+        <P.FilterIcon>봉사</P.FilterIcon>
         <P.DateText>250812</P.DateText>
-
         <P.TextBox2>
           <P.Title>
             <img
