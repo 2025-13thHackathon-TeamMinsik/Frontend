@@ -113,7 +113,7 @@ export const Box1 = styled.div`
   margin-left: 54px;
 `;
 
-export const LoginBtn = styled.div`
+export const LoginBtn = styled.button`
   display: flex;
   width: 285px;
   padding: 10px;

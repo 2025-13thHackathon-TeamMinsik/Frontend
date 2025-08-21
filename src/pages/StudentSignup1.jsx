@@ -1,9 +1,12 @@
 import React from "react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import * as S from "../styles/StyledStudentSignup";
 
-const StudentSignup1 = () => {
+const StudentSignup1 = ({ formData, setFormData }) => {
+  const navigate = useNavigate();
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [selected, setSelected] = useState("동덕여자대학교");
 
@@ -24,7 +27,20 @@ const StudentSignup1 = () => {
 
   const handleSelected = (sort) => {
     setSelected(sort); //sort선택하면
+    setFormData({ ...formData, university: sort });
     setIsMenuOpen(false); //메뉴 닫기
+  };
+
+  const goNext = () => {
+    if (formData.university) {
+      navigate("/StudentSignup2");
+    } else {
+      alert("학교를 선택해주세요.");
+    }
+  };
+
+  const goBack = () => {
+    navigate(-1);
   };
 
   return (
@@ -67,7 +83,7 @@ const StudentSignup1 = () => {
           </S.FilterToggle>
         )}
       </div>
-      <S.BackBtn>
+      <S.BackBtn onClick={goBack}>
         <img
           src={`${process.env.PUBLIC_URL}/images/backBtn.svg`}
           alt="backBtn"
@@ -75,6 +91,14 @@ const StudentSignup1 = () => {
           height="39px"
         />
       </S.BackBtn>
+      <S.NextBtn onClick={goNext}>
+        <img
+          src={`${process.env.PUBLIC_URL}/images/nextBtn.svg`}
+          alt="nextBtn"
+          width="19.5px"
+          height="39px"
+        />
+      </S.NextBtn>
     </S.Container>
   );
 };

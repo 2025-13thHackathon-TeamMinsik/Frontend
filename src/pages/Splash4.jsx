@@ -3,8 +3,18 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import * as S from "../styles/StyledSplash4";
 
-const Splash4 = () => {
+const Splash4 = ({ setFormData }) => {
   const navigate = useNavigate();
+
+  const handleRole = (selectedRole) => {
+    setFormData((prevData) => ({ ...prevData, role: selectedRole }));
+
+    if (selectedRole === "student") {
+      navigate("/StudentSignup1");
+    } else {
+      navigate("/BusinessSignup1");
+    }
+  };
 
   return (
     <S.Container>
@@ -17,8 +27,8 @@ const Splash4 = () => {
         />
       </S.Background>
       <S.Title>역할을 선택해주세요.</S.Title>
-      <S.Btn>대학생 (도우미)</S.Btn>
-      <S.Btn>소상공인 (의뢰인)</S.Btn>
+      <S.Btn onClick={() => handleRole("student")}>대학생 (도우미)</S.Btn>
+      <S.Btn onClick={() => handleRole("owner")}>소상공인 (의뢰인)</S.Btn>
     </S.Container>
   );
 };

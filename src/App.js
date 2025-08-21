@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import Splash4 from "./pages/Splash4";
@@ -24,7 +25,7 @@ import BusinessAiPosts from "./pages/BusinessAiPosts";
 import BusinessReview from "./pages/BusinessReview";
 import BusinessViewReview from "./pages/BusinessViewReview";
 import BusinessApplications from "./pages/BusinessApplications";
-import StudentAiPortfolio from "./pages/StudentAiPortfolio"
+import StudentAiPortfolio from "./pages/StudentAiPortfolio";
 import StuInfoModi from "./pages/StuInfoModi";
 import StuIntroModi from "./pages/StuIntroModi";
 import StuActModi from "./pages/StuActModi";
@@ -34,28 +35,96 @@ import Stamp from "./pages/Stamp";
 import ReciptPhoto from "./pages/ReciptPhoto";
 import ReciptDone from "./pages/ReciptDone"
 
-
 function App() {
+  const [formData, setFormData] = useState({
+    role: "",
+    university: "",
+    academic_status: "",
+    major: "",
+    skill_1: "",
+    skill_2: "",
+    emailId: "",
+    emailDomain: "",
+    password: "",
+    name: "",
+    gender: "",
+    phone_number: "",
+    birth: "",
+    location: "",
+    ceo_name: "",
+    business_number: "",
+    company_name: "",
+    business_type: "",
+  });
+
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Splash4 />} />
-        <Route path="/StudentSignup1" element={<StudentSignup1 />} />
-        <Route path="/StudentSignup2" element={<StudentSignup2 />} />
-        <Route path="/StudentSignup3" element={<StudentSignup3 />} />
-        <Route path="/StudentSignup4" element={<StudentSignup4 />} />
-        <Route path="/StudentSignup5" element={<StudentSignup5 />} />
+        <Route path="/" element={<Splash1 />} />
+        <Route
+          path="/StudentSignup1"
+          element={
+            <StudentSignup1 formData={formData} setFormData={setFormData} />
+          }
+        />
+        <Route
+          path="/StudentSignup2"
+          element={
+            <StudentSignup2 formData={formData} setFormData={setFormData} />
+          }
+        />
+        <Route
+          path="/StudentSignup3"
+          element={
+            <StudentSignup3 formData={formData} setFormData={setFormData} />
+          }
+        />
+        <Route
+          path="/StudentSignup4"
+          element={
+            <StudentSignup4 formData={formData} setFormData={setFormData} />
+          }
+        />
+        <Route
+          path="/StudentSignup5"
+          element={
+            <StudentSignup5 formData={formData} setFormData={setFormData} />
+          }
+        />
         <Route path="/StudentSignup6" element={<StudentSignup6 />} />
 
-        <Route path="/BusinessSignup1" element={<BusinessSignup1 />} />
-        <Route path="/BusinessSignup2" element={<BusinessSignup2 />} />
-        <Route path="/BusinessSignup3" element={<BusinessSignup3 />} />
-        <Route path="/BusinessSignup4" element={<BusinessSignup4 />} />
+        <Route
+          path="/BusinessSignup1"
+          element={
+            <BusinessSignup1 formData={formData} setFormData={setFormData} />
+          }
+        />
+        <Route
+          path="/BusinessSignup2"
+          element={
+            <BusinessSignup2 formData={formData} setFormData={setFormData} />
+          }
+        />
+        <Route
+          path="/BusinessSignup3"
+          element={
+            <BusinessSignup3 formData={formData} setFormData={setFormData} />
+          }
+        />
+        <Route
+          path="/BusinessSignup4"
+          element={
+            <BusinessSignup4 formData={formData} setFormData={setFormData} />
+          }
+        />
         <Route path="/BusinessSignup5" element={<BusinessSignup5 />} />
         <Route path="/StudentPost" element={<StudentPost />} />
         <Route path="/BusinessPost" element={<BusinessPost />} />
         <Route path="/StudentAiPosts" element={<StudentAiPosts />} />
-        <Route path="/Splash1" element={<Splash1 />} />
+        <Route
+          path="/Splash4"
+          element={<Splash4 setFormData={setFormData} />}
+        />
         <Route path="/Splash2" element={<Splash2 />} />
         <Route path="/Splash3" element={<Splash3 />} />
         <Route path="/MyAlert" element={<MyAlert />} />
@@ -68,6 +137,9 @@ function App() {
           element={<BusinessApplications />}
         />
         <Route path="/StudentAiPortfolio" element={<StudentAiPortfolio />} />
+
+       
+
         <Route path="/StuInfoModi" element={<StuInfoModi />}/>
         <Route path="/StuIntroModi" element={<StuIntroModi />}/>
         <Route path="/StuActModi" element={<StuActModi />}/>
@@ -76,6 +148,7 @@ function App() {
         <Route path="/Stamp" element={<Stamp />}/>
         <Route path="/ReciptPhoto" element={<ReciptPhoto />}/>
          <Route path="/ReciptDone" element={<ReciptDone />}/>
+
       </Routes>
     </BrowserRouter>
   );
