@@ -19,16 +19,31 @@ export const Container = styled.div`
   position: relative;
 `;
 
-export const Background = styled.div`
-border-radius: 5.887px;
-border: 1.177px solid var(--200, #DFDFDF);
-background: var(--, #FFF);
-box-shadow: 0 0 11.773px 0 rgba(0, 0, 0, 0.15);
-width: 333px;
-height: 180vh;
-flex-shrink: 0;
-margin-top: 84px;
+export const Background = styled.textarea`
 
+
+
+width: 333px;
+height: 180.032px;
+flex-shrink: 0;
+
+border-radius: 6.099px;
+background: #F6F6F6;
+margin-top: 189.38px;
+margin-left: 5px;
+
+
+  border: none;             /* 모든 테두리 제거 */
+  outline: none; 
+  resize: none; 
+
+  color: #000;
+
+/* R16 */
+font-family: Pretendard;
+font-size: 16px;
+font-style: normal;
+font-weight: 400;
 
 `;
 

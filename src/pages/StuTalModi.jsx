@@ -49,6 +49,107 @@ const StuTalModi = () => {
         </div>
       </S.TabBar>
 
+            <S.Box1>
+            <S.UrlBox   type="text"
+            defaultValue="http://"
+            onFocus={(e) => {
+              if (e.target.value === "http://") e.target.select();
+            }}>
+            </S.UrlBox>
+            <S.UpBtn>등록</S.UpBtn></S.Box1>
+
+            <S.Box2>
+        <img
+          src={`${process.env.PUBLIC_URL}/images/pic.svg`}
+          alt="pic"  width="105.565px"
+        />
+         <img
+          src={`${process.env.PUBLIC_URL}/images/pic.svg`}
+          alt="pic"
+        />
+         <img
+          src={`${process.env.PUBLIC_URL}/images/pic.svg`}
+          alt="pic"
+        />
+            </S.Box2>
+
+                        <S.Box2>
+        <img
+          src={`${process.env.PUBLIC_URL}/images/pic.svg`}
+         alt="pic"  width="105.565px"
+        />
+         <img
+          src={`${process.env.PUBLIC_URL}/images/pic.svg`}
+          alt="pic"
+        />
+         <img
+          src={`${process.env.PUBLIC_URL}/images/pic.svg`}
+          alt="pic"
+        />
+            </S.Box2>
+
+                        <S.Box2>
+        <img
+          src={`${process.env.PUBLIC_URL}/images/pic.svg`}
+         alt="pic"  width="105.565px"
+        />
+         <img
+          src={`${process.env.PUBLIC_URL}/images/pic.svg`}
+          alt="pic"
+        />
+         <img
+          src={`${process.env.PUBLIC_URL}/images/pic.svg`}
+          alt="pic"
+        />
+            </S.Box2>
+          <S.XBtn1>       <img
+          src={`${process.env.PUBLIC_URL}/images/X.svg`}
+          alt="X"
+        /></S.XBtn1>
+
+             <S.XBtn1>       <img
+          src={`${process.env.PUBLIC_URL}/images/X.svg`}
+          alt="X"
+        /></S.XBtn1>
+
+             <S.XBtn2>       <img
+          src={`${process.env.PUBLIC_URL}/images/X.svg`}
+          alt="X"
+        /></S.XBtn2>
+
+             <S.XBtn3>       <img
+          src={`${process.env.PUBLIC_URL}/images/X.svg`}
+          alt="X"
+        /></S.XBtn3>
+
+             <S.XBtn4>       <img
+          src={`${process.env.PUBLIC_URL}/images/X.svg`}
+          alt="X"
+        /></S.XBtn4>
+        
+             <S.XBtn5>       <img
+          src={`${process.env.PUBLIC_URL}/images/X.svg`}
+          alt="X"
+        /></S.XBtn5>
+
+             <S.XBtn6>       <img
+          src={`${process.env.PUBLIC_URL}/images/X.svg`}
+          alt="X"
+        /></S.XBtn6>
+             <S.XBtn7>       <img
+          src={`${process.env.PUBLIC_URL}/images/X.svg`}
+          alt="X"
+        /></S.XBtn7>
+             <S.XBtn8>       <img
+          src={`${process.env.PUBLIC_URL}/images/X.svg`}
+          alt="X"
+        /></S.XBtn8>
+             <S.XBtn9>       <img
+          src={`${process.env.PUBLIC_URL}/images/X.svg`}
+          alt="X"
+        /></S.XBtn9>
+            
+
     </S.Container>
 
   );
