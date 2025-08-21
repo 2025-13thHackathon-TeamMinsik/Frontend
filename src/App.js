@@ -31,6 +31,8 @@ import StuActModi from "./pages/StuActModi";
 import StuTalModi from "./pages/StuTalModi";
 import Login from "./pages/Login";
 import Stamp from "./pages/Stamp";
+import ReciptPhoto from "./pages/ReciptPhoto";
+import ReciptDone from "./pages/ReciptDone"
 
 
 function App() {
@@ -71,7 +73,9 @@ function App() {
         <Route path="/StuActModi" element={<StuActModi />}/>
         <Route path="/StuTalModi" element={<StuTalModi />}/>
         <Route path="/Login" element={<Login />}/>
-         <Route path="/Stamp" element={<Stamp />}/>
+        <Route path="/Stamp" element={<Stamp />}/>
+        <Route path="/ReciptPhoto" element={<ReciptPhoto />}/>
+         <Route path="/ReciptDone" element={<ReciptDone />}/>
       </Routes>
     </BrowserRouter>
   );
