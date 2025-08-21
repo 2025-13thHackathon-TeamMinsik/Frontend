@@ -48,6 +48,8 @@ const StuIntroModi = () => {
         </div>
       </S.TabBar>
 
+      <S.Background  maxLength={200}> </S.Background>
+
     </S.Container>
 
   );

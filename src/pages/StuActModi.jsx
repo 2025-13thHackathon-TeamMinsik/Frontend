@@ -41,11 +41,24 @@ const StuActModi = () => {
             }`}
             alt="tabBar3"
             width="32px"
-            height="58px"
+             height="58px"
             onClick={() => handleTabBar("tabBar3")}
           />
         </div>
       </S.TabBar>
+
+      <S.Box1>
+      <S.Name>냠디저트 | 디자인 · 홍보/마케팅</S.Name>
+      <S.Time>25.08.01~25.08.28 | 월화수 4시간 </S.Time>
+      <S.Line></S.Line>
+      <S.Input1></S.Input1></S.Box1>
+
+      <S.Box2>
+        <S.Name>업체명 | 재능 분야</S.Name>
+      <S.Time>작업 기간/시간</S.Time>
+      <S.Line></S.Line>
+      <S.Input2></S.Input2></S.Box2>
+
 
     </S.Container>
 
