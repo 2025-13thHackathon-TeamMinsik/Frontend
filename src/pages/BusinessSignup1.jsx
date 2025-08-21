@@ -1,9 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import * as S from "../styles/StyledStudentSignup";
 
-const BusinessSignup1 = () => {
-  const [selectedCategory, setSelectedCategory] = useState(""); // 선택된 업종 저장
+const BusinessSignup1 = ({ formData, setFormData }) => {
+  const navigate = useNavigate();
+  const fileInputRef = useRef(null);
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [isProcessing, setIsProcessing] = useState(false);
 
   const categories = [
     ["음식점·카페", "생활·서비스", "기타"],
@@ -12,6 +16,60 @@ const BusinessSignup1 = () => {
 
   const handleSelect = (category) => {
     setSelectedCategory(category);
+    setFormData((prevData) => ({ ...prevData, business_type: category }));
+  };
+
+  const handleFileButtonClick = () => {
+    if (isProcessing) return; // 로딩 중에는 클릭 방지
+    fileInputRef.current.click();
+  };
+
+  const handleFileChange = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    if (
+      !formData.business_number ||
+      !formData.company_name ||
+      !formData.business_type
+    ) {
+      alert("사업자 등록번호, 상호, 업종을 먼저 입력해주세요.");
+      e.target.value = null;
+      return;
+    }
+
+    setIsProcessing(true);
+
+    try {
+      const formDataToSend = new FormData();
+      formDataToSend.append("business_cert", file);
+
+      const response = await axios.post(
+        "/accounts/business-cert/",
+        formDataToSend,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      console.log("확인서 분석 성공", response.data);
+      alert("인증이 완료되었습니다!");
+
+      setFormData((prevData) => ({ ...prevData, business_cert: file }));
+
+      navigate("/BusinessSignup2");
+    } catch (error) {
+      console.error(
+        "확인서 분석 실패",
+        error.response ? error.response.data : error.message
+      );
+      alert("확인서 분석에 실패했습니다. 정보를 다시 확인해주세요.");
+    } finally {
+      setIsProcessing(false);
+      e.target.value = null;
+    }
   };
 
   return (
@@ -38,14 +96,25 @@ const BusinessSignup1 = () => {
       <S.Box6>
         <S.Box5>
           <S.In>사업자 등록번호</S.In>
-          <S.Input3 placeholder="숫자 10자리" />
+          <S.Input3
+            placeholder="숫자 10자리"
+            value={formData.business_number}
+            onChange={(e) =>
+              setFormData({ ...formData, business_number: e.target.value })
+            }
+          />
         </S.Box5>
         <S.Box5>
           <S.In>상호(사업체명)</S.In>
-          <S.Input4 placeholder="달나라빵집" />
+          <S.Input4
+            placeholder="달나라빵집"
+            value={formData.company_name}
+            onChange={(e) =>
+              setFormData({ ...formData, company_name: e.target.value })
+            }
+          />
         </S.Box5>
       </S.Box6>
-
       <S.Box7>
         <S.In>업종</S.In>
         {categories.map((row, i) => (
@@ -86,15 +155,35 @@ const BusinessSignup1 = () => {
           </S.Info2>
         </S.Box10>
       </S.Box5>
-      <S.CamBox>
-        {" "}
-        <img
-          src={`${process.env.PUBLIC_URL}/images/camera.svg`}
-          alt="btn"
-          width={32}
-        />
+
+      <input
+        type="file"
+        ref={fileInputRef}
+        onChange={handleFileChange}
+        style={{ display: "none" }}
+        accept=".jpg, .jpeg, .png, .pdf"
+      />
+      <S.CamBox onClick={handleFileButtonClick}>
+        {isProcessing ? (
+          <S.SpinnerWrapper>
+            <S.Spinner />
+          </S.SpinnerWrapper>
+        ) : (
+          <img
+            src={`${process.env.PUBLIC_URL}/images/camera.svg`}
+            alt="camera"
+            width={32}
+          />
+        )}
       </S.CamBox>
-      <S.Info3>발급일이 3개월 이내인 jpg파일을 제출해 주세요.</S.Info3>
+      <S.Info3>
+        {isProcessing
+          ? "인증 진행 중입니다..."
+          : formData.business_cert && formData.business_cert.name
+          ? `선택된 파일: ${formData.business_cert.name}`
+          : "발급일이 3개월 이내인 jpg파일을 제출해 주세요."}
+      </S.Info3>
+      {/* 다음 버튼은 이제 필요 없음 */}
     </S.Container>
   );
 };
