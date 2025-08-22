@@ -15,6 +15,8 @@ const TalCoin = () => {
 
   const [showTakeBox, setShowTakeBox ] = useState(false);
 
+  const [showRegiBox, setShowRegiBox ] = useState(false);
+
   return (
     <S.Container>
       <S.TabBar>
@@ -75,16 +77,63 @@ const TalCoin = () => {
           <S.Amount>3,050 원</S.Amount>
              {/* 발급하기 버튼 */}
       <S.Take onClick={() => setShowTakeBox(true)}>발급하기</S.Take>
+{/* 모달창 (조건부 렌더링) */}
+{showTakeBox && (
+  <S.Overlay onClick={() => setShowTakeBox(false)}>
+    <S.PrintBox onClick={(e) => e.stopPropagation()}>
+      <S.CoinIcon2>
+        <img
+          src={`${process.env.PUBLIC_URL}/images/CoinIcon.svg`}
+          alt="참새코인"
+        />
+      </S.CoinIcon2>
+      <S.Amount5>3,000 원</S.Amount5>
+      <S.Info3>지역화폐 코드를 발급하시겠습니까?</S.Info3>
+      <S.Line2 />
+      <S.Box7>
+        <S.Yes onClick={() => {
+          setShowTakeBox(false);  // 발급 모달 닫기
+          setShowRegiBox(true);   // 등록 모달 열기
+        }}>예</S.Yes>
+        <S.CLine></S.CLine>
+        <S.No onClick={() => setShowTakeBox(false)}>아니오</S.No>
+      </S.Box7>
+    </S.PrintBox>
+  </S.Overlay>
+)}
 
-      {/* 모달창 (조건부 렌더링) */}
-      {showTakeBox && (
-        <S.Overlay onClick={() => setShowTakeBox(false)}>
-          <S.PrintBox onClick={(e) => e.stopPropagation()}>
-            발급하기 설명문 내용 들어가는 곳
-          </S.PrintBox>
-        </S.Overlay>
-      )}
-           
+{/* 등록 모달창 */}
+{showRegiBox && (
+  <S.Overlay onClick={() => setShowRegiBox(false)}>
+    <S.RegiBox onClick={(e) => e.stopPropagation()}>
+      <S.CoinIcon2>
+        <img
+          src={`${process.env.PUBLIC_URL}/images/CoinIcon.svg`}
+          alt="참새코인"
+        />
+      </S.CoinIcon2>
+     <S.Box9> <S.Code4>RGC-3Y5L-8K9P-Q2WA</S.Code4>
+      <S.Copy
+        onClick={() => {
+          navigator.clipboard.writeText("RGC-3Y5L-8K9P-Q2WA");
+          alert("코드가 복사되었습니다!");
+        }}
+      >
+        <img
+          src={`${process.env.PUBLIC_URL}/images/copy.svg`}
+          alt="복사"
+        />
+      </S.Copy>
+        </S.Box9>
+        <S.Info4>위 코드를 복사하여 상품권을 등록해주세요.</S.Info4>
+      <S.Line3 />
+      <S.Box7>
+        <S.O onClick={() => setShowRegiBox(false)}>확인</S.O>
+      </S.Box7>
+    </S.RegiBox>
+  </S.Overlay>
+)}
+
      </S.Box4>
 
     <S.Box5><S.Box1000>1,000원</S.Box1000><S.Box5000>5,000원</S.Box5000><S.Box10000>10,000원</S.Box10000>

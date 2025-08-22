@@ -564,6 +564,10 @@ export const PrintBox = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-58.5%, -215%); /* 중앙 정렬 */
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const RegiBox = styled.div`
@@ -573,6 +577,18 @@ export const RegiBox = styled.div`
   border-radius: 5.887px;
   border: 1.177px solid  #DFDFDF;
   background: #FFF;
+
+    margin-top: 329px;
+  margin-left: 30px;
+
+    position: fixed;  /* 화면 기준 */
+  top: 50%;
+  left: 50%;
+  transform: translate(-58.5%, -215%); /* 중앙 정렬 */
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const Overlay = styled.div`
@@ -583,7 +599,131 @@ export const Overlay = styled.div`
   height: 100vh;
   background: rgba(0, 0, 0, 0.4); /* 검은색 투명 */
   display: flex;
-  justify-content: center;
-  align-items: center;
+ 
   z-index: 999; /* 위로 올리기 */
+`;
+
+export const CoinIcon2 = styled.div`
+width: 29px;
+height: 29px;
+
+margin-top: 20px;
+margin-bottom: 7px;
+margin-right: 18px;
+
+`;
+
+export const Amount5 = styled.div`
+color: #000;
+
+/* B20 */
+font-family: Pretendard;
+font-size: 20px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+margin-top: 15px;
+`;
+
+export const Info3 = styled.div`
+color:  #A3A3A3;
+
+/* R16 */
+font-family: Pretendard;
+font-size: 16px;
+font-style: normal;
+font-weight: 400;
+margin-bottom: 20px;
+`;
+
+export const Line2 = styled.div`
+background: #DFDFDF;
+width: 283px;
+height: 0.5px;
+`;
+
+export const Box8 = styled.div`
+display: flex;
+flex-direction: row;
+
+`;
+
+export const Yes = styled.div`
+color: #000;
+text-align: center;
+
+/* R16 */
+font-family: Pretendard;
+font-size: 16px;
+font-style: normal;
+font-weight: 400;
+margin-top: 10px;
+margin-right: 60px; 
+`;
+
+export const No = styled.div`
+color: #000;
+text-align: center;
+
+/* R16 */
+font-family: Pretendard;
+font-size: 16px;
+font-style: normal;
+font-weight: 400;
+margin-top: 10px;
+margin-left: 47px;
+`;
+
+export const CLine = styled.div`
+background: #DFDFDF;
+width: 0.5px;
+height: 47px;
+
+
+`;
+
+
+export const Code4 = styled.div`
+color: #000;
+
+/* B20 */
+font-family: Pretendard;
+font-size: 20px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+margin-top: 15px;
+`;
+
+export const Info4 = styled.div`
+color:  #A3A3A3;
+
+/* R16 */
+font-family: Pretendard;
+font-size: 16px;
+font-style: normal;
+font-weight: 400;
+margin-bottom: 20px;
+`;
+
+export const Line3 = styled.div`
+background: #DFDFDF;
+width: 283px;
+height: 0.5px;
+margin-bottom: 10px;
+`;
+
+export const O = styled.div`
+margin-bottom: 10px;
+`;
+
+export const Box9 = styled.div`
+display:flex;
+flex-direction: row;
+`;
+
+
+export const Copy = styled.div`
+margin-top: 15px;
+margin-left: 5px;
 `;
