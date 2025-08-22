@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { jwtDecode } from "jwt-decode";
 import * as S from "../styles/StyledLogin";
 
 const Login = () => {
@@ -22,6 +23,11 @@ const Login = () => {
       };
 
       const response = await axios.post("/accounts/login/", data);
+      const accessToken = response.data.access;
+
+      // 토큰 디코딩
+      const decoded = jwtDecode(accessToken);
+      const userRole = decoded.role; // 여기서 student / owner 가져옴
 
       console.log("로그인 성공", response.data);
 
@@ -30,13 +36,11 @@ const Login = () => {
 
       setIsError(false);
 
-      const userRole = response.data.role;
-
       //대학생, 소상공인 역할 따라서 각자 ver 메인페이지(AI 공고)로 이동
       if (userRole === "student") {
-        navigate("/StudentAiPosts");
+        navigate(`/StudentAiPosts`);
       } else if (userRole === "owner") {
-        navigate("BusinessAiPosts");
+        navigate(`/BusinessAiPosts`);
       }
     } catch (error) {
       console.log("로그인 실패", error);
