@@ -181,13 +181,13 @@ margin-top: 15px;
 export const Union1 = styled.div`
     position: absolute;
     left: 60px;
-    top: 767px; 
+    top: 687px; 
 `;
 
 export const Union2 = styled.div`
     position: absolute;
     left: 60px;
-    top: 990px; 
+    top: 908px; 
 `;
 
 
@@ -393,7 +393,7 @@ margin-top: 15px;
 export const Union3 = styled.div`
     position: absolute;
     left: 60px;
-    top: 1420px; 
+    top: 1340px; 
 `;
 
 
@@ -468,8 +468,8 @@ font-style: normal;
 font-weight: 700;
 line-height: normal;
 margin-left: -200px;
-margin-top: 90px;
 margin-bottom: 20px;
+margin-top: 10px;
 `;
 
 export const Box9 = styled.div`
@@ -554,4 +554,76 @@ font-weight: 700;
 
 margin-left: 30px;
 margin-top: 20px;
+`;
+
+export const BackBtn = styled.div`
+
+margin-left: -325px;
+margin-top: 20px;
+`;
+
+// 모달 배경
+export const Overlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+`;
+
+// 모달 박스
+export const ModalBox = styled.div`
+
+  background: #fff;
+  border-radius: 10px;
+  text-align: center;
+  margin-bottom: 420px;
+  width: 333px;
+height: 194px;
+flex-shrink: 0;
+`;
+
+// 모달 아이콘
+export const Icon2 = styled.div`
+  margin-bottom: 10px;
+  margin-top: 35px;
+`;
+
+// 모달 내용
+export const Info2 = styled.div`
+color: #000;
+
+/* B20 */
+font-family: Pretendard;
+font-size: 20px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+`;
+
+// 모달 확인 버튼
+export const Ok2 = styled.div`
+display: flex;
+width: 55px;
+padding: 5px 10px;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+gap: 10px;
+margin-top: 7px;
+margin-left: 127px;
+`;
+
+
+export const Line6 = styled.div`
+width: 283px;
+height: 0.5px;
+background: #DFDFDF;
+margin-left: 25px;
+margin-top: 35px;
 `;

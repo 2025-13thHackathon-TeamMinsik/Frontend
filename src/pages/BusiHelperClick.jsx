@@ -1,31 +1,48 @@
 import React from "react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import * as S from "../styles/StyledBusiHelperClick";
 
 const BusiHelperClick = () => {
   const [tabBar, setTabBar] = useState("tabBar1");
+  const [showModal, setShowModal] = useState(false);   // 모달 상태
+  const [isAccepted, setIsAccepted] = useState(false); // 재능 수락 상태
+  const navigate = useNavigate();
 
   //탭 바
   const handleTabBar = (menu) => {
     setTabBar(menu);
   };
+
+  const handleAccept = () => {
+    setShowModal(true); // 재능 수락 모달 띄우기
+    setIsAccepted(true); // 수락 상태 표시 (선택사항)
+  };
+
+  const handleConfirm = () => {
+    setShowModal(false); // 모달 닫기
+    navigate("/BusinessAiPosts");       // 홈 화면으로 이동
+  };
+
   return (
     <S.Container>
-        <S.Nick>달고나12</S.Nick>
-        <S.Box9>
-            <S.Box10><S.Icon><img
+      <S.Nick>달고나12</S.Nick>
+      <S.Box9>
+        <S.Box10>
+          <S.Icon>
+            <img
               src={`${process.env.PUBLIC_URL}/images/back3.svg`}
               alt="union"
               width="20.364px"
-            /></S.Icon><S.Content>나눔 동기</S.Content></S.Box10>
-            <S.ContentBox></S.ContentBox>
-        </S.Box9>
-        <S.Line5></S.Line5>
+            />
+          </S.Icon>
+          <S.Content>나눔 동기</S.Content>
+        </S.Box10>
+        <S.ContentBox></S.ContentBox>
+      </S.Box9>
+      <S.Line5></S.Line5>
       <S.Background>
-
-     
-
         <S.Box1>
           <S.Profile>
             <img
@@ -68,6 +85,7 @@ const BusiHelperClick = () => {
           <S.Text2>&nbsp;성북구 화랑로 13길 60</S.Text2>
         </S.Box5>
         <S.Line></S.Line>
+
         <S.Box6>
           <S.Union1>
             <img
@@ -78,8 +96,6 @@ const BusiHelperClick = () => {
           </S.Union1>
           <S.Title>자기소개</S.Title>
         </S.Box6>
-
-
 
         <S.TextBox>
           200자 공백 포함. 안녕하세요. 저는 동덕여자대학교<br></br>
@@ -149,10 +165,27 @@ const BusiHelperClick = () => {
           <img src={`${process.env.PUBLIC_URL}/images/add.svg`} alt="Add" />
         </S.Add>
 
-      <S.Ok>재능 수락하기</S.Ok>
+        <S.Ok onClick={handleAccept}>재능 수락하기</S.Ok>
       </S.Background>
 
-     <S.TabBar>
+      {/* 모달창 */}
+      {showModal && (
+        <S.Overlay onClick={() => setShowModal(false)}>
+          <S.ModalBox onClick={(e) => e.stopPropagation()}>
+            <S.Icon2>
+              <img
+                src={`${process.env.PUBLIC_URL}/images/modalicon.svg`}
+                alt="아이콘"
+              />
+            </S.Icon2>
+            <S.Info2>재능 수락이 완료되었습니다.</S.Info2>
+            <S.Line6></S.Line6>
+            <S.Ok2 onClick={handleConfirm}>확인</S.Ok2>
+          </S.ModalBox>
+        </S.Overlay>
+      )}
+
+      <S.TabBar>
         <div id="tabBarIcon">
           <img
             src={`${process.env.PUBLIC_URL}/images/${
