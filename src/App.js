@@ -35,6 +35,7 @@ import Stamp from "./pages/Stamp";
 import ReciptPhoto from "./pages/ReciptPhoto";
 import ReciptDone from "./pages/ReciptDone";
 import TalCoin from "./pages/Talcoin";
+import BusiRecClick from "./pages/BusiRecClick";
 
 function App() {
   const [formData, setFormData] = useState({
@@ -151,6 +152,7 @@ function App() {
          <Route path="/ReciptDone" element={<ReciptDone />}/>
 
          <Route path="/TalCoin" element={<TalCoin />}/>
+         <Route path="/BusiRecClick" element={<BusiRecClick />}/>
       </Routes>
     </BrowserRouter>
   );
