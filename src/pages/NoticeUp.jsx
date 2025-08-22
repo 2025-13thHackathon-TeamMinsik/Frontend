@@ -252,6 +252,7 @@ const NoticeUp = () => {
         </S.Box3>
 
         <S.Box5>
+
           <S.PicBox1>
             <S.Pic>
               <img
@@ -284,6 +285,7 @@ const NoticeUp = () => {
               style={{ display: "none" }}
             />
           </S.PicBox2>
+
         </S.Box5>
 
         <S.Box3>
