@@ -103,10 +103,7 @@ const NoticeUp = () => {
           /></S.Icon> <S.Text>사진 첨부</S.Text></S.Box3>
         
         <S.Box5>
-            <S.PicBox1><S.Pic><img
-            src={`${process.env.PUBLIC_URL}/images/Pizza.svg`}
-            alt="피자"
-          /></S.Pic></S.PicBox1><S.PicBox2><S.PicAdd2> <img
+            <S.PicBox1><S.Pic></S.Pic></S.PicBox1><S.PicBox2><S.PicAdd2> <img
             src={`${process.env.PUBLIC_URL}/images/PicAdd2.svg`}
             alt="직접 추가"
           /></S.PicAdd2></S.PicBox2>
