@@ -2,12 +2,37 @@ import React from "react";
 import axios from "axios";
 import * as S from "../styles/StyledNoticeUp";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const NoticeUp = () => {
-const [tabBar, setTabBar] = useState("tabBar1");
+  const [tabBar, setTabBar] = useState("tabBar1");
+  const [showModal, setShowModal] = useState(false);   // 모달 상태
+  const [modalType, setModalType] = useState(null);    // 모달 종류: "post" | "delete"
+  const [isPosted, setIsPosted] = useState(false);     // 공고 게시 상태
+
+   const navigate = useNavigate();
+
   const handleTabBar = (menu) => {
     setTabBar(menu);
   };
+  const handleConfirm = () => {
+  const currentModal = modalType;
+
+  if (currentModal === "post") {
+    setIsPosted(true);
+  } else if (currentModal === "delete") {
+    setIsPosted(false);
+    navigate("/BusinessAiPosts"); // 삭제 확인 시에만 이동
+  }
+
+  setShowModal(false);
+  setModalType(null);
+};
+
+
+
+
+
   return (
     <S.Container>   <S.BackBtn>
           <img
@@ -17,7 +42,7 @@ const [tabBar, setTabBar] = useState("tabBar1");
             height="39px"
           />
         </S.BackBtn>
-      <S.TabBar>
+     <S.TabBar>
         <div id="tabBarIcon">
           <img
             src={`${process.env.PUBLIC_URL}/images/${
@@ -30,25 +55,24 @@ const [tabBar, setTabBar] = useState("tabBar1");
           />
           <img
             src={`${process.env.PUBLIC_URL}/images/${
-              tabBar === "tabBar2" ? "tabBar2_on.svg" : "tabBar2_off.svg"
+              tabBar === "tabBar4" ? "tabBar4_on.svg" : "tabBar4_off.svg"
             }`}
-            alt="tabBar2"
-            width="66px"
-            height="59px"
-            onClick={() => handleTabBar("tabBar2")}
+            alt="tabBar4"
+            width="52px"
+            height="57px"
+            onClick={() => handleTabBar("tabBar4")}
           />
           <img
             src={`${process.env.PUBLIC_URL}/images/${
-              tabBar === "tabBar3" ? "tabBar3_on.svg" : "tabBar3_off.svg"
+              tabBar === "tabBar5" ? "tabBar5_on.svg" : "tabBar5_off.svg"
             }`}
-            alt="tabBar3"
-            width="32px"
-             height="58px"
-            onClick={() => handleTabBar("tabBar3")}
+            alt="tabBar5"
+            width="45px"
+            height="56px"
+            onClick={() => handleTabBar("tabBar5")}
           />
         </div>
       </S.TabBar>
-
       <S.Box1>
            <S.Box3> <S.Icon> <img
             src={`${process.env.PUBLIC_URL}/images/Icon.svg`}
@@ -77,10 +101,59 @@ const [tabBar, setTabBar] = useState("tabBar1");
             src={`${process.env.PUBLIC_URL}/images/Icon.svg`}
             alt="*"
           /></S.Icon> <S.Text>사진 첨부</S.Text></S.Box3>
+        
+        <S.Box5>
+            <S.PicBox1><S.Pic><img
+            src={`${process.env.PUBLIC_URL}/images/Pizza.svg`}
+            alt="피자"
+          /></S.Pic></S.PicBox1><S.PicBox2><S.PicAdd2> <img
+            src={`${process.env.PUBLIC_URL}/images/PicAdd2.svg`}
+            alt="직접 추가"
+          /></S.PicAdd2></S.PicBox2>
+        </S.Box5>
 
+          <S.Box3> <S.Icon> <img
+            src={`${process.env.PUBLIC_URL}/images/Icon.svg`}
+            alt="*"
+          /></S.Icon> <S.Box6><S.Text>급여 방식 선택하기</S.Text><S.Small>(필수)</S.Small></S.Box6></S.Box3>
+      <S.Box6><S.choice1>지역화폐</S.choice1> <S.choice2>봉사시간</S.choice2></S.Box6>
+      
       </S.Box1>
+       <S.Box2>
+        {!isPosted ? (
+          <S.Up onClick={() => { setShowModal(true); setModalType("post"); }}>
+            공고 올리기
+          </S.Up>
+        ) : (
+          <>
+            <S.ModiBtn>수정하기</S.ModiBtn>
+            <S.DelBtn onClick={() => { setShowModal(true); setModalType("delete"); }}>
+              삭제하기
+            </S.DelBtn>
+          </>
+        )}
+      </S.Box2>
 
-      <S.Box2><S.Up>공고 올리기</S.Up></S.Box2>
+      {/* 모달창 */}
+      {showModal && (
+        <S.Overlay onClick={() => setShowModal(false)}>
+          <S.ModalBox onClick={(e) => e.stopPropagation()}>
+            <S.Icon2>
+              <img
+                src={`${process.env.PUBLIC_URL}/images/modalicon.svg`}
+                alt="아이콘"
+              />
+            </S.Icon2>
+            <S.Info2>
+              {modalType === "post"
+                ? "공고가 게시되었습니다."
+                : "공고가 삭제되었습니다."}
+            </S.Info2>
+            <S.Line />
+            <S.Ok2 onClick={handleConfirm}>확인</S.Ok2>
+          </S.ModalBox>
+        </S.Overlay>
+      )}
     </S.Container>
   );
 };

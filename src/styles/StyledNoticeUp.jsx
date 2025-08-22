@@ -6,7 +6,7 @@ export const Container = styled.div`
   flex-direction: column; /* 세로로 배치 */
   margin: 0 auto;
   width: 393px;
-  height: 250vh;
+  height: 240vh;
   background: #fff;
   outline: 1px solid black;
 
@@ -40,7 +40,7 @@ margin-left: 30px;
 
 export const Box1 = styled.div`
 width: 333px;
-height: 190vh;
+height: 166vh;
 flex-shrink: 0;
 border-radius: 5.887px;
 border: 1.177px solid #DFDFDF;
@@ -245,6 +245,7 @@ font-size: 14px;
 font-style: normal;
 font-weight: 400;
 padding: 7px;
+   resize: none;
 
   &:focus {
     outline: none;
@@ -256,4 +257,166 @@ padding: 7px;
 
   margin-left: 30px;
   margin-top: 35px;
+`;
+
+export const Box5 = styled.div`
+    display: flex;
+    flex-direction: row;
+    gap: 7px;
+`
+
+export const PicBox1 = styled.div`
+    width: 132.75px;
+    height: 177px;
+    flex-shrink: 0;
+    border: 3px solid #695739;
+    background: #F6F6F6;
+
+    margin-left: 30px;
+    margin-top: 20px;
+`;
+
+export const PicBox2 = styled.div`
+    width: 137.75px;
+    height: 182px;
+    flex-shrink: 0;
+    background: #F6F6F6;
+
+    position: relative;
+      margin-top: 20px;
+`;
+
+export const PicAdd2 = styled.div`
+    position: absolute;
+    top: 55px;
+    right: 57px;
+`;
+
+export const Small = styled.div`
+color: #000;
+
+/* R16 */
+font-family: Pretendard;
+font-size: 16px;
+font-style: normal;
+font-weight: 400;
+  margin-top: 4px;
+  margin-left: 3px;
+`;
+
+export const Box6= styled.div`
+    display: flex;
+    flex-direction: row;
+  
+`;
+
+export const Pic= styled.div`
+margin-left: 0.25px;
+`;
+
+export const choice1 = styled.div`
+display: flex;
+width: 120px;
+padding: 10px;
+justify-content: center;
+align-items: center;
+gap: 10px;
+border-radius: 10px;
+border: 1px solid #695739;
+background: #FFF;
+color: #000;
+
+/* R16 */
+font-family: Pretendard;
+font-size: 16px;
+font-style: normal;
+font-weight: 400;
+margin-left: 20px;
+margin-top: 20px;
+`;
+
+export const choice2 = styled.div`
+color: #DFDFDF;
+
+/* R16 */
+font-family: Pretendard;
+font-size: 16px;
+font-style: normal;
+font-weight: 400;
+
+display: flex;
+width: 120px;
+padding: 10px;
+justify-content: center;
+align-items: center;
+gap: 10px;
+
+border-radius: 10px;
+border: 1px solid  #DFDFDF;
+background: var #FFF;
+
+margin-left: 12px;
+margin-top: 20px;
+`;
+export const Overlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* 배경 흐림 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+`;
+
+export const ModalBox = styled.div`
+  width: 333px;
+height: 194px;
+flex-shrink: 0;
+  background: #fff;
+  border-radius: 5.887px;
+border: 1.177px solid var #DFDFDF;
+background:  #FFF;
+flex-direction: column;      /* 세로 배치 */
+  justify-content: center;     /* 세로축 가운데 */
+  align-items: center;         /* 가로축 가운데 */
+  text-align: center;          /* 텍스트 중앙 */
+`;
+export const Icon2 = styled.div`
+margin-top: 30px;
+margin-bottom: 10px;
+`;
+
+export const Info2 = styled.div`
+color: #000;
+
+/* B20 */
+font-family: Pretendard;
+font-size: 20px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+`;
+export const Line = styled.div`
+width: 283px;
+height: 0.5px;
+background: #DFDFDF;
+
+margin-top: 30px;
+margin-left: 25px;
+`;
+
+
+export const Ok2 = styled.div`
+display: flex;
+width: 55px;
+padding: 5px 10px;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+gap: 10px;
+margin-top: 10px;
+margin-left: 125px;
 `;

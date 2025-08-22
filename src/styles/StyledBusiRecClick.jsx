@@ -5,7 +5,7 @@ export const Container = styled.div`
   flex-direction: column; /* 세로로 배치 */
   margin: 0 auto;
   width: 393px;
- height: 180vh;
+ height: 300vh;
   background: #fff;
   outline: 1px solid black;
   align-items: center;
@@ -19,7 +19,7 @@ border: 1.177px solid var(--200, #DFDFDF);
 background: var(--, #FFF);
 box-shadow: 0 0 11.773px 0 rgba(0, 0, 0, 0.15);
 width: 333px;
-height: 180vh;
+height: 300vh;
 flex-shrink: 0;
 margin-top: 84px;
 

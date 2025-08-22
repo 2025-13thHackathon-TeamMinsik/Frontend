@@ -5,6 +5,7 @@ import axios from "axios";
 import * as A from "../styles/StyledAiPosts";
 
 const BusinessAiPosts = () => {
+
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isInfoOpen, setIsInfoOpen] = useState(false);

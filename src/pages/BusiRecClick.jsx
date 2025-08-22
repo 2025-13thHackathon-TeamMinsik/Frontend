@@ -211,21 +211,21 @@ const BusiRecClick= () => {
           />
           <img
             src={`${process.env.PUBLIC_URL}/images/${
-              tabBar === "tabBar2" ? "tabBar2_on.svg" : "tabBar2_off.svg"
+              tabBar === "tabBar4" ? "tabBar4_on.svg" : "tabBar4_off.svg"
             }`}
-            alt="tabBar2"
-            width="66px"
-            height="59px"
-            onClick={() => handleTabBar("tabBar2")}
+            alt="tabBar4"
+            width="52px"
+            height="57px"
+            onClick={() => handleTabBar("tabBar4")}
           />
           <img
             src={`${process.env.PUBLIC_URL}/images/${
-              tabBar === "tabBar3" ? "tabBar3_on.svg" : "tabBar3_off.svg"
+              tabBar === "tabBar5" ? "tabBar5_on.svg" : "tabBar5_off.svg"
             }`}
-            alt="tabBar3"
-            width="32px"
-            height="58px"
-            onClick={() => handleTabBar("tabBar3")}
+            alt="tabBar5"
+            width="45px"
+            height="56px"
+            onClick={() => handleTabBar("tabBar5")}
           />
         </div>
       </S.TabBar>
