@@ -32,7 +32,8 @@ import StuTalModi from "./pages/StuTalModi";
 import Login from "./pages/Login";
 import Stamp from "./pages/Stamp";
 import ReciptPhoto from "./pages/ReciptPhoto";
-import ReciptDone from "./pages/ReciptDone"
+import ReciptDone from "./pages/ReciptDone";
+import TalCoin from "./pages/Talcoin";
 
 
 function App() {
@@ -76,6 +77,7 @@ function App() {
         <Route path="/Stamp" element={<Stamp />}/>
         <Route path="/ReciptPhoto" element={<ReciptPhoto />}/>
          <Route path="/ReciptDone" element={<ReciptDone />}/>
+         <Route path="/TalCoin" element={<TalCoin />}/>
       </Routes>
     </BrowserRouter>
   );
