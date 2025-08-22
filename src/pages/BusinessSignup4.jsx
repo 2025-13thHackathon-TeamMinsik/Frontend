@@ -1,13 +1,68 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import * as S from "../styles/StyledStudentSignup";
 
-const BusinessSignup4 = () => {
+const BusinessSignup4 = ({ formData, setFormData }) => {
+  const navigate = useNavigate();
+
   const [gender, setGender] = useState("");
   const [isHidden, setIsHidden] = useState(false); // 주소 숨김 여부
 
   const toggleHidden = () => {
     setIsHidden(!isHidden);
+  };
+
+  const handleSubmit = async () => {
+    try {
+      //이메일 형식
+      const email = `${formData.emailId}@${formData.emailDomain}`;
+
+      //생년월일 형식
+      const year = formData.birth.substring(0, 4);
+      const month = formData.birth.substring(4, 6);
+      const day = formData.birth.substring(6, 8);
+      const formattedBirth = `${year}-${month}-${day}`;
+
+      //성별 형식
+      const formattedGender = formData.gender === "남" ? "male" : "female";
+
+      const data = {
+        role: formData.role,
+        full_name: formData.name,
+        password: formData.password,
+        email: email,
+        gender: formattedGender,
+        phone: formData.phone_number,
+        birth: formattedBirth,
+        location: formData.location,
+        skill_1: formData.skill_1,
+        skill_2: formData.skill_2,
+        ceo_name: formData.ceo_name,
+        business_number: formData.business_number,
+        company_name: formData.role.company_name,
+        business_type: formData.role.business_type,
+        // 대학생 관련 필드는 소상공인이므로 null로 설정
+        university: "",
+        major: "",
+        academic_status: "",
+      };
+
+      const response = await axios.post("/accounts/signup/", data);
+
+      console.log("회원가입 성공", response.data);
+      navigate(`/StudentSignup6`, { state: { formData: formData } });
+    } catch (error) {
+      console.error(
+        "회원가입 실패",
+        error.response ? error.response.data : error.message
+      );
+      alert("회원가입에 실패했습니다.");
+    }
+  };
+
+  const goBack = () => {
+    navigate(-1);
   };
 
   return (
@@ -25,7 +80,11 @@ const BusinessSignup4 = () => {
 
       <S.TextBox>
         <S.Text>이름</S.Text>
-        <S.Input placeholder="홍길동" />
+        <S.Input
+          placeholder="홍길동"
+          value={formData.name}
+          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+        />
 
         <S.Box1>
           <S.Text>생년월일</S.Text>
@@ -33,18 +92,24 @@ const BusinessSignup4 = () => {
         </S.Box1>
 
         <S.Box2>
-          <S.Input placeholder="20030519" />
+          <S.Input
+            placeholder="YYYYMMDD"
+            value={formData.birth}
+            onChange={(e) =>
+              setFormData({ ...formData, birth: e.target.value })
+            }
+          />
           <S.Btn2>
             <span
-              className={gender === "남" ? "selected" : ""}
-              onClick={() => setGender("남")}
+              className={formData.gender === "남" ? "selected" : ""}
+              onClick={() => setFormData({ ...formData, gender: "남" })}
             >
               남자
             </span>
             <span>|</span>
             <span
-              className={gender === "여" ? "selected" : ""}
-              onClick={() => setGender("여")}
+              className={formData.gender === "여" ? "selected" : ""}
+              onClick={() => setFormData({ ...formData, gender: "여" })}
             >
               여자
             </span>
@@ -52,17 +117,41 @@ const BusinessSignup4 = () => {
         </S.Box2>
 
         <S.Text>전화번호</S.Text>
-        <S.Input placeholder="01012345678" />
+        <S.Input
+          placeholder="01012345678"
+          value={formData.phone_number}
+          onChange={(e) =>
+            setFormData({ ...formData, phone_number: e.target.value })
+          }
+        />
 
         <S.Text>이메일</S.Text>
         <S.emailBox>
-          <S.Input placeholder="happyshare1234" />
+          <S.Input
+            placeholder="happyshare1234"
+            value={formData.emailId}
+            onChange={(e) =>
+              setFormData({ ...formData, emailId: e.target.value })
+            }
+          />
           <S.Text>@</S.Text>
-          <S.emailInput placeholder="naver.com" />
+          <S.emailInput
+            placeholder="naver.com"
+            value={formData.emailDomain}
+            onChange={(e) =>
+              setFormData({ ...formData, emailDomain: e.target.value })
+            }
+          />
         </S.emailBox>
 
         <S.Text>비밀번호</S.Text>
-        <S.Input2 placeholder="8~12자 영문과 숫자 조합" />
+        <S.Input2
+          placeholder="8~12자 영문과 숫자 조합"
+          value={formData.password}
+          onChange={(e) =>
+            setFormData({ ...formData, password: e.target.value })
+          }
+        />
 
         <S.Box3>
           <S.Text>주소</S.Text>
@@ -73,6 +162,10 @@ const BusinessSignup4 = () => {
           <S.Input2
             type={isHidden ? "password" : "text"} // 숨김 처리
             placeholder="성북구 화랑로 13길 28"
+            value={formData.location}
+            onChange={(e) =>
+              setFormData({ ...formData, location: e.target.value })
+            }
           />
           <S.Bbtn onClick={toggleHidden} style={{ cursor: "pointer" }}>
             <img
@@ -94,14 +187,22 @@ const BusinessSignup4 = () => {
         />
       </S.Background2>
 
-      <S.BackBtn2>
+      <S.BackBtn onClick={goBack}>
         <img
           src={`${process.env.PUBLIC_URL}/images/backBtn.svg`}
           alt="backBtn"
           width="19.5px"
           height="39px"
         />
-      </S.BackBtn2>
+      </S.BackBtn>
+      <S.NextBtn onClick={handleSubmit}>
+        <img
+          src={`${process.env.PUBLIC_URL}/images/nextBtn.svg`}
+          alt="nextBtn"
+          width="19.5px"
+          height="39px"
+        />
+      </S.NextBtn>
     </S.Container>
   );
 };

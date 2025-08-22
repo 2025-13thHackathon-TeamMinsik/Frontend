@@ -28,16 +28,6 @@ const BusinessSignup1 = ({ formData, setFormData }) => {
     const file = e.target.files[0];
     if (!file) return;
 
-    if (
-      !formData.business_number ||
-      !formData.company_name ||
-      !formData.business_type
-    ) {
-      alert("사업자 등록번호, 상호, 업종을 먼저 입력해주세요.");
-      e.target.value = null;
-      return;
-    }
-
     setIsProcessing(true);
 
     try {
@@ -55,11 +45,20 @@ const BusinessSignup1 = ({ formData, setFormData }) => {
       );
 
       console.log("확인서 분석 성공", response.data);
-      alert("인증이 완료되었습니다!");
 
-      setFormData((prevData) => ({ ...prevData, business_cert: file }));
+      // 백엔드로부터 받은 데이터를 formData에 업데이트
+      const { ceo_name, company_name, business_number } = response.data;
 
-      navigate("/BusinessSignup2");
+      // 파일 정보와 백엔드에서 받은 데이터를 함께 저장
+      const updatedFormData = {
+        ...formData,
+        business_cert: file,
+        ceo_name,
+        company_name,
+        business_number,
+      };
+      setFormData(updatedFormData);
+      navigate("/BusinessSignup2", { state: { formData: updatedFormData } });
     } catch (error) {
       console.error(
         "확인서 분석 실패",
