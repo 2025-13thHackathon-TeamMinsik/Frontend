@@ -1,4 +1,4 @@
-import { styled } from "styled-components";
+import { styled, keyframes } from "styled-components";
 
 export const Container = styled.div`
   position: relative;
@@ -40,7 +40,7 @@ export const Background2 = styled.div`
   position: absolute;
   display: flex;
   right: 0px;
-  top: -60px;
+  top: -65px;
 `;
 
 export const Background3 = styled.div`
@@ -93,6 +93,31 @@ export const SchoolInput = styled.div`
     right: 20px;
     top: 20px;
   }
+`;
+
+export const MajorInput = styled.input`
+  position: relative;
+  text-align: center;
+  top: 70px;
+  margin-bottom: 6px;
+  padding: 12px;
+  width: 273px;
+  justify-content: center;
+  align-self: center;
+  align-items: center;
+  border-radius: 10px;
+  border: 1px solid #695739;
+  background: #fff;
+  color: var(--, #000);
+  z-index: 3;
+  outline: none;
+
+  /* R20 */
+  font-family: Pretendard;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 `;
 
 export const FilterToggle = styled.div`
@@ -193,11 +218,18 @@ export const BackBtn = styled.div`
   left: 48px;
 `;
 
+export const NextBtn = styled.div`
+  position: absolute;
+  display: flex;
+  margin-top: 680px;
+  right: 48px;
+`;
+
 export const TextBox = styled.div`
   margin-left: 54px;
   margin-top: 26px;
   display: flex;
-  gap: 8px;
+  gap: 3px;
   flex-direction: column;
 `;
 
@@ -206,7 +238,7 @@ export const Text = styled.div`
 
   /* R20 */
   font-family: Pretendard;
-  font-size: 20px;
+  font-size: 19px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
@@ -217,7 +249,7 @@ export const Input = styled.input`
 
   /* R20 */
   font-family: Pretendard;
-  font-size: 20px;
+  font-size: 19px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
@@ -226,7 +258,7 @@ export const Input = styled.input`
   border: none; /* 테두리 없앰 */
   outline: none;
   border-bottom: solid #695739 1px;
-  padding-bottom: 7px;
+  padding-bottom: 6px;
   width: 139px;
 `;
 
@@ -235,7 +267,7 @@ export const Input2 = styled.input`
 
   /* R20 */
   font-family: Pretendard;
-  font-size: 20px;
+  font-size: 19px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
@@ -244,20 +276,20 @@ export const Input2 = styled.input`
   border: none; /* 테두리 없앰 */
   outline: none;
   border-bottom: solid #695739 1px;
-  padding-bottom: 7px;
+  padding-bottom: 6px;
   width: 204px;
 `;
 
 export const Title2 = styled.div`
   color: #000;
   text-align: left;
-  margin-top: 201px;
+  margin-top: 160px;
   margin-left: 54px;
   z-index: 3;
 
   /* B24 */
   font-family: Pretendard;
-  font-size: 24px;
+  font-size: 23px;
   font-style: normal;
   font-weight: 700;
   line-height: 1.3;
@@ -277,7 +309,7 @@ export const Btn2 = styled.div`
 
   /* R20 */
   font-family: Pretendard;
-  font-size: 20px;
+  font-size: 19px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
@@ -303,7 +335,7 @@ export const emailInput = styled.input`
 
   /* R20 */
   font-family: Pretendard;
-  font-size: 20px;
+  font-size: 19px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
@@ -312,7 +344,7 @@ export const emailInput = styled.input`
   border: none; /* 테두리 없앰 */
   outline: none;
   border-bottom: solid #695739 1px;
-  padding-bottom: 7px;
+  padding-bottom: 6px;
   width: 92px;
 `;
 
@@ -334,7 +366,9 @@ export const Box4 = styled.div`
 `;
 
 export const Bbtn = styled.div`
+  position: absolute;
   margin-top: 20px;
+  right: 100px;
 `;
 
 export const Title3 = styled.div`
@@ -352,13 +386,11 @@ export const Title3 = styled.div`
 `;
 
 export const Box5 = styled.div`
-  //세로
   display: flex;
   flex-direction: column;
 `;
 
 export const Box6 = styled.div`
-  // 가로
   display: flex;
   flex-direction: row;
   gap: 57px;
@@ -403,7 +435,7 @@ export const Input3 = styled.input`
   border: none; /* 테두리 없앰 */
   outline: none;
   border-bottom: solid #695739 1px;
-  padding-bottom: 7px;
+  padding-bottom: 6px;
   width: 121px;
 `;
 
@@ -428,7 +460,7 @@ export const Input4 = styled.input`
   border: none; /* 테두리 없앰 */
   outline: none;
   border-bottom: solid #695739 1px;
-  padding-bottom: 7px;
+  padding-bottom: 6px;
   width: 121px;
 `;
 
@@ -446,13 +478,12 @@ export const In = styled.div`
 export const SelBox = styled.div`
   display: inline-flex; /* 한 줄로 나열 */
   white-space: nowrap; /* 줄바꿈 금지 */
-  color: ${(props) =>
-    props.isSelected ? "#000" : "#DFDFDF"}; // 클릭 시 글자색
-  border: 1px solid ${(props) => (props.isSelected ? "#695739" : "#DFDFDF")}; // 클릭 시 테두리
+  color: ${(props) => (props.isSelected ? "#000" : "#DFDFDF")};
+  border: 1px solid ${(props) => (props.isSelected ? "#695739" : "#DFDFDF")};
   border-radius: 5px;
-  background-color: #fff; // 배경은 항상 흰색
+  background-color: #fff;
   padding: 8px 5px;
-  font-family: Pretendard; // 글자체 고정
+  font-family: Pretendard;
   font-size: 20px;
   font-weight: 400;
   line-height: normal;
@@ -533,4 +564,26 @@ export const BackBtn2 = styled.div`
   display: flex;
   margin-top: 800px;
   left: 48px;
+`;
+
+const spin = keyframes`
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+`;
+
+export const SpinnerWrapper = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const Spinner = styled.div`
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #0094ff;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  animation: ${spin} 1s linear infinite;
 `;

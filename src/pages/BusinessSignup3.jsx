@@ -59,6 +59,22 @@ const BusinessSignup3 = () => {
           </S.Category>
         ))}
       </div>
+      <S.BackBtn>
+        <img
+          src={`${process.env.PUBLIC_URL}/images/backBtn.svg`}
+          alt="backBtn"
+          width="19.5px"
+          height="39px"
+        />
+      </S.BackBtn>
+      <S.NextBtn>
+        <img
+          src={`${process.env.PUBLIC_URL}/images/nextBtn.svg`}
+          alt="nextBtn"
+          width="19.5px"
+          height="39px"
+        />
+      </S.NextBtn>
     </S.Container>
   );
 };
