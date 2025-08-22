@@ -38,6 +38,7 @@ import TalCoin from "./pages/Talcoin";
 import BusiRecClick from "./pages/BusiRecClick";
 import NoticeUp from "./pages/NoticeUp";
 import { No } from "./styles/StyledTalCoin";
+import BusiHelperClick from "./pages/BusiHelperClick";
 
 function App() {
   const [formData, setFormData] = useState({
@@ -156,6 +157,7 @@ function App() {
          <Route path="/TalCoin" element={<TalCoin />}/>
          <Route path="/BusiRecClick" element={<BusiRecClick />}/>
          <Route path="/NoticeUp" element={<NoticeUp />}/>
+         <Route path="/BusiHelperClick" element={<BusiHelperClick />}/>
       </Routes>
     </BrowserRouter>
   );
