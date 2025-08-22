@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import * as A from "../styles/StyledAiPosts";
@@ -14,6 +14,7 @@ const StudentAiPosts = () => {
   const [tabBar, setTabBar] = useState("tabBar1");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isApplied, setIsApplied] = useState(false);
+  const [jobs, setJobs] = useState([]); //공고데이터
 
   const sorts = ["최신순", "인기순", "거리순", "찜 콕"];
 
@@ -41,11 +42,6 @@ const StudentAiPosts = () => {
     setSelectedFilter(filter);
   };
 
-  //찜 콕 아이콘
-  const handleHeartIcon = () => {
-    setIsHeartClick(!isHeartClick);
-  };
-
   //탭 바
   const handleTabBar = (menu) => {
     setTabBar(menu);
@@ -56,6 +52,46 @@ const StudentAiPosts = () => {
     setIsModalOpen(false);
     setIsApplied(true);
   };
+
+  //공고 좋아요
+  const handleHeartClick = async (jobId, isLiked) => {
+    try {
+      const endpoint = `/jobs/${jobId}/like/`;
+
+      await axios.post(endpoint, null, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      });
+
+      setJobs(
+        jobs.map((job) =>
+          job.id === jobId ? { ...job, is_liked: !isLiked } : job
+        )
+      );
+    } catch (error) {
+      console.error("좋아요 기능 실패:", error);
+    }
+  };
+
+  //전체 공고 조회
+  const fetchAllJobs = async () => {
+    try {
+      const response = await axios.get("/jobs/posts/", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      });
+      console.log("공고 데이터:", response.data);
+      setJobs(response.data); //받아온 데이터를 jobs 상태에 저장
+    } catch (error) {
+      console.error("공고 전체 조회 실패:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchAllJobs();
+  }, []);
 
   return (
     <A.Container>
@@ -156,7 +192,6 @@ const StudentAiPosts = () => {
               width="26px"
               height="auto"
               id="heart"
-              onClick={handleHeartIcon}
             />
           </A.Card>
           <A.Card>
@@ -187,7 +222,6 @@ const StudentAiPosts = () => {
               width="26px"
               height="auto"
               id="heart"
-              onClick={handleHeartIcon}
             />
           </A.Card>
           <A.Card>
@@ -218,7 +252,6 @@ const StudentAiPosts = () => {
               width="26px"
               height="auto"
               id="heart"
-              onClick={handleHeartIcon}
             />
             <A.FilterIcon2>광고</A.FilterIcon2>
           </A.Card>
@@ -250,7 +283,6 @@ const StudentAiPosts = () => {
               width="26px"
               height="auto"
               id="heart"
-              onClick={handleHeartIcon}
             />
           </A.Card>
           <A.Card>
@@ -281,7 +313,6 @@ const StudentAiPosts = () => {
               width="26px"
               height="auto"
               id="heart"
-              onClick={handleHeartIcon}
             />
           </A.Card>
         </A.CardList>
@@ -341,162 +372,40 @@ const StudentAiPosts = () => {
         />
       </A.Background>
       <A.CardList2>
-        <A.Card>
-          <A.CardImg>
+        {jobs.map((job) => (
+          <A.Card>
+            <A.CardImg>
+              <img
+                src={`${process.env.PUBLIC_URL}/images/ex-pic.jpg`}
+                alt="cardImg"
+                width="84.766px"
+                height="113.021px"
+                id="cardImg"
+              />
+            </A.CardImg>
+            <div id="textBox">
+              <A.CardTitle>짱베이커리</A.CardTitle>
+              <A.LocationText>
+                {" "}
+                {job.distance_m
+                  ? `현재 위치에서 ${job.distance_m}m`
+                  : "거리 정보 없음"}
+              </A.LocationText>
+              <A.CardText>{job.description}</A.CardText>
+            </div>
             <img
-              src={`${process.env.PUBLIC_URL}/images/ex-pic.jpg`}
-              alt="cardImg"
-              width="84.766px"
-              height="113.021px"
-              id="cardImg"
+              src={`${process.env.PUBLIC_URL}/images/${
+                job.is_liked ? "heart-on.svg" : "heart-off.svg"
+              }`}
+              alt="heart-off"
+              width="26px"
+              height="auto"
+              id="heart"
+              onClick={() => handleHeartClick(job.id, job.is_liked)}
             />
-          </A.CardImg>
-          <div id="textBox">
-            <A.CardTitle>짱베이커리</A.CardTitle>
-            <A.LocationText>현재 위치에서 93m</A.LocationText>
-            <A.CardText>
-              우리 가게 SNS 마케
-              <br />
-              팅을 도와줄 대학생을
-              <br /> 찾습...
-            </A.CardText>
-          </div>
-          <img
-            src={`${process.env.PUBLIC_URL}/images/${
-              isHeartClick ? "heart-on.svg" : "heart-off.svg"
-            }`}
-            alt="heart-off"
-            width="26px"
-            height="auto"
-            id="heart"
-            onClick={handleHeartIcon}
-          />
-          <A.FilterIcon>봉사</A.FilterIcon>
-        </A.Card>
-        <A.Card>
-          <A.CardImg>
-            <img
-              src={`${process.env.PUBLIC_URL}/images/ex-pic.jpg`}
-              alt="cardImg"
-              width="84.766px"
-              height="113.021px"
-              id="cardImg"
-            />
-          </A.CardImg>
-          <div id="textBox">
-            <A.CardTitle>짱베이커리</A.CardTitle>
-            <A.LocationText>현재 위치에서 93m</A.LocationText>
-            <A.CardText>
-              우리 가게 SNS 마케
-              <br />
-              팅을 도와줄 대학생을
-              <br /> 찾습...
-            </A.CardText>
-          </div>
-          <img
-            src={`${process.env.PUBLIC_URL}/images/${
-              isHeartClick ? "heart-on.svg" : "heart-off.svg"
-            }`}
-            alt="heart-off"
-            width="26px"
-            height="auto"
-            id="heart"
-            onClick={handleHeartIcon}
-          />
-        </A.Card>
-        <A.Card>
-          <A.CardImg>
-            <img
-              src={`${process.env.PUBLIC_URL}/images/ex-pic.jpg`}
-              alt="cardImg"
-              width="84.766px"
-              height="113.021px"
-              id="cardImg"
-            />
-          </A.CardImg>
-          <div id="textBox">
-            <A.CardTitle>짱베이커리</A.CardTitle>
-            <A.LocationText>현재 위치에서 93m</A.LocationText>
-            <A.CardText>
-              우리 가게 SNS 마케
-              <br />
-              팅을 도와줄 대학생을
-              <br /> 찾습...
-            </A.CardText>
-          </div>
-          <img
-            src={`${process.env.PUBLIC_URL}/images/${
-              isHeartClick ? "heart-on.svg" : "heart-off.svg"
-            }`}
-            alt="heart-off"
-            width="26px"
-            height="auto"
-            id="heart"
-            onClick={handleHeartIcon}
-          />
-        </A.Card>
-        <A.Card>
-          <A.CardImg>
-            <img
-              src={`${process.env.PUBLIC_URL}/images/ex-pic.jpg`}
-              alt="cardImg"
-              width="84.766px"
-              height="113.021px"
-              id="cardImg"
-            />
-          </A.CardImg>
-          <div id="textBox">
-            <A.CardTitle>짱베이커리</A.CardTitle>
-            <A.LocationText>현재 위치에서 93m</A.LocationText>
-            <A.CardText>
-              우리 가게 SNS 마케
-              <br />
-              팅을 도와줄 대학생을
-              <br /> 찾습...
-            </A.CardText>
-          </div>
-          <img
-            src={`${process.env.PUBLIC_URL}/images/${
-              isHeartClick ? "heart-on.svg" : "heart-off.svg"
-            }`}
-            alt="heart-off"
-            width="26px"
-            height="auto"
-            id="heart"
-            onClick={handleHeartIcon}
-          />
-        </A.Card>
-        <A.Card>
-          <A.CardImg>
-            <img
-              src={`${process.env.PUBLIC_URL}/images/ex-pic.jpg`}
-              alt="cardImg"
-              width="84.766px"
-              height="113.021px"
-              id="cardImg"
-            />
-          </A.CardImg>
-          <div id="textBox">
-            <A.CardTitle>짱베이커리</A.CardTitle>
-            <A.LocationText>현재 위치에서 93m</A.LocationText>
-            <A.CardText>
-              우리 가게 SNS 마케
-              <br />
-              팅을 도와줄 대학생을
-              <br /> 찾습...
-            </A.CardText>
-          </div>
-          <img
-            src={`${process.env.PUBLIC_URL}/images/${
-              isHeartClick ? "heart-on.svg" : "heart-off.svg"
-            }`}
-            alt="heart-off"
-            width="26px"
-            height="auto"
-            id="heart"
-            onClick={handleHeartIcon}
-          />
-        </A.Card>
+            <A.FilterIcon>봉사</A.FilterIcon>
+          </A.Card>
+        ))}
       </A.CardList2>
       <A.TabBar>
         <div id="tabBarIcon">
