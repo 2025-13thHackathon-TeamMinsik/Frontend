@@ -39,6 +39,7 @@ import BusiRecClick from "./pages/BusiRecClick";
 import NoticeUp from "./pages/NoticeUp";
 import { No } from "./styles/StyledTalCoin";
 import BusiHelperClick from "./pages/BusiHelperClick";
+import BusiTrashBtn from "./pages/BusiTrashBtn";
 
 function App() {
   const [formData, setFormData] = useState({
@@ -158,6 +159,7 @@ function App() {
          <Route path="/BusiRecClick" element={<BusiRecClick />}/>
          <Route path="/NoticeUp" element={<NoticeUp />}/>
          <Route path="/BusiHelperClick" element={<BusiHelperClick />}/>
+         <Route path="/BusiTrashBtn" element={<BusiTrashBtn />}/>
       </Routes>
     </BrowserRouter>
   );
