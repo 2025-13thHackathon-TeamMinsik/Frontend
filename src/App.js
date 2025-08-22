@@ -33,7 +33,8 @@ import StuTalModi from "./pages/StuTalModi";
 import Login from "./pages/Login";
 import Stamp from "./pages/Stamp";
 import ReciptPhoto from "./pages/ReciptPhoto";
-import ReciptDone from "./pages/ReciptDone"
+import ReciptDone from "./pages/ReciptDone";
+import TalCoin from "./pages/Talcoin";
 
 function App() {
   const [formData, setFormData] = useState({
@@ -149,6 +150,7 @@ function App() {
         <Route path="/ReciptPhoto" element={<ReciptPhoto />}/>
          <Route path="/ReciptDone" element={<ReciptDone />}/>
 
+         <Route path="/TalCoin" element={<TalCoin />}/>
       </Routes>
     </BrowserRouter>
   );
