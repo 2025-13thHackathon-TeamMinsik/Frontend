@@ -71,11 +71,17 @@ const BusiTrashBtn= () => {
       {showModal && (
         <S.ModalOverlay>
           <S.ModalContent>
-              아이콘 - {selectedDay} - 해당 공고 이력을 삭제하시겠습니까?
-            
+              <S.MIcon><img
+              src={`${process.env.PUBLIC_URL}/images/modalicon.svg`}
+              alt="아이콘"
+            /></S.MIcon> 
+              <S.MDay>{selectedDay} </S.MDay>
+              <S.MInfo>해당 공고 이력을 삭제하시겠습니까?</S.MInfo>
+                <S.RowLine></S.RowLine>
             <S.ModalButtons>
-              <button onClick={confirmDelete}>예</button>
-              <button onClick={cancelDelete}>아니오</button>
+              <S.Btn1><button onClick={confirmDelete}>예</button></S.Btn1>
+              <S.ColLine></S.ColLine>
+              <S.Btn2><button onClick={cancelDelete}>아니오</button></S.Btn2>
             </S.ModalButtons>
           </S.ModalContent>
         </S.ModalOverlay>

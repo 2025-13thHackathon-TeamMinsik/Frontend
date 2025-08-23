@@ -122,17 +122,22 @@ export const ModalOverlay = styled.div`
 
 /* 모달 내용 */
 export const ModalContent = styled.div`
-  background: #fff;
-  border-radius: 10px;
-  padding: 20px;
-  width: 300px;
-  text-align: center;
-  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+    background: #fff;
+    padding: 5px;
+    width: 333px;
+    height: 194px;
+    border-radius: 5.887px;
+    border: 1.177px solid  #DFDFDF;
+    text-align: center;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
 
   p {
     margin-bottom: 20px;
     font-size: 14px;
   }
+
+  display: flex;
+  flex-direction: column;
 `;
 
 /* 모달 버튼 영역 */
@@ -146,15 +151,78 @@ export const ModalButtons = styled.div`
     border: none;
     cursor: pointer;
     font-size: 14px;
+  background: transparent; /* 투명 배경 */
   }
 
-  button:first-child {
-    background: #695739;
-    color: #fff;
-  }
+  button:child {
+  color: #000;
+text-align: center;
 
-  button:last-child {
-    background: #e0e0e0;
-  }
+/* R16 */
+font-family: Pretendard;
+font-size: 16px;
+font-style: normal;
+font-weight: 400;
+line-height: 0%; /* 0 */
+}
+
+
+`;
+
+export const MIcon = styled.div`
+margin-top: 20px;
+`;
+
+export const MDay = styled.div`
+color: #000;
+
+/* B20 */
+font-family: Pretendard;
+font-size: 20px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+margin-top: 5px;
+`;
+
+export const MInfo = styled.div`
+color: #A3A3A3;
+
+/* R16 */
+font-family: Pretendard;
+font-size: 16px;
+font-style: normal;
+font-weight: 400;
+
+margin-top: 7px;
+`;
+
+export const RowLine = styled.div`
+width: 293px;
+height: 0.5px;
+background: #DFDFDF;
+margin-top: 20px;
+margin-left: 20px;
+`;
+
+
+export const ColLine = styled.div`
+width: 0.5px;
+height: 47px;
+background: #DFDFDF;
+margin-left: 15px;
+`;
+
+
+export const Btn1 = styled.div`
+margin-top:6px;
+margin-left: 31px;
+`;
+
+
+export const Btn2 = styled.div`
+margin-top:6px;
+
+margin-right: 30px;
 `;
 
