@@ -23,7 +23,21 @@ const BusinessAiPosts = () => {
   };
 
   const goNoticeUp = () => {
-    navigate(`/NoticeUp`);
+    const userInfo = JSON.parse(localStorage.getItem("user_info"));
+    if (userInfo) {
+      navigate(`/NoticeUp`, {
+        state: {
+          formData: {
+            name: userInfo.full_name, //full_name을 name으로 전달
+            company_name: userInfo.company_name,
+            business_type: userInfo.business_type,
+            location: userInfo.location,
+          },
+        },
+      });
+    } else {
+      console.error("User info not found in localStorage");
+    }
   };
 
   //토글 아이콘
@@ -83,7 +97,9 @@ const BusinessAiPosts = () => {
   };
 
   //공고 좋아요
-  const handleHeartClick = async (jobId, isLiked) => {
+  const handleHeartClick = async (jobId, isLiked, event) => {
+    event.stopPropagation();
+
     try {
       const endpoint = `/jobs/${jobId}/like/`;
 
@@ -469,10 +485,10 @@ const BusinessAiPosts = () => {
       </A.Background>
       <A.CardList2>
         {jobs.map((job) => (
-          <A.Card>
+          <A.Card key={job.id} onClick={() => navigate(`/jobs/${job.id}`)}>
             <A.CardImg>
               <img
-                src={`${process.env.PUBLIC_URL}/images/ex-pic.jpg`}
+                src={job.image}
                 alt="cardImg"
                 width="84.766px"
                 height="113.021px"
@@ -480,9 +496,8 @@ const BusinessAiPosts = () => {
               />
             </A.CardImg>
             <div id="textBox">
-              <A.CardTitle>짱베이커리</A.CardTitle>
+              <A.CardTitle>{job.company_name}</A.CardTitle>
               <A.LocationText>
-                {" "}
                 {job.distance_m
                   ? `현재 위치에서 ${job.distance_m}m`
                   : "거리 정보 없음"}
@@ -497,9 +512,11 @@ const BusinessAiPosts = () => {
               width="26px"
               height="auto"
               id="heart"
-              onClick={() => handleHeartClick(job.id, job.is_liked)}
+              onClick={(event) => handleHeartClick(job.id, job.is_liked, event)}
             />
-            <A.FilterIcon>봉사</A.FilterIcon>
+            {job.payment_type === "VOLUNTEER_TIME" && (
+              <A.FilterIcon>봉사</A.FilterIcon>
+            )}
           </A.Card>
         ))}
       </A.CardList2>
