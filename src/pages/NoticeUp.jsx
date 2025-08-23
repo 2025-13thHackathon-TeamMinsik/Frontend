@@ -16,6 +16,7 @@ const NoticeUp = () => {
   const [imageFile, setImageFile] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
   const [postId, setPostId] = useState(null);
+  const [imageSource, setImageSource] = useState(null);
 
   //시연용 위치 데이터
   const locations = [
@@ -63,11 +64,13 @@ const NoticeUp = () => {
     navigate(-1);
   };
 
+  //직접 이미지 파일 업로드만(AI는 구현 미완성)
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
       setImageFile(file);
       setPreviewImage(URL.createObjectURL(file));
+      setImageSource("gallery");
     }
   };
 
@@ -252,7 +255,6 @@ const NoticeUp = () => {
         </S.Box3>
 
         <S.Box5>
-
           <S.PicBox1>
             <S.Pic>
               <img
@@ -285,7 +287,6 @@ const NoticeUp = () => {
               style={{ display: "none" }}
             />
           </S.PicBox2>
-
         </S.Box5>
 
         <S.Box3>
@@ -329,7 +330,7 @@ const NoticeUp = () => {
           </S.Up>
         ) : (
           <>
-            <S.ModiBtn>수정하기</S.ModiBtn>
+            <S.ModiBtn onClick={updateJob}>수정하기</S.ModiBtn>
             <S.DelBtn
               onClick={() => {
                 setShowModal(true);
