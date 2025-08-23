@@ -274,6 +274,7 @@ export const PicBox1 = styled.div`
 
     margin-left: 30px;
     margin-top: 20px;
+    position: releative
 `;
 
 export const PicBox2 = styled.div`
@@ -286,9 +287,10 @@ export const PicBox2 = styled.div`
       margin-top: 20px;
 `;
 
+
 export const PicAdd2 = styled.div`
     position: absolute;
-    top: 55px;
+    top: 67px;
     right: 57px;
 `;
 
@@ -311,7 +313,9 @@ export const Box6= styled.div`
 `;
 
 export const Pic= styled.div`
-margin-left: 0.25px;
+    position: absolute;
+  left: 113px;
+  top: 820px;
 `;
 
 export const choice1 = styled.div`
