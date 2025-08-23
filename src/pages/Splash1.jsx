@@ -12,7 +12,10 @@ const Splash1 = () => {
 
   return (
     <S.Container onClick={goNext}>
-      <S.Background></S.Background>
+      <S.Background><img
+          src={`${process.env.PUBLIC_URL}/images/S1.svg`}
+          alt="스플래시1 배경"
+        /></S.Background>
 
       <S.Title>작은 재능 하나.</S.Title>
       <S.Text>지금 텅 빈 곳간에 당신의 재능을 담아보세요.</S.Text>

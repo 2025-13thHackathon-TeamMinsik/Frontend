@@ -12,6 +12,8 @@ export const Container = styled.div`
 `;
 
 export const Background = styled.div`
+position: absolute;
+top: 332px;
 `;
 
 export const Login= styled.div`
