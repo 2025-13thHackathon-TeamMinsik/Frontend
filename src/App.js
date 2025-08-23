@@ -123,7 +123,7 @@ function App() {
           }
         />
         <Route path="/BusinessSignup5" element={<BusinessSignup5 />} />
-        <Route path="/StudentPost" element={<StudentPost />} />
+        <Route path="/StudentPost/:id" element={<StudentPost />} />
         <Route path="/jobs/:id" element={<BusinessPost />} />{" "}
         <Route path="/StudentAiPosts" element={<StudentAiPosts />} />
         <Route

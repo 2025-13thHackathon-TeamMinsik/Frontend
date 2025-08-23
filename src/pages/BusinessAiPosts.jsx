@@ -119,15 +119,20 @@ const BusinessAiPosts = () => {
     }
   };
 
-  //전체 공고 조회
-  const fetchAllJobs = async () => {
+  //전체 공고 조회 + 봉사시간 공고만 보기
+  const fetchJobs = async () => {
+    let endpoint = "/jobs/posts/";
+    if (selectedFilter === "봉사") {
+      endpoint = "/jobs/posts/?payment_type=VOLUNTEER_TIME";
+    }
+
     try {
-      const response = await axios.get("/jobs/posts/", {
+      const response = await axios.get(endpoint, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },
       });
-      console.log("공고 데이터:", response.data);
+      console.log(`${selectedFilter} 공고 데이터:`, response.data);
       setJobs(response.data); //받아온 데이터를 jobs 상태에 저장
     } catch (error) {
       console.error("공고 전체 조회 실패:", error);
@@ -135,8 +140,8 @@ const BusinessAiPosts = () => {
   };
 
   useEffect(() => {
-    fetchAllJobs();
-  }, []);
+    fetchJobs();
+  }, [selectedFilter]);
 
   return (
     <A.Container>
