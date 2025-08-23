@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import * as A from "../styles/StyledAiPosts";
 
-const StudentAiPosts = () => {
+export const StudentAiPosts = () => {
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isInfoOpen, setIsInfoOpen] = useState(false);
@@ -15,6 +15,7 @@ const StudentAiPosts = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isApplied, setIsApplied] = useState(false);
   const [jobs, setJobs] = useState([]); //공고데이터
+  const [recommendedJobs, setRecommendedJobs] = useState([]); //추천 공고 데이터
 
   const sorts = ["최신순", "인기순", "거리순", "찜 콕"];
 
@@ -76,24 +77,62 @@ const StudentAiPosts = () => {
     }
   };
 
-  //전체 공고 조회
-  const fetchAllJobs = async () => {
+  //전체 공고 조회 + 봉사시간 공고만 보기
+  const fetchJobs = async () => {
+    let endpoint = "/jobs/posts/";
+    if (selectedFilter === "봉사") {
+      endpoint = "/jobs/posts/?payment_type=VOLUNTEER_TIME";
+    }
+
     try {
-      const response = await axios.get("/jobs/posts/", {
+      const response = await axios.get(endpoint, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },
       });
-      console.log("공고 데이터:", response.data);
-      setJobs(response.data); //받아온 데이터를 jobs 상태에 저장
+      console.log(`${selectedFilter} 공고 데이터:`, response.data);
+      setJobs(response.data);
     } catch (error) {
-      console.error("공고 전체 조회 실패:", error);
+      console.error("공고 조회 실패:", error);
+    }
+  };
+
+  //추천 공고 조회
+  const fetchRecommendedJobs = async () => {
+    try {
+      const response = await axios.get("/matching/recommended/jobs", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      });
+      console.log("추천 공고 데이터:", response.data);
+
+      //추천 공고 데이터가 있을 경우에만 광고 공고를 추가
+      if (response.data.recommended_jobs.length > 0) {
+        const adJob = {
+          id: "ad",
+          image: `${process.env.PUBLIC_URL}/images/ad_pic.jpg`,
+          company_name: "스윗케이크",
+          description:
+            "스윗케이크는 동네에서 운영되는 작은 베이커리예요.<br/> 가게를 알리고 홍보할 디자인 보조 도우미를 찾습니다!<br/><br/>- 주요업무 - <br/>SNS 게시물, 카드뉴스, 포스터 등 홍보용 디자인 제작과 이미지 편집<br/><br/> 작은 혜택: 매주 1회 스윗케이크 빵 제공<br/><br/> 빵러버들 환영 ^-^",
+          distance_m: null,
+          is_liked: false,
+          is_ad: true,
+        };
+        setRecommendedJobs([adJob, ...response.data.recommended_jobs]);
+      } else {
+        setRecommendedJobs([]);
+      }
+    } catch (error) {
+      console.error("추천 공고 조회 실패:", error);
+      setRecommendedJobs([]); // 에러 발생 시 빈 배열로 설정
     }
   };
 
   useEffect(() => {
-    fetchAllJobs();
-  }, []);
+    fetchJobs();
+    fetchRecommendedJobs();
+  }, [selectedFilter]);
 
   return (
     <A.Container>
@@ -166,157 +205,32 @@ const StudentAiPosts = () => {
           />
         </A.AiTitle>
         <A.CardList>
-          <A.Card>
-            <A.CardImg>
-              <img
-                src={`${process.env.PUBLIC_URL}/images/ex-pic.jpg`}
-                alt="cardImg"
-                width="84.766px"
-                height="113.021px"
-                id="cardImg"
-              />
-            </A.CardImg>
-            <div id="textBox">
-              <A.CardTitle>짱베이커리</A.CardTitle>
-              <A.LocationText>현재 위치에서 93m</A.LocationText>
-              <A.CardText>
-                우리 가게 SNS 마케
-                <br />
-                팅을 도와줄 대학생을
-                <br /> 찾습...
-              </A.CardText>
-            </div>
-            <img
-              src={`${process.env.PUBLIC_URL}/images/${
-                isHeartClick ? "heart-on.svg" : "heart-off.svg"
-              }`}
-              alt="heart-off"
-              width="26px"
-              height="auto"
-              id="heart"
-            />
-            <A.FilterIcon2>광고</A.FilterIcon2>
-          </A.Card>
-          <A.Card>
-            <A.CardImg>
-              <img
-                src={`${process.env.PUBLIC_URL}/images/ex-pic.jpg`}
-                alt="cardImg"
-                width="84.766px"
-                height="113.021px"
-                id="cardImg"
-              />
-            </A.CardImg>
-            <div id="textBox">
-              <A.CardTitle>짱베이커리</A.CardTitle>
-              <A.LocationText>현재 위치에서 93m</A.LocationText>
-              <A.CardText>
-                우리 가게 SNS 마케
-                <br />
-                팅을 도와줄 대학생을
-                <br /> 찾습...
-              </A.CardText>
-            </div>
-            <img
-              src={`${process.env.PUBLIC_URL}/images/${
-                isHeartClick ? "heart-on.svg" : "heart-off.svg"
-              }`}
-              alt="heart-off"
-              width="26px"
-              height="auto"
-              id="heart"
-            />
-          </A.Card>
-          <A.Card>
-            <A.CardImg>
-              <img
-                src={`${process.env.PUBLIC_URL}/images/ex-pic.jpg`}
-                alt="cardImg"
-                width="84.766px"
-                height="113.021px"
-                id="cardImg"
-              />
-            </A.CardImg>
-            <div id="textBox">
-              <A.CardTitle>짱베이커리</A.CardTitle>
-              <A.LocationText>현재 위치에서 93m</A.LocationText>
-              <A.CardText>
-                우리 가게 SNS 마케
-                <br />
-                팅을 도와줄 대학생을
-                <br /> 찾습...
-              </A.CardText>
-            </div>
-            <img
-              src={`${process.env.PUBLIC_URL}/images/${
-                isHeartClick ? "heart-on.svg" : "heart-off.svg"
-              }`}
-              alt="heart-off"
-              width="26px"
-              height="auto"
-              id="heart"
-            />
-          </A.Card>
-          <A.Card>
-            <A.CardImg>
-              <img
-                src={`${process.env.PUBLIC_URL}/images/ex-pic.jpg`}
-                alt="cardImg"
-                width="84.766px"
-                height="113.021px"
-                id="cardImg"
-              />
-            </A.CardImg>
-            <div id="textBox">
-              <A.CardTitle>짱베이커리</A.CardTitle>
-              <A.LocationText>현재 위치에서 93m</A.LocationText>
-              <A.CardText>
-                우리 가게 SNS 마케
-                <br />
-                팅을 도와줄 대학생을
-                <br /> 찾습...
-              </A.CardText>
-            </div>
-            <img
-              src={`${process.env.PUBLIC_URL}/images/${
-                isHeartClick ? "heart-on.svg" : "heart-off.svg"
-              }`}
-              alt="heart-off"
-              width="26px"
-              height="auto"
-              id="heart"
-            />
-          </A.Card>
-          <A.Card>
-            <A.CardImg>
-              <img
-                src={`${process.env.PUBLIC_URL}/images/ex-pic.jpg`}
-                alt="cardImg"
-                width="84.766px"
-                height="113.021px"
-                id="cardImg"
-              />
-            </A.CardImg>
-            <div id="textBox">
-              <A.CardTitle>짱베이커리</A.CardTitle>
-              <A.LocationText>현재 위치에서 93m</A.LocationText>
-              <A.CardText>
-                우리 가게 SNS 마케
-                <br />
-                팅을 도와줄 대학생을
-                <br /> 찾습...
-              </A.CardText>
-            </div>
-            <img
-              src={`${process.env.PUBLIC_URL}/images/${
-                isHeartClick ? "heart-on.svg" : "heart-off.svg"
-              }`}
-              alt="heart-off"
-              width="26px"
-              height="auto"
-              id="heart"
-            />
-          </A.Card>
+          {recommendedJobs.map((job) => (
+            <A.Card
+              key={job.id}
+              onClick={() => !job.is_ad && navigate(`/StudentPost/${job.id}`)}
+            >
+              <A.CardImg>
+                <img
+                  src={job.image}
+                  alt="cardImg"
+                  width="84.766px"
+                  height="113.021px"
+                  id="cardImg"
+                />
+              </A.CardImg>
+              <div id="textBox">
+                <A.CardTitle>{job.company_name}</A.CardTitle>
+                <A.LocationText>
+                  {job.distance_m
+                    ? `현재 위치에서 ${job.distance_m}m`
+                    : "거리 정보 없음"}
+                </A.LocationText>
+                <A.CardText>{job.description}</A.CardText>
+              </div>
+              {job.is_ad && <A.FilterIcon2>광고</A.FilterIcon2>}
+            </A.Card>
+          ))}
         </A.CardList>
       </A.StudentAiCardBox>
       <A.Line2></A.Line2>
@@ -375,7 +289,10 @@ const StudentAiPosts = () => {
       </A.Background>
       <A.CardList2>
         {jobs.map((job) => (
-          <A.Card key={job.id} onClick={() => navigate(`/jobs/${job.id}`)}>
+          <A.Card
+            key={job.id}
+            onClick={() => navigate(`/StudentPost/${job.id}`)}
+          >
             <A.CardImg>
               <img
                 src={job.image}
@@ -466,5 +383,4 @@ const StudentAiPosts = () => {
     </A.Container>
   );
 };
-
 export default StudentAiPosts;
