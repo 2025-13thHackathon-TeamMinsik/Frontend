@@ -15,8 +15,8 @@ export const Container = styled.div`
 export const Background = styled.div`
   position: absolute;
   display: flex;
-  left: 37px;
-  top: 450px;
+ top: 400px;
+ 
 `;
 
 export const Title = styled.div`
