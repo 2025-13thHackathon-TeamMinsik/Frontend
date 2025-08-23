@@ -1,10 +1,10 @@
 import React from "react";
 import axios from "axios";
 import * as S from "../styles/StyledNoticeUp";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-const NoticeUp = () => {
+const NoticeUp = ({ formData }) => {
   const [tabBar, setTabBar] = useState("tabBar1");
   const [showModal, setShowModal] = useState(false); // 모달 상태
   const [modalType, setModalType] = useState(null); // 모달 종류: "post" | "delete"
@@ -17,16 +17,20 @@ const NoticeUp = () => {
   const [previewImage, setPreviewImage] = useState(null);
   const [postId, setPostId] = useState(null);
   const [imageSource, setImageSource] = useState(null);
+  const [businessInfo, setBusinessInfo] = useState(null);
 
   //시연용 위치 데이터
   const locations = [
-    { lat: 37.601556, lng: 127.0425 },
-    { lat: 37.603342, lng: 127.045435 },
-    { lat: 37.603681, lng: 127.046039 },
-    { lat: 37.605333, lng: 127.047056 },
-    { lat: 37.608306, lng: 127.041528 },
-    { lat: 37.608333, lng: 127.036667 },
-    { lat: 37.6055, lng: 127.036833 },
+    { lat: 37.6057198, lng: 127.0424609 }, //스윗케이크
+    { lat: 37.601556, lng: 127.0425 }, //푸른책방
+    { lat: 37.6052874, lng: 127.0404106 }, //피치헤어
+    { lat: 37.603342, lng: 127.045435 }, //빵 굽는 하루
+    { lat: 37.603681, lng: 127.046039 }, //한성 수학학원
+    { lat: 37.605333, lng: 127.047056 }, //바삭 분식
+    { lat: 37.60272, lng: 127.03954 }, //달빛 공방
+    { lat: 37.608306, lng: 127.041528 }, //오색찬상
+    { lat: 37.608333, lng: 127.036667 }, //(애기릉터공원)
+    { lat: 37.6055, lng: 127.036833 }, //(월곡1동 주민센터)
   ];
 
   //위치 인덱스
@@ -54,7 +58,7 @@ const NoticeUp = () => {
       setIsPosted(true);
     } else if (currentModal === "delete") {
       setIsPosted(false);
-      navigate("/BusinessAiPosts");
+      deleteJob();
     }
     setShowModal(false);
     setModalType(null);
@@ -80,18 +84,27 @@ const NoticeUp = () => {
     const currentLng = locations[locationIndex].lng;
 
     //body
-    const payload = {
-      duration_time: durationTime,
-      payment_info: paymentInfo,
-      payment_type: paymentType,
-      description: description,
-      store_lat: currentLat,
-      store_lng: currentLng,
-      image_from_gallery: "임시",
-    };
+    const postFormData = new FormData(); // 변수명 변경 (기존 formData와 겹치지 않게)
+    postFormData.append("duration_time", durationTime);
+    postFormData.append("payment_info", paymentInfo);
+    postFormData.append("payment_type", paymentType);
+    postFormData.append("description", description);
+    postFormData.append("store_lat", currentLat);
+    postFormData.append("store_lng", currentLng);
+
+    postFormData.append("ceo_name", formData.name);
+    postFormData.append("company_name", formData.company_name);
+    postFormData.append("business_type", formData.business_type);
+    postFormData.append("address", formData.address);
+
+    if (imageSource === "gallery" && imageFile) {
+      postFormData.append("image_from_gallery", imageFile); //갤러리 이미지 파일을 전송
+    } else if (imageSource === "ai" && previewImage) {
+      postFormData.append("image_from_ai", previewImage); //AI 이미지 URL을 전송(구현 x)
+    }
 
     try {
-      const response = await axios.post("/jobs/posts/create/", payload, {
+      const response = await axios.post("/jobs/posts/create/", postFormData, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },
@@ -115,18 +128,27 @@ const NoticeUp = () => {
       return;
     }
 
-    const payload = {
-      duration_time: durationTime,
-      payment_info: paymentInfo,
-      payment_type: paymentType,
-      description: description,
-      store_lat: locations[locationIndex - 1].lat, //현재 인덱스 해당 위치
-      store_lng: locations[locationIndex - 1].lng,
-      image_from_gallery: "임시",
-    };
+    const requestData = new FormData();
+    requestData.append("duration_time", durationTime);
+    requestData.append("payment_info", paymentInfo);
+    requestData.append("payment_type", paymentType);
+    requestData.append("description", description);
+    requestData.append("store_lat", locations[locationIndex - 1].lat);
+    requestData.append("store_lng", locations[locationIndex - 1].lng);
+
+    requestData.append("ceo_name", formData.name);
+    requestData.append("company_name", formData.company_name);
+    requestData.append("business_type", formData.business_type);
+    requestData.append("address", formData.address);
+
+    if (imageSource === "gallery" && imageFile) {
+      requestData.append("image_from_gallery", imageFile); //갤러리 이미지 파일을 전송
+    } else if (imageSource === "ai" && previewImage) {
+      requestData.append("image_from_ai", previewImage); //AI 이미지 URL을 전송(구현 x)
+    }
 
     try {
-      await axios.patch(`/jobs/posts/${postId}/update/`, payload, {
+      await axios.patch(`/jobs/posts/${postId}/update/`, requestData, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },
@@ -152,6 +174,7 @@ const NoticeUp = () => {
       console.log("공고 삭제 성공");
       setShowModal(true);
       setModalType("delete");
+      navigate("/BusinessAiPosts");
     } catch (error) {
       console.error("공고 삭제 실패:", error);
     }
@@ -256,27 +279,28 @@ const NoticeUp = () => {
 
         <S.Box5>
           <S.PicBox1>
-            <S.Pic>
-              <img
-                src={`${process.env.PUBLIC_URL}/images/Pizza.svg`}
-                alt="피자"
-              />
-            </S.Pic>
+            <img
+              src={`${process.env.PUBLIC_URL}/images/aiPhoto.svg`}
+              alt="AI "
+            />
           </S.PicBox1>
           <S.PicBox2>
             <label htmlFor="file-input">
-              {!previewImage && (
-                <S.PicAdd2>
-                  <img
-                    src={`${process.env.PUBLIC_URL}/images/PicAdd2.svg`}
-                    alt="직접 추가"
-                  />
-                </S.PicAdd2>
-              )}
-              {previewImage && (
-                <S.PicAdd2>
-                  <img src={previewImage} alt="선택된 이미지" />
-                </S.PicAdd2>
+              {previewImage ? (
+                <img
+                  src={previewImage}
+                  alt="선택된 이미지"
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                  }}
+                />
+              ) : (
+                <img
+                  src={`${process.env.PUBLIC_URL}/images/addPhoto.svg`}
+                  alt="직접 추가"
+                />
               )}
             </label>
             <input
@@ -302,17 +326,23 @@ const NoticeUp = () => {
           <S.choice1
             onClick={() => setPaymentType("LOCAL_CURRENCY")}
             style={{
-              border: paymentType === "LOCAL_CURRENCY" ? "#695739" : "#DFDFDF",
+              border:
+                paymentType === "LOCAL_CURRENCY"
+                  ? " 1px solid #695739"
+                  : " 1px solid #DFDFDF",
               color: paymentType === "LOCAL_CURRENCY" ? "#000" : "#DFDFDF",
             }}
           >
             지역화폐
           </S.choice1>
           <S.choice2
-            onClick={() => setPaymentType("VOLINTEER_TIME")}
+            onClick={() => setPaymentType("VOLUNTEER_TIME")}
             style={{
-              border: paymentType === "LOCAL_CURRENCY" ? "#695739" : "#DFDFDF",
-              color: paymentType === "LOCAL_CURRENCY" ? "#000" : "#DFDFDF",
+              border:
+                paymentType === "VOLUNTEER_TIME"
+                  ? "1px solid #695739"
+                  : "1px solid #DFDFDF",
+              color: paymentType === "VOLUNTEER_TIME" ? "#000" : "#DFDFDF",
             }}
           >
             봉사시간
@@ -320,15 +350,7 @@ const NoticeUp = () => {
         </S.Box6>
       </S.Box1>
       <S.Box2>
-        {!isPosted ? (
-          <S.Up
-            onClick={() => {
-              postJob();
-            }}
-          >
-            공고 올리기
-          </S.Up>
-        ) : (
+        {isPosted ? (
           <>
             <S.ModiBtn onClick={updateJob}>수정하기</S.ModiBtn>
             <S.DelBtn
@@ -340,6 +362,8 @@ const NoticeUp = () => {
               삭제하기
             </S.DelBtn>
           </>
+        ) : (
+          <S.Up onClick={postJob}>공고 올리기</S.Up>
         )}
       </S.Box2>
       {/* 모달창 */}

@@ -54,7 +54,9 @@ const StudentAiPosts = () => {
   };
 
   //공고 좋아요
-  const handleHeartClick = async (jobId, isLiked) => {
+  const handleHeartClick = async (jobId, isLiked, event) => {
+    event.stopPropagation();
+
     try {
       const endpoint = `/jobs/${jobId}/like/`;
 
@@ -193,67 +195,67 @@ const StudentAiPosts = () => {
               height="auto"
               id="heart"
             />
-          </A.Card>
-          <A.Card>
-            <A.CardImg>
-              <img
-                src={`${process.env.PUBLIC_URL}/images/ex-pic.jpg`}
-                alt="cardImg"
-                width="84.766px"
-                height="113.021px"
-                id="cardImg"
-              />
-            </A.CardImg>
-            <div id="textBox">
-              <A.CardTitle>짱베이커리</A.CardTitle>
-              <A.LocationText>현재 위치에서 93m</A.LocationText>
-              <A.CardText>
-                우리 가게 SNS 마케
-                <br />
-                팅을 도와줄 대학생을
-                <br /> 찾습...
-              </A.CardText>
-            </div>
-            <img
-              src={`${process.env.PUBLIC_URL}/images/${
-                isHeartClick ? "heart-on.svg" : "heart-off.svg"
-              }`}
-              alt="heart-off"
-              width="26px"
-              height="auto"
-              id="heart"
-            />
-          </A.Card>
-          <A.Card>
-            <A.CardImg>
-              <img
-                src={`${process.env.PUBLIC_URL}/images/ex-pic.jpg`}
-                alt="cardImg"
-                width="84.766px"
-                height="113.021px"
-                id="cardImg"
-              />
-            </A.CardImg>
-            <div id="textBox">
-              <A.CardTitle>짱베이커리</A.CardTitle>
-              <A.LocationText>현재 위치에서 93m</A.LocationText>
-              <A.CardText>
-                우리 가게 SNS 마케
-                <br />
-                팅을 도와줄 대학생을
-                <br /> 찾습...
-              </A.CardText>
-            </div>
-            <img
-              src={`${process.env.PUBLIC_URL}/images/${
-                isHeartClick ? "heart-on.svg" : "heart-off.svg"
-              }`}
-              alt="heart-off"
-              width="26px"
-              height="auto"
-              id="heart"
-            />
             <A.FilterIcon2>광고</A.FilterIcon2>
+          </A.Card>
+          <A.Card>
+            <A.CardImg>
+              <img
+                src={`${process.env.PUBLIC_URL}/images/ex-pic.jpg`}
+                alt="cardImg"
+                width="84.766px"
+                height="113.021px"
+                id="cardImg"
+              />
+            </A.CardImg>
+            <div id="textBox">
+              <A.CardTitle>짱베이커리</A.CardTitle>
+              <A.LocationText>현재 위치에서 93m</A.LocationText>
+              <A.CardText>
+                우리 가게 SNS 마케
+                <br />
+                팅을 도와줄 대학생을
+                <br /> 찾습...
+              </A.CardText>
+            </div>
+            <img
+              src={`${process.env.PUBLIC_URL}/images/${
+                isHeartClick ? "heart-on.svg" : "heart-off.svg"
+              }`}
+              alt="heart-off"
+              width="26px"
+              height="auto"
+              id="heart"
+            />
+          </A.Card>
+          <A.Card>
+            <A.CardImg>
+              <img
+                src={`${process.env.PUBLIC_URL}/images/ex-pic.jpg`}
+                alt="cardImg"
+                width="84.766px"
+                height="113.021px"
+                id="cardImg"
+              />
+            </A.CardImg>
+            <div id="textBox">
+              <A.CardTitle>짱베이커리</A.CardTitle>
+              <A.LocationText>현재 위치에서 93m</A.LocationText>
+              <A.CardText>
+                우리 가게 SNS 마케
+                <br />
+                팅을 도와줄 대학생을
+                <br /> 찾습...
+              </A.CardText>
+            </div>
+            <img
+              src={`${process.env.PUBLIC_URL}/images/${
+                isHeartClick ? "heart-on.svg" : "heart-off.svg"
+              }`}
+              alt="heart-off"
+              width="26px"
+              height="auto"
+              id="heart"
+            />
           </A.Card>
           <A.Card>
             <A.CardImg>
@@ -373,10 +375,10 @@ const StudentAiPosts = () => {
       </A.Background>
       <A.CardList2>
         {jobs.map((job) => (
-          <A.Card>
+          <A.Card key={job.id} onClick={() => navigate(`/jobs/${job.id}`)}>
             <A.CardImg>
               <img
-                src={`${process.env.PUBLIC_URL}/images/ex-pic.jpg`}
+                src={job.image}
                 alt="cardImg"
                 width="84.766px"
                 height="113.021px"
@@ -384,9 +386,8 @@ const StudentAiPosts = () => {
               />
             </A.CardImg>
             <div id="textBox">
-              <A.CardTitle>짱베이커리</A.CardTitle>
+              <A.CardTitle>{job.company_name}</A.CardTitle>
               <A.LocationText>
-                {" "}
                 {job.distance_m
                   ? `현재 위치에서 ${job.distance_m}m`
                   : "거리 정보 없음"}
@@ -401,9 +402,11 @@ const StudentAiPosts = () => {
               width="26px"
               height="auto"
               id="heart"
-              onClick={() => handleHeartClick(job.id, job.is_liked)}
+              onClick={(event) => handleHeartClick(job.id, job.is_liked, event)}
             />
-            <A.FilterIcon>봉사</A.FilterIcon>
+            {job.payment_type === "VOLUNTEER_TIME" && (
+              <A.FilterIcon>봉사</A.FilterIcon>
+            )}{" "}
           </A.Card>
         ))}
       </A.CardList2>

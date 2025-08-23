@@ -53,9 +53,9 @@ const BusinessSignup1 = ({ formData, setFormData }) => {
       const updatedFormData = {
         ...formData,
         business_cert: file,
-        ceo_name,
-        company_name,
-        business_number,
+        ceo_name: ceo_name || "", // 값이 null이면 빈 문자열로
+        business_number: business_number || "", // 값이 null이면 빈 문자열로
+        company_name: company_name || formData.company_name, // API 값이 null이면 기존 값을 유지
       };
       setFormData(updatedFormData);
       navigate("/BusinessSignup2", { state: { formData: updatedFormData } });

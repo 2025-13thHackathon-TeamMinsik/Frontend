@@ -98,7 +98,6 @@ function App() {
           }
         />
         <Route path="/StudentSignup6" element={<StudentSignup6 />} />
-
         <Route
           path="/BusinessSignup1"
           element={
@@ -125,7 +124,7 @@ function App() {
         />
         <Route path="/BusinessSignup5" element={<BusinessSignup5 />} />
         <Route path="/StudentPost" element={<StudentPost />} />
-        <Route path="/BusinessPost" element={<BusinessPost />} />
+        <Route path="/jobs/:id" element={<BusinessPost />} />{" "}
         <Route path="/StudentAiPosts" element={<StudentAiPosts />} />
         <Route
           path="/Splash4"
@@ -143,23 +142,22 @@ function App() {
           element={<BusinessApplications />}
         />
         <Route path="/StudentAiPortfolio" element={<StudentAiPortfolio />} />
-
-       
-
-        <Route path="/StuInfoModi" element={<StuInfoModi />}/>
-        <Route path="/StuIntroModi" element={<StuIntroModi />}/>
-        <Route path="/StuActModi" element={<StuActModi />}/>
-        <Route path="/StuTalModi" element={<StuTalModi />}/>
-        <Route path="/Login" element={<Login />}/>
-        <Route path="/Stamp" element={<Stamp />}/>
-        <Route path="/ReciptPhoto" element={<ReciptPhoto />}/>
-         <Route path="/ReciptDone" element={<ReciptDone />}/>
-
-         <Route path="/TalCoin" element={<TalCoin />}/>
-         <Route path="/BusiRecClick" element={<BusiRecClick />}/>
-         <Route path="/NoticeUp" element={<NoticeUp />}/>
-         <Route path="/BusiHelperClick" element={<BusiHelperClick />}/>
-         <Route path="/BusiTrashBtn" element={<BusiTrashBtn />}/>
+        <Route path="/StuInfoModi" element={<StuInfoModi />} />
+        <Route path="/StuIntroModi" element={<StuIntroModi />} />
+        <Route path="/StuActModi" element={<StuActModi />} />
+        <Route path="/StuTalModi" element={<StuTalModi />} />
+        <Route path="/Login" element={<Login />} />
+        <Route path="/Stamp" element={<Stamp />} />
+        <Route path="/ReciptPhoto" element={<ReciptPhoto />} />
+        <Route path="/ReciptDone" element={<ReciptDone />} />
+        <Route path="/TalCoin" element={<TalCoin />} />
+        <Route path="/BusiRecClick" element={<BusiRecClick />} />
+        <Route
+          path="/NoticeUp"
+          element={<NoticeUp formData={formData} setFormData={setFormData} />} // ⭐️ formData prop 추가
+        />
+        <Route path="/BusiHelperClick" element={<BusiHelperClick />} />
+        <Route path="/BusiTrashBtn" element={<BusiTrashBtn />} />
       </Routes>
     </BrowserRouter>
   );

@@ -35,13 +35,13 @@ const BusinessSignup4 = ({ formData, setFormData }) => {
         gender: formattedGender,
         phone: formData.phone_number,
         birth: formattedBirth,
-        location: formData.location,
+        location: formData.address,
         skill_1: formData.skill_1,
         skill_2: formData.skill_2,
         ceo_name: formData.ceo_name,
         business_number: formData.business_number,
-        company_name: formData.role.company_name,
-        business_type: formData.role.business_type,
+        company_name: formData.company_name,
+        business_type: formData.business_type,
         // 대학생 관련 필드는 소상공인이므로 null로 설정
         university: "",
         major: "",
@@ -162,9 +162,9 @@ const BusinessSignup4 = ({ formData, setFormData }) => {
           <S.Input2
             type={isHidden ? "password" : "text"} // 숨김 처리
             placeholder="성북구 화랑로 13길 28"
-            value={formData.location}
+            value={formData.address}
             onChange={(e) =>
-              setFormData({ ...formData, location: e.target.value })
+              setFormData({ ...formData, address: e.target.value })
             }
           />
           <S.Bbtn onClick={toggleHidden} style={{ cursor: "pointer" }}>
