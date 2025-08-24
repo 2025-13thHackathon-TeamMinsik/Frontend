@@ -1,16 +1,23 @@
 import React, { useState } from "react";
 import * as S from "../styles/StyledStuTalModi";
+import { useNavigate } from "react-router-dom";
 
 const StuTalModi = () => {
   const [tabBar, setTabBar] = useState("tabBar1");
   const handleTabBar = (menu) => {
     setTabBar(menu);
   };
+
+    const navigate = useNavigate(); // useNavigate 훅 초기화
+
+    // 뒤로가기 버튼 클릭 시 실행될 함수
+  const BackClick = () => {
+    navigate(-1); // 이전 페이지로 이동
+  };
   return (
     <S.Container>
 
-
-      <S.BackBtn>
+    <S.BackBtn onClick={BackClick}>
         <img
           src={`${process.env.PUBLIC_URL}/images/backBtn.svg`}
           alt="backBtn"
