@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import axios from "axios";
 import * as S from "../styles/StyledStudentAiPortfolio";
+import { useNavigate } from "react-router-dom"
 
 const StudentAiPortfolio = () => {
   const [tabBar, setTabBar] = useState("tabBar1");
@@ -10,6 +11,15 @@ const StudentAiPortfolio = () => {
   const handleTabBar = (menu) => {
     setTabBar(menu);
   };
+
+    // 👈 useNavigate 훅을 초기화합니다.
+  const navigate = useNavigate();
+
+  const Modi1Click = () => navigate("/StuInfoModi");
+  const Modi2Click = () => navigate("/StuIntroModi");
+  const Modi3Click = () => navigate("/StuActModi");
+  const Modi4Click = () => navigate("/StuTalModi");
+      
   return (
     <S.Container>
       <S.Modi>
@@ -69,24 +79,27 @@ const StudentAiPortfolio = () => {
           <S.Title>자기소개</S.Title>
         </S.Box6>
 
-        <S.Modi>
+        <S.Modi >
           <img
             src={`${process.env.PUBLIC_URL}/images/modi.svg`}
             alt="profile"
+            onClick={Modi1Click}
           />
         </S.Modi>
 
-        <S.Modi2>
+        <S.Modi2 >
           <img
             src={`${process.env.PUBLIC_URL}/images/modi.svg`}
             alt="profile"
+            onClick={Modi2Click}
           />
         </S.Modi2>
 
         <S.Modi3>
           <img
             src={`${process.env.PUBLIC_URL}/images/modi.svg`}
-            alt="profile"
+            alt="profile" 
+            onClick={Modi3Click}
           />
         </S.Modi3>
 
@@ -94,6 +107,7 @@ const StudentAiPortfolio = () => {
           <img
             src={`${process.env.PUBLIC_URL}/images/modi.svg`}
             alt="profile"
+            onClick={Modi4Click}
           />
         </S.Modi4>
 
