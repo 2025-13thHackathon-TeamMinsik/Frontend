@@ -1,92 +1,136 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import * as S from "../styles/StyledBusiTrashBtn";
 
-const BusiTrashBtn= () => {
+const BusiTrashBtn = () => {
   const [tabBar, setTabBar] = useState("tabBar1");
-  const [showRequestBox, setShowRequestBox] = useState(false); // 모달 상태
-  const [requestStatus, setRequestStatus] = useState("재능 요청하기"); // 버튼 상태
-
+  const [posts, setPosts] = useState([]); // 공고 이력 데이터를 저장할 상태
+  const [loading, setLoading] = useState(true); // 로딩 상태
+  const [error, setError] = useState(null); // 에러 상태
 
   const [showModal, setShowModal] = useState(false); // 모달 상태
-  const [selectedDay, setSelectedDay] = useState(null); // 어떤 항목을 선택했는지
-  //탭 바
+  const [selectedPost, setSelectedPost] = useState(null); // 삭제 대상 공고 정보
+
+  // 날짜 포맷 함수 (YYYY-MM-DDTHH:mm:ss.sssZ -> YYMMDD)
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const year = String(date.getFullYear()).slice(2);
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    return `${year}${month}${day}`;
+  };
+
+  // API 호출
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const token = localStorage.getItem("accessToken");
+        if (!token) {
+          throw new Error("로그인 토큰이 없습니다.");
+        }
+        const response = await axios.get("/jobs/posts/history/", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setPosts(response.data);
+      } catch (err) {
+        setError("공고 이력을 불러오는 데 실패했습니다.");
+        console.error("Failed to fetch posts:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPosts();
+  }, []);
+
+  // 탭바 핸들러
   const handleTabBar = (menu) => {
     setTabBar(menu);
   };
-  const [days, setDays] = useState([
-    "250812",
-    "250801",
-    "250731",
-    "250603",
-    "250502",
-    "250308",
-    "250301",
-    "250301",
-    "250301",
-    "250301",
-    "250222",
-  ]);
 
-  // X 클릭 → 모달 열기
-  const handleDeleteClick = (day) => {
-    setSelectedDay(day);
+  // 삭제 버튼 클릭 시 모달 열기
+  const handleDeleteClick = (post) => {
+    setSelectedPost(post);
     setShowModal(true);
   };
 
-  // 삭제 확인
+  // 삭제 확인 (프론트엔드에서만 처리)
   const confirmDelete = () => {
-    setDays(days.filter((d) => d !== selectedDay));
-    setShowModal(false);
-    setSelectedDay(null);
+    if (selectedPost) {
+      // API 호출 대신, 클라이언트 상태에서 해당 공고 제거
+      setPosts(posts.filter((post) => post.id !== selectedPost.id));
+      setShowModal(false);
+      setSelectedPost(null);
+      console.log(
+        `프론트엔드에서 공고 ID ${selectedPost.id}가 삭제되었습니다.`
+      );
+    }
   };
 
-  // 취소
+  // 삭제 취소
   const cancelDelete = () => {
     setShowModal(false);
-    setSelectedDay(null);
+    setSelectedPost(null);
   };
 
+  if (loading) {
+    return <S.Container>로딩 중...</S.Container>;
+  }
+
+  if (error) {
+    return <S.Container>{error}</S.Container>;
+  }
+
   return (
-  <S.Container>
+    <S.Container>
       <S.Career>공고 이력</S.Career>
 
-      {days.map((day, idx) => (
-        <S.Box1 key={idx}>
-          <S.RowBox>
-            <S.X onClick={() => handleDeleteClick(day)}>
-              <img
-                src={`${process.env.PUBLIC_URL}/images/Xbrown.svg`}
-                alt="갈색 X"
-              />
-            </S.X>
-            <S.Day>{day}</S.Day>
-            <S.SeeBox>받은 후기 보기</S.SeeBox>
-          </S.RowBox>
-        </S.Box1>
-      ))}
+      {posts.length > 0 ? (
+        posts.map((post) => (
+          <S.Box1 key={post.id}>
+            <S.RowBox>
+              <S.X onClick={() => handleDeleteClick(post)}>
+                <img
+                  src={`${process.env.PUBLIC_URL}/images/Xbrown.svg`}
+                  alt="갈색 X"
+                />
+              </S.X>
+              <S.Day>{formatDate(post.created_at)}</S.Day>
+              <S.SeeBox>받은 후기 보기</S.SeeBox>
+            </S.RowBox>
+          </S.Box1>
+        ))
+      ) : (
+        <p>등록된 공고가 없습니다.</p>
+      )}
 
       {/* 모달 */}
-      {showModal && (
+      {showModal && selectedPost && (
         <S.ModalOverlay>
           <S.ModalContent>
-              <S.MIcon><img
-              src={`${process.env.PUBLIC_URL}/images/modalicon.svg`}
-              alt="아이콘"
-            /></S.MIcon> 
-              <S.MDay>{selectedDay} </S.MDay>
-              <S.MInfo>해당 공고 이력을 삭제하시겠습니까?</S.MInfo>
-                <S.RowLine></S.RowLine>
+            <S.MIcon>
+              <img
+                src={`${process.env.PUBLIC_URL}/images/modalicon.svg`}
+                alt="아이콘"
+              />
+            </S.MIcon>
+            <S.MDay>{formatDate(selectedPost.created_at)} </S.MDay>
+            <S.MInfo>해당 공고 이력을 삭제하시겠습니까?</S.MInfo>
+            <S.RowLine></S.RowLine>
             <S.ModalButtons>
-              <S.Btn1><button onClick={confirmDelete}>예</button></S.Btn1>
+              <S.Btn1>
+                <button onClick={confirmDelete}>예</button>
+              </S.Btn1>
               <S.ColLine></S.ColLine>
-              <S.Btn2><button onClick={cancelDelete}>아니오</button></S.Btn2>
+              <S.Btn2>
+                <button onClick={cancelDelete}>아니오</button>
+              </S.Btn2>
             </S.ModalButtons>
           </S.ModalContent>
         </S.ModalOverlay>
       )}
-
 
       <S.TabBar>
         <div id="tabBarIcon">

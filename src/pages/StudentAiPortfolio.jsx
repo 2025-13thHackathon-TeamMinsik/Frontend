@@ -1,25 +1,75 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import * as S from "../styles/StyledStudentAiPortfolio";
-import { useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 
 const StudentAiPortfolio = () => {
   const [tabBar, setTabBar] = useState("tabBar1");
+  const [portfolioData, setPortfolioData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const navigate = useNavigate();
 
   //탭 바
   const handleTabBar = (menu) => {
     setTabBar(menu);
   };
 
-    // 👈 useNavigate 훅을 초기화합니다.
-  const navigate = useNavigate();
-
   const Modi1Click = () => navigate("/StuInfoModi");
   const Modi2Click = () => navigate("/StuIntroModi");
   const Modi3Click = () => navigate("/StuActModi");
   const Modi4Click = () => navigate("/StuTalModi");
-      
+
+  useEffect(() => {
+    const fetchPortfolio = async () => {
+      try {
+        const token = localStorage.getItem("accessToken");
+        if (!token) {
+          throw new Error("로그인 토큰이 없습니다.");
+        }
+        const response = await axios.get("/portfolio/", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setPortfolioData(response.data);
+      } catch (err) {
+        setError("포트폴리오 정보를 불러오는 데 실패했습니다.");
+        console.error("Failed to fetch portfolio:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPortfolio();
+  }, []);
+
+  // 날짜 포맷 함수 (YYYY-MM-DD -> YYYY년)
+  const getBirthYear = (birthDate) => {
+    if (!birthDate) return "정보 없음";
+    const year = birthDate.split("-")[0];
+    const currentYear = new Date().getFullYear();
+    const age = currentYear - parseInt(year, 10) + 1;
+    return `${age}세 (${year}년생)`;
+  };
+
+  if (loading) {
+    return <S.Container>로딩 중...</S.Container>;
+  }
+
+  if (error) {
+    return <S.Container>{error}</S.Container>;
+  }
+
+  if (!portfolioData) {
+    return <S.Container>포트폴리오 데이터가 없습니다.</S.Container>;
+  }
+
+  const { user_info, self_introduce, activities, talent_url, images } =
+    portfolioData;
+
   return (
     <S.Container>
       <S.Modi>
@@ -34,38 +84,47 @@ const StudentAiPortfolio = () => {
             />
           </S.Profile>
           <S.Box2>
-            <S.Name>이승언</S.Name>
-            <S.AgeGen>여자/22세(2003년생)</S.AgeGen>
+            <S.Name>{user_info.full_name || "이름 정보 없음"}</S.Name>
+            <S.AgeGen>
+              {user_info.gender === "male" ? "남자" : "여자"}/
+              {getBirthYear(user_info.birth)}
+            </S.AgeGen>
             <S.Box3>
-              <S.Selbox1>디자인</S.Selbox1>
-              <S.Selbox2>홍보/마케팅</S.Selbox2>
+              <S.Selbox1>{user_info.skill_1 || "재능 정보 없음"}</S.Selbox1>
+              <S.Selbox2>{user_info.skill_2 || "재능 정보 없음"}</S.Selbox2>
             </S.Box3>
             <S.Box4>
               <S.Text1>학교 | </S.Text1>
-              <S.Text2>&nbsp;동덕여자대학교</S.Text2>
+              <S.Text2>
+                <S.Text2>
+                  &nbsp;{user_info.university || "학교 정보 없음"}
+                </S.Text2>
+              </S.Text2>
             </S.Box4>
             <S.Box4>
               <S.Text1>전공 | </S.Text1>
-              <S.Text2>&nbsp;미디어디자인</S.Text2>
+              <S.Text2>&nbsp;{user_info.major || "전공 정보 없음"}</S.Text2>
             </S.Box4>
             <S.Box4>
               <S.Text1>학년 | </S.Text1>
-              <S.Text2>&nbsp;휴학 중</S.Text2>
+              <S.Text2>
+                &nbsp;{user_info.academic_status || "상태 정보 없음"}
+              </S.Text2>
             </S.Box4>
           </S.Box2>
         </S.Box1>
         <S.Line></S.Line>
         <S.Box5>
           <S.Text1>연락처 | </S.Text1>
-          <S.Text2>&nbsp;010-1234-5678</S.Text2>
+          <S.Text2>&nbsp;{user_info.phone || "연락처 정보 없음"}</S.Text2>
         </S.Box5>
         <S.Box5>
           <S.Text1>이메일 | </S.Text1>
-          <S.Text2>&nbsp;happyshare1234@gmail.com</S.Text2>
+          <S.Text2>&nbsp;{user_info.email || "이메일 정보 없음"}</S.Text2>
         </S.Box5>
         <S.Box5>
           <S.Text1>주소 | </S.Text1>
-          <S.Text2>&nbsp;성북구 화랑로 13길 60</S.Text2>
+          <S.Text2>&nbsp;{user_info.location || "주소 정보 없음"}</S.Text2>
         </S.Box5>
         <S.Line></S.Line>
         <S.Box6>
@@ -79,7 +138,7 @@ const StudentAiPortfolio = () => {
           <S.Title>자기소개</S.Title>
         </S.Box6>
 
-        <S.Modi >
+        <S.Modi>
           <img
             src={`${process.env.PUBLIC_URL}/images/modi.svg`}
             alt="profile"
@@ -87,7 +146,7 @@ const StudentAiPortfolio = () => {
           />
         </S.Modi>
 
-        <S.Modi2 >
+        <S.Modi2>
           <img
             src={`${process.env.PUBLIC_URL}/images/modi.svg`}
             alt="profile"
@@ -98,7 +157,7 @@ const StudentAiPortfolio = () => {
         <S.Modi3>
           <img
             src={`${process.env.PUBLIC_URL}/images/modi.svg`}
-            alt="profile" 
+            alt="profile"
             onClick={Modi3Click}
           />
         </S.Modi3>
@@ -111,15 +170,7 @@ const StudentAiPortfolio = () => {
           />
         </S.Modi4>
 
-        <S.TextBox>
-          200자 공백 포함. 안녕하세요. 저는 동덕여자대학교<br></br>
-          미디어디자인학과 휴학생입니다. 3학년 마치고 쉬면서<br></br>
-          저의 재능을 나누고 디벨롭하고자 합니다.<br></br>
-          미디어에 관련된 디자인 공부를 하고 있습니다.<br></br>
-          실무경험을 쌓고 소상공인에게 도움을 주고 싶습니다.<br></br>
-          저의 작은 도움이 큰 힘이 되었으면 합니다.<br></br>
-          감사합니다.
-        </S.TextBox>
+        <S.TextBox>{self_introduce || "자기소개 정보가 없습니다."}</S.TextBox>
 
         <S.Union2>
           <img
@@ -130,18 +181,25 @@ const StudentAiPortfolio = () => {
         </S.Union2>
 
         <S.Title2>활동 이력</S.Title2>
-        <S.TextBox2>
-          <S.Text3>냠디저트 | 디자인 · 홍보/마케팅</S.Text3>
-          <S.Text4>월화수 4시간</S.Text4>
-          <S.Line2></S.Line2>
-          <S.Text5>
-            성북구 카페의 SNS 마케팅을 함께하며 촬영,운영,홍<br></br>보 실무를
-            경험하였습니다. 사장님과의 협업으로 마케<br></br>팅 감각과 현장
-            적응력을 키웠습니다. 저의 재능이 도<br></br>
-            움이 필요한 곳에 닿아 뿌듯하고 뜻 깊은 시간이었습<br></br>
-            니다.
-          </S.Text5>
-        </S.TextBox2>
+        {activities.length > 0 ? (
+          activities.map((activity) => (
+            <S.TextBox2 key={activity.activity_id}>
+              <S.Text3>
+                {activity.company_name || "업체명 정보 없음"} |{" "}
+                {activity.skills.join(" · ") || "재능 분야 정보 없음"}
+              </S.Text3>
+              <S.Text4>
+                {activity.duration_time || "작업 기간/시간 정보 없음"}
+              </S.Text4>
+              <S.Line2></S.Line2>
+              <S.Text5>
+                {activity.ai_portfolio_summary || "활동 요약 정보 없음"}
+              </S.Text5>
+            </S.TextBox2>
+          ))
+        ) : (
+          <p>등록된 활동 이력이 없습니다.</p>
+        )}
 
         <S.TextBox3>
           <S.Text6>업체명 | 재능 분야</S.Text6>
