@@ -1,5 +1,4 @@
-import React from "react";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import * as P from "../styles/StyledBusinessApplications";
@@ -8,40 +7,65 @@ const BusinessApplications = () => {
   const navigate = useNavigate();
   const [tabBar, setTabBar] = useState("tabBar4");
 
-  //탭 바
+  // API에서 불러온 공고 + 지원자 데이터
+  const [jobs, setJobs] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  // axios 요청 함수
+  const fetchJobs = async () => {
+    try {
+      const response = await axios.get(`/recruits/my-jobs/`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      setJobs(response.data);
+      setLoading(false);
+    } catch (error) {
+      console.error("공고 및 지원자 조회 실패:", error);
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchJobs();
+  }, []);
+
+  // 탭 바 클릭
   const handleTabBar = (menu) => {
     setTabBar(menu);
   };
 
-  //뒤로가기
+  // 뒤로가기
   const goBack = () => {
     navigate(-1);
   };
 
-  //AI 공고
+  // AI 공고 페이지로 이동
   const goAiPosts = () => {
     navigate("/BusinessAiPosts");
   };
 
-  //별점 렌더링 함수
+  // 별점 렌더링 함수
   const renderStars = (rating) => {
-    const stars = [];
-    let i;
-    for (i = 0; i < 5; i++) {
-      const isFilled = i < rating;
-      stars.push(
-        <img
-          src={`${process.env.PUBLIC_URL}/images/Star-${
-            isFilled ? "on" : "off"
-          }.svg`}
-          alt="star"
-          width="9px"
-          height="auto"
-        />
-      );
-    }
-    return stars;
+    return Array.from({ length: 5 }).map((_, i) => (
+      <img
+        key={i}
+        src={`${process.env.PUBLIC_URL}/images/Star-${
+          i < rating ? "on" : "off"
+        }.svg`}
+        alt="star"
+        width="9px"
+        height="auto"
+      />
+    ));
   };
+
+  if (loading) {
+    return <P.Container>로딩 중...</P.Container>;
+  }
 
   return (
     <P.Container>
@@ -57,460 +81,127 @@ const BusinessApplications = () => {
         </P.BackBtn>
         <P.ApplicationsTitle>내 공고</P.ApplicationsTitle>
       </div>
-      <P.Box>
-        <P.FilterIcon>봉사</P.FilterIcon>
-        <P.DateText>250812</P.DateText>
-        <P.TextBox2>
-          <P.Title>
-            <img
-              src={`${process.env.PUBLIC_URL}/images/titleIcon.svg`}
-              alt="titleIcon"
-              id="titleIcon"
-            />
-            나눔 내용
-          </P.Title>
-          <P.SubText>
-            <img
-              src={`${process.env.PUBLIC_URL}/images/subTextIcon.svg`}
-              alt="subTextIcon"
-              width="16px"
-              height="15.714px"
-              id="subTextIcon"
-            />
-            <span id="subText1">기간/시간 | </span>
-            <span id="subText2">월화수 4시간/ 기간 1달 협의</span>
-            <br />
-            <img
-              src={`${process.env.PUBLIC_URL}/images/subTextIcon.svg`}
-              alt="subTextIcon"
-              width="16px"
-              height="15.714px"
-              id="subTextIcon"
-            />
-            <span id="subText1">급여 방식 | </span>
-            <span id="subText2">시급 11,000원</span>
-          </P.SubText>
-          <P.PostContent1>
-            저희 카페의 감성 있는 디저트와 공간을 널리
-            <br /> 알릴 홍보 및 디자인 도우미를 찾습니다.
-            <br /> SNS 콘텐츠 제작, 포스터·배너 디자인, 이벤
-            <br />트 홍보에 관심 있는 분 환영! 포토샵, 일러스
-            <br />트 등 기본 디자인 툴 사용 가능자 우대.성실
-            <br />
-            하고 밝은 성향의 분이면 누구나 지원 가능. <br />
-            함께 카페의 매력을 세상에 보여주세요!
-          </P.PostContent1>
-        </P.TextBox2>
-      </P.Box>
-      <P.OptionBox>
-        <P.Option1>공고 수정하기</P.Option1>
-        <P.Option2>후기 작성하기</P.Option2>
-      </P.OptionBox>
-      <P.Line></P.Line>
-      <P.ApplicationsTitle2>재능 도우미</P.ApplicationsTitle2>
-      <div id="row">
-        <P.Profile>
-          <P.ProfileInfo>
-            <P.ProfileImage>
-              <P.MyProfileImage>
+
+      {/* === 공고 목록 === */}
+      {jobs.map((job) => (
+        <div key={job.job_id}>
+          <P.Box>
+            <P.FilterIcon>봉사</P.FilterIcon>
+            <P.DateText>
+              {job.applied_at?.slice(0, 10) || "날짜 미정"}
+            </P.DateText>
+            <P.TextBox2>
+              <P.Title>
                 <img
-                  src={`${process.env.PUBLIC_URL}/images/defaultProfile.svg`}
-                  alt="defaultProfile"
-                  width="51px"
-                  height="auto"
+                  src={`${process.env.PUBLIC_URL}/images/titleIcon.svg`}
+                  alt="titleIcon"
+                  id="titleIcon"
                 />
-              </P.MyProfileImage>
-            </P.ProfileImage>
-            <P.ProfileTitle>솜사탕12</P.ProfileTitle>
-            <P.ProfileLine></P.ProfileLine>
-          </P.ProfileInfo>
-          <div class="RatingArea">
-            <P.RatingBox>
-              <P.RatingText>참여도</P.RatingText>
-              <P.Star>{renderStars(5)}</P.Star>
-            </P.RatingBox>
-          </div>
-          <div class="RatingArea">
-            <P.RatingBox>
-              <P.RatingText>성실함</P.RatingText>
-              <P.Star>{renderStars(3)}</P.Star>
-            </P.RatingBox>
-          </div>
-          <div class="RatingArea">
-            <P.RatingBox>
-              <P.RatingText>시간 준수</P.RatingText>
-              <P.Star>{renderStars(5)}</P.Star>
-            </P.RatingBox>
-          </div>
-          <div class="RatingArea">
-            <P.RatingBox>
-              <P.RatingText>밝은 태도</P.RatingText>
-              <P.Star>{renderStars(4)}</P.Star>
-            </P.RatingBox>
-          </div>
-          <div class="RatingArea">
-            <P.RatingBox>
-              <P.RatingText>예의 바름</P.RatingText>
-              <P.Star>{renderStars(4)}</P.Star>
-            </P.RatingBox>
-          </div>
-          <img
-            src={`${process.env.PUBLIC_URL}/images/heart-off.svg`}
-            alt="heart-off"
-            width="19.5px"
-            height="auto"
-            id="profileHeart"
-          />
-        </P.Profile>
-        <P.Profile>
-          <P.ProfileInfo>
-            <P.ProfileImage>
-              <P.MyProfileImage>
+                나눔 내용
+              </P.Title>
+              <P.SubText>
                 <img
-                  src={`${process.env.PUBLIC_URL}/images/defaultProfile.svg`}
-                  alt="defaultProfile"
-                  width="51px"
-                  height="auto"
+                  src={`${process.env.PUBLIC_URL}/images/subTextIcon.svg`}
+                  alt="subTextIcon"
+                  width="16px"
+                  height="15.714px"
+                  id="subTextIcon"
                 />
-              </P.MyProfileImage>
-            </P.ProfileImage>
-            <P.ProfileTitle>솜사탕12</P.ProfileTitle>
-            <P.ProfileLine></P.ProfileLine>
-          </P.ProfileInfo>
-          <P.NewText>신규 도우미</P.NewText>
-          <img
-            src={`${process.env.PUBLIC_URL}/images/heart-off.svg`}
-            alt="heart-off"
-            width="19.5px"
-            height="auto"
-            id="profileHeart"
-          />
-        </P.Profile>
-      </div>
-      <div id="row">
-        <P.Profile>
-          <P.ProfileInfo>
-            <P.ProfileImage>
-              <P.MyProfileImage>
+                <span id="subText1">기간/시간 | </span>
+                <span id="subText2">{job.duration_time || "협의"}</span>
+                <br />
                 <img
-                  src={`${process.env.PUBLIC_URL}/images/defaultProfile.svg`}
-                  alt="defaultProfile"
-                  width="51px"
-                  height="auto"
+                  src={`${process.env.PUBLIC_URL}/images/subTextIcon.svg`}
+                  alt="subTextIcon"
+                  width="16px"
+                  height="15.714px"
+                  id="subTextIcon"
                 />
-              </P.MyProfileImage>
-            </P.ProfileImage>
-            <P.ProfileTitle>솜사탕12</P.ProfileTitle>
-            <P.ProfileLine></P.ProfileLine>
-          </P.ProfileInfo>
-          <div class="RatingArea">
-            <P.RatingBox>
-              <P.RatingText>참여도</P.RatingText>
-              <P.Star>{renderStars(5)}</P.Star>
-            </P.RatingBox>
+                <span id="subText1">급여 방식 | </span>
+                <span id="subText2">{job.payment_info}</span>
+              </P.SubText>
+              <P.PostContent1>{job.description}</P.PostContent1>
+            </P.TextBox2>
+          </P.Box>
+
+          <P.OptionBox>
+            <P.Option1>공고 수정하기</P.Option1>
+            <P.Option2>후기 작성하기</P.Option2>
+          </P.OptionBox>
+
+          <P.Line></P.Line>
+          <P.ApplicationsTitle2>재능 도우미</P.ApplicationsTitle2>
+
+          {/* === 지원자 목록 === */}
+          <div id="row">
+            {job.applicants.length > 0 ? (
+              job.applicants.map((applicant) => (
+                <P.Profile key={applicant.application_id}>
+                  <P.ProfileInfo>
+                    <P.ProfileImage>
+                      <P.MyProfileImage>
+                        <img
+                          src={
+                            applicant.profile_image
+                              ? `http://localhost:8000${applicant.profile_image}`
+                              : `${process.env.PUBLIC_URL}/images/defaultProfile.svg`
+                          }
+                          alt="defaultProfile"
+                          width="51px"
+                          height="auto"
+                        />
+                      </P.MyProfileImage>
+                    </P.ProfileImage>
+                    <P.ProfileTitle>{applicant.name}</P.ProfileTitle>
+                    <P.ProfileLine></P.ProfileLine>
+                  </P.ProfileInfo>
+
+                  {/* 점수 영역 */}
+                  <div className="RatingArea">
+                    <P.RatingBox>
+                      <P.RatingText>성실함</P.RatingText>
+                      <P.Star>{renderStars(applicant.diligence_score)}</P.Star>
+                    </P.RatingBox>
+                  </div>
+                  <div className="RatingArea">
+                    <P.RatingBox>
+                      <P.RatingText>시간 준수</P.RatingText>
+                      <P.Star>
+                        {renderStars(applicant.punctuality_score)}
+                      </P.Star>
+                    </P.RatingBox>
+                  </div>
+                  <div className="RatingArea">
+                    <P.RatingBox>
+                      <P.RatingText>밝은 태도</P.RatingText>
+                      <P.Star>
+                        {renderStars(applicant.cheerful_attitude_score)}
+                      </P.Star>
+                    </P.RatingBox>
+                  </div>
+                  <div className="RatingArea">
+                    <P.RatingBox>
+                      <P.RatingText>예의 바름</P.RatingText>
+                      <P.Star>{renderStars(applicant.politeness_score)}</P.Star>
+                    </P.RatingBox>
+                  </div>
+                  <img
+                    src={`${process.env.PUBLIC_URL}/images/heart-off.svg`}
+                    alt="heart-off"
+                    width="19.5px"
+                    height="auto"
+                    id="profileHeart"
+                  />
+                </P.Profile>
+              ))
+            ) : (
+              <p>아직 지원자가 없습니다.</p>
+            )}
           </div>
-          <div class="RatingArea">
-            <P.RatingBox>
-              <P.RatingText>성실함</P.RatingText>
-              <P.Star>{renderStars(3)}</P.Star>
-            </P.RatingBox>
-          </div>
-          <div class="RatingArea">
-            <P.RatingBox>
-              <P.RatingText>시간 준수</P.RatingText>
-              <P.Star>{renderStars(5)}</P.Star>
-            </P.RatingBox>
-          </div>
-          <div class="RatingArea">
-            <P.RatingBox>
-              <P.RatingText>밝은 태도</P.RatingText>
-              <P.Star>{renderStars(4)}</P.Star>
-            </P.RatingBox>
-          </div>
-          <div class="RatingArea">
-            <P.RatingBox>
-              <P.RatingText>예의 바름</P.RatingText>
-              <P.Star>{renderStars(4)}</P.Star>
-            </P.RatingBox>
-          </div>
-          <img
-            src={`${process.env.PUBLIC_URL}/images/heart-off.svg`}
-            alt="heart-off"
-            width="19.5px"
-            height="auto"
-            id="profileHeart"
-          />
-        </P.Profile>
-        <P.Profile>
-          <P.ProfileInfo>
-            <P.ProfileImage>
-              <P.MyProfileImage>
-                <img
-                  src={`${process.env.PUBLIC_URL}/images/defaultProfile.svg`}
-                  alt="defaultProfile"
-                  width="51px"
-                  height="auto"
-                />
-              </P.MyProfileImage>
-            </P.ProfileImage>
-            <P.ProfileTitle>솜사탕12</P.ProfileTitle>
-            <P.ProfileLine></P.ProfileLine>
-          </P.ProfileInfo>
-          <div class="RatingArea">
-            <P.RatingBox>
-              <P.RatingText>참여도</P.RatingText>
-              <P.Star>{renderStars(5)}</P.Star>
-            </P.RatingBox>
-          </div>
-          <div class="RatingArea">
-            <P.RatingBox>
-              <P.RatingText>성실함</P.RatingText>
-              <P.Star>{renderStars(3)}</P.Star>
-            </P.RatingBox>
-          </div>
-          <div class="RatingArea">
-            <P.RatingBox>
-              <P.RatingText>시간 준수</P.RatingText>
-              <P.Star>{renderStars(5)}</P.Star>
-            </P.RatingBox>
-          </div>
-          <div class="RatingArea">
-            <P.RatingBox>
-              <P.RatingText>밝은 태도</P.RatingText>
-              <P.Star>{renderStars(4)}</P.Star>
-            </P.RatingBox>
-          </div>
-          <div class="RatingArea">
-            <P.RatingBox>
-              <P.RatingText>예의 바름</P.RatingText>
-              <P.Star>{renderStars(4)}</P.Star>
-            </P.RatingBox>
-          </div>
-          <img
-            src={`${process.env.PUBLIC_URL}/images/heart-off.svg`}
-            alt="heart-off"
-            width="19.5px"
-            height="auto"
-            id="profileHeart"
-          />
-        </P.Profile>
-      </div>
-      <div id="row">
-        <P.Profile>
-          <P.ProfileInfo>
-            <P.ProfileImage>
-              <P.MyProfileImage>
-                <img
-                  src={`${process.env.PUBLIC_URL}/images/defaultProfile.svg`}
-                  alt="defaultProfile"
-                  width="51px"
-                  height="auto"
-                />
-              </P.MyProfileImage>
-            </P.ProfileImage>
-            <P.ProfileTitle>솜사탕12</P.ProfileTitle>
-            <P.ProfileLine></P.ProfileLine>
-          </P.ProfileInfo>
-          <div class="RatingArea">
-            <P.RatingBox>
-              <P.RatingText>참여도</P.RatingText>
-              <P.Star>{renderStars(5)}</P.Star>
-            </P.RatingBox>
-          </div>
-          <div class="RatingArea">
-            <P.RatingBox>
-              <P.RatingText>성실함</P.RatingText>
-              <P.Star>{renderStars(3)}</P.Star>
-            </P.RatingBox>
-          </div>
-          <div class="RatingArea">
-            <P.RatingBox>
-              <P.RatingText>시간 준수</P.RatingText>
-              <P.Star>{renderStars(5)}</P.Star>
-            </P.RatingBox>
-          </div>
-          <div class="RatingArea">
-            <P.RatingBox>
-              <P.RatingText>밝은 태도</P.RatingText>
-              <P.Star>{renderStars(4)}</P.Star>
-            </P.RatingBox>
-          </div>
-          <div class="RatingArea">
-            <P.RatingBox>
-              <P.RatingText>예의 바름</P.RatingText>
-              <P.Star>{renderStars(4)}</P.Star>
-            </P.RatingBox>
-          </div>
-          <img
-            src={`${process.env.PUBLIC_URL}/images/heart-off.svg`}
-            alt="heart-off"
-            width="19.5px"
-            height="auto"
-            id="profileHeart"
-          />
-        </P.Profile>
-        <P.Profile>
-          <P.ProfileInfo>
-            <P.ProfileImage>
-              <P.MyProfileImage>
-                <img
-                  src={`${process.env.PUBLIC_URL}/images/defaultProfile.svg`}
-                  alt="defaultProfile"
-                  width="51px"
-                  height="auto"
-                />
-              </P.MyProfileImage>
-            </P.ProfileImage>
-            <P.ProfileTitle>솜사탕12</P.ProfileTitle>
-            <P.ProfileLine></P.ProfileLine>
-          </P.ProfileInfo>
-          <div class="RatingArea">
-            <P.RatingBox>
-              <P.RatingText>참여도</P.RatingText>
-              <P.Star>{renderStars(5)}</P.Star>
-            </P.RatingBox>
-          </div>
-          <div class="RatingArea">
-            <P.RatingBox>
-              <P.RatingText>성실함</P.RatingText>
-              <P.Star>{renderStars(3)}</P.Star>
-            </P.RatingBox>
-          </div>
-          <div class="RatingArea">
-            <P.RatingBox>
-              <P.RatingText>시간 준수</P.RatingText>
-              <P.Star>{renderStars(5)}</P.Star>
-            </P.RatingBox>
-          </div>
-          <div class="RatingArea">
-            <P.RatingBox>
-              <P.RatingText>밝은 태도</P.RatingText>
-              <P.Star>{renderStars(4)}</P.Star>
-            </P.RatingBox>
-          </div>
-          <div class="RatingArea">
-            <P.RatingBox>
-              <P.RatingText>예의 바름</P.RatingText>
-              <P.Star>{renderStars(4)}</P.Star>
-            </P.RatingBox>
-          </div>
-          <img
-            src={`${process.env.PUBLIC_URL}/images/heart-off.svg`}
-            alt="heart-off"
-            width="19.5px"
-            height="auto"
-            id="profileHeart"
-          />
-        </P.Profile>
-      </div>
-      <div id="row">
-        <P.Profile>
-          <P.ProfileInfo>
-            <P.ProfileImage>
-              <P.MyProfileImage>
-                <img
-                  src={`${process.env.PUBLIC_URL}/images/defaultProfile.svg`}
-                  alt="defaultProfile"
-                  width="51px"
-                  height="auto"
-                />
-              </P.MyProfileImage>
-            </P.ProfileImage>
-            <P.ProfileTitle>솜사탕12</P.ProfileTitle>
-            <P.ProfileLine></P.ProfileLine>
-          </P.ProfileInfo>
-          <div class="RatingArea">
-            <P.RatingBox>
-              <P.RatingText>참여도</P.RatingText>
-              <P.Star>{renderStars(5)}</P.Star>
-            </P.RatingBox>
-          </div>
-          <div class="RatingArea">
-            <P.RatingBox>
-              <P.RatingText>성실함</P.RatingText>
-              <P.Star>{renderStars(3)}</P.Star>
-            </P.RatingBox>
-          </div>
-          <div class="RatingArea">
-            <P.RatingBox>
-              <P.RatingText>시간 준수</P.RatingText>
-              <P.Star>{renderStars(5)}</P.Star>
-            </P.RatingBox>
-          </div>
-          <div class="RatingArea">
-            <P.RatingBox>
-              <P.RatingText>밝은 태도</P.RatingText>
-              <P.Star>{renderStars(4)}</P.Star>
-            </P.RatingBox>
-          </div>
-          <div class="RatingArea">
-            <P.RatingBox>
-              <P.RatingText>예의 바름</P.RatingText>
-              <P.Star>{renderStars(4)}</P.Star>
-            </P.RatingBox>
-          </div>
-          <img
-            src={`${process.env.PUBLIC_URL}/images/heart-off.svg`}
-            alt="heart-off"
-            width="19.5px"
-            height="auto"
-            id="profileHeart"
-          />
-        </P.Profile>
-        <P.Profile>
-          <P.ProfileInfo>
-            <P.ProfileImage>
-              <P.MyProfileImage>
-                <img
-                  src={`${process.env.PUBLIC_URL}/images/defaultProfile.svg`}
-                  alt="defaultProfile"
-                  width="51px"
-                  height="auto"
-                />
-              </P.MyProfileImage>
-            </P.ProfileImage>
-            <P.ProfileTitle>솜사탕12</P.ProfileTitle>
-            <P.ProfileLine></P.ProfileLine>
-          </P.ProfileInfo>
-          <div class="RatingArea">
-            <P.RatingBox>
-              <P.RatingText>참여도</P.RatingText>
-              <P.Star>{renderStars(5)}</P.Star>
-            </P.RatingBox>
-          </div>
-          <div class="RatingArea">
-            <P.RatingBox>
-              <P.RatingText>성실함</P.RatingText>
-              <P.Star>{renderStars(3)}</P.Star>
-            </P.RatingBox>
-          </div>
-          <div class="RatingArea">
-            <P.RatingBox>
-              <P.RatingText>시간 준수</P.RatingText>
-              <P.Star>{renderStars(5)}</P.Star>
-            </P.RatingBox>
-          </div>
-          <div class="RatingArea">
-            <P.RatingBox>
-              <P.RatingText>밝은 태도</P.RatingText>
-              <P.Star>{renderStars(4)}</P.Star>
-            </P.RatingBox>
-          </div>
-          <div class="RatingArea">
-            <P.RatingBox>
-              <P.RatingText>예의 바름</P.RatingText>
-              <P.Star>{renderStars(4)}</P.Star>
-            </P.RatingBox>
-          </div>
-          <img
-            src={`${process.env.PUBLIC_URL}/images/heart-off.svg`}
-            alt="heart-off"
-            width="19.5px"
-            height="auto"
-            id="profileHeart"
-          />
-        </P.Profile>
-      </div>
+        </div>
+      ))}
+
+      {/* === 하단 탭바 === */}
       <P.TabBar>
         <div id="tabBarIcon">
           <img

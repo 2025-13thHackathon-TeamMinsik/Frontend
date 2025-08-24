@@ -68,7 +68,7 @@ const NoticeUp = ({ formData }) => {
     navigate(-1);
   };
 
-  //직접 이미지 파일 업로드만(AI는 구현 미완성)
+  //직접 이미지 파일 업로드만(AI는 성능 이슈로 구현 X)
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -80,8 +80,24 @@ const NoticeUp = ({ formData }) => {
 
   //공고 작성
   const postJob = async () => {
-    const currentLat = locations[locationIndex].lat;
-    const currentLng = locations[locationIndex].lng;
+    const userEmail = localStorage.getItem("userEmail"); // 로그인 시 이메일을 저장했다고 가정
+    let lat = null;
+    let lng = null;
+
+    if (userEmail) {
+      // 간단한 해시 함수를 이용해 이메일 기반으로 인덱스 생성
+      let sum = 0;
+      for (let i = 0; i < userEmail.length; i++) {
+        sum += userEmail.charCodeAt(i);
+      }
+      const index = sum % locations.length;
+      lat = locations[index].lat;
+      lng = locations[index].lng;
+    } else {
+      console.warn("로그인 정보가 없어 기본 위치를 사용합니다.");
+      lat = locations[0].lat;
+      lng = locations[0].lng;
+    }
 
     //body
     const postFormData = new FormData(); // 변수명 변경 (기존 formData와 겹치지 않게)
@@ -89,8 +105,8 @@ const NoticeUp = ({ formData }) => {
     postFormData.append("payment_info", paymentInfo);
     postFormData.append("payment_type", paymentType);
     postFormData.append("description", description);
-    postFormData.append("store_lat", currentLat);
-    postFormData.append("store_lng", currentLng);
+    postFormData.append("store_lat", lat);
+    postFormData.append("store_lng", lng);
 
     postFormData.append("ceo_name", formData.name);
     postFormData.append("company_name", formData.company_name);
@@ -114,8 +130,6 @@ const NoticeUp = ({ formData }) => {
       setPostId(response.data.id);
       setShowModal(true);
       setModalType("post");
-      //시연용 위치 사용 위해 인덱스 증가
-      setLocationIndex((prevIndex) => prevIndex + 1);
       setIsPosted(true);
     } catch (error) {
       console.error("공고 작성 실패:", error);
@@ -128,13 +142,28 @@ const NoticeUp = ({ formData }) => {
       return;
     }
 
+    const userEmail = localStorage.getItem("userEmail");
+    let lat = null;
+    let lng = null;
+
+    if (userEmail) {
+      // 간단한 해시 함수를 이용해 이메일 기반으로 인덱스 생성
+      let sum = 0;
+      for (let i = 0; i < userEmail.length; i++) {
+        sum += userEmail.charCodeAt(i);
+      }
+      const index = sum % locations.length;
+      lat = locations[index].lat;
+      lng = locations[index].lng;
+    }
+
     const requestData = new FormData();
     requestData.append("duration_time", durationTime);
     requestData.append("payment_info", paymentInfo);
     requestData.append("payment_type", paymentType);
     requestData.append("description", description);
-    requestData.append("store_lat", locations[locationIndex - 1].lat);
-    requestData.append("store_lng", locations[locationIndex - 1].lng);
+    requestData.append("store_lat", lat);
+    requestData.append("store_lng", lng);
 
     requestData.append("ceo_name", formData.name);
     requestData.append("company_name", formData.company_name);

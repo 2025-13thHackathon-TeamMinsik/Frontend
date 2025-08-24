@@ -151,7 +151,10 @@ function App() {
         <Route path="/ReciptPhoto" element={<ReciptPhoto />} />
         <Route path="/ReciptDone" element={<ReciptDone />} />
         <Route path="/TalCoin" element={<TalCoin />} />
-        <Route path="/BusiRecClick" element={<BusiRecClick />} />
+        <Route
+          path="/BusiHelperClick/:application_id"
+          element={<BusiHelperClick />}
+        />
         <Route
           path="/NoticeUp"
           element={<NoticeUp formData={formData} setFormData={setFormData} />} // ⭐️ formData prop 추가

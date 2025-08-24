@@ -1,33 +1,77 @@
-import React from "react";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import * as S from "../styles/StyledBusiHelperClick";
 
 const BusiHelperClick = () => {
+  const { application_id } = useParams();
   const [tabBar, setTabBar] = useState("tabBar1");
-  const [showModal, setShowModal] = useState(false);   // 모달 상태
-  const [isAccepted, setIsAccepted] = useState(false); // 재능 수락 상태
+  const [showModal, setShowModal] = useState(false);
+  const [isAccepted, setIsAccepted] = useState(false);
+  const [applicant, setApplicant] = useState(null);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
-  //탭 바
+  // 지원자 상세 데이터 불러오기
+  const fetchApplicantDetail = async () => {
+    if (!application_id) {
+      console.error("❌ application_id가 없습니다. 라우트 설정을 확인하세요.");
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const response = await axios.get(
+        `/recruits/applications/${application_id}/detail/`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      setApplicant(response.data);
+      setLoading(false);
+    } catch (error) {
+      console.error("지원자 상세정보 불러오기 실패:", error);
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchApplicantDetail();
+  }, [application_id]);
+
   const handleTabBar = (menu) => {
     setTabBar(menu);
   };
 
   const handleAccept = () => {
-    setShowModal(true); // 재능 수락 모달 띄우기
-    setIsAccepted(true); // 수락 상태 표시 (선택사항)
+    setShowModal(true);
+    setIsAccepted(true);
   };
 
   const handleConfirm = () => {
-    setShowModal(false); // 모달 닫기
-    navigate("/BusinessAiPosts");       // 홈 화면으로 이동
+    setShowModal(false);
+    navigate("/BusinessAiPosts");
   };
+
+  if (loading) {
+    return <S.Container>로딩 중...</S.Container>;
+  }
+
+  if (!applicant) {
+    return <S.Container>지원자 정보를 불러오지 못했습니다.</S.Container>;
+  }
+
+  const info = applicant.applicant_info;
+  const portfolio = applicant.portfolio || {};
+  const activities = applicant.activity_history || [];
 
   return (
     <S.Container>
-      <S.Nick>달고나12</S.Nick>
+      <S.Nick>{info.name}</S.Nick>
+
       <S.Box9>
         <S.Box10>
           <S.Icon>
@@ -39,52 +83,70 @@ const BusiHelperClick = () => {
           </S.Icon>
           <S.Content>나눔 동기</S.Content>
         </S.Box10>
-        <S.ContentBox></S.ContentBox>
+        <S.ContentBox>
+          {info.skill_1} · {info.skill_2}
+        </S.ContentBox>
       </S.Box9>
-      <S.Line5></S.Line5>
+
+      <S.Line5 />
+
       <S.Background>
         <S.Box1>
           <S.Profile>
             <img
-              src={`${process.env.PUBLIC_URL}/images/profile.svg`}
+              src={
+                portfolio.profile_img
+                  ? `${portfolio.profile_img}`
+                  : `${process.env.PUBLIC_URL}/images/profile.svg`
+              }
               alt="profile"
             />
           </S.Profile>
           <S.Box2>
-            <S.Name>이승언</S.Name>
-            <S.AgeGen>여자/22세(2003년생)</S.AgeGen>
+            <S.Name>{info.name}</S.Name>
+            <S.AgeGen>
+              {info.gender ? `${info.gender} / ` : ""}
+              {info.birth
+                ? `${new Date().getFullYear() - parseInt(info.birth)}세(${
+                    info.birth
+                  })`
+                : ""}
+            </S.AgeGen>
             <S.Box3>
-              <S.Selbox1>디자인</S.Selbox1>
-              <S.Selbox2>홍보/마케팅</S.Selbox2>
+              {info.skill_1 && <S.Selbox1>{info.skill_1}</S.Selbox1>}
+              {info.skill_2 && <S.Selbox2>{info.skill_2}</S.Selbox2>}
             </S.Box3>
             <S.Box4>
               <S.Text1>학교 | </S.Text1>
-              <S.Text2>&nbsp;동덕여자대학교</S.Text2>
+              <S.Text2>{info.university}</S.Text2>
             </S.Box4>
             <S.Box4>
               <S.Text1>전공 | </S.Text1>
-              <S.Text2>&nbsp;미디어디자인</S.Text2>
+              <S.Text2>{info.major}</S.Text2>
             </S.Box4>
             <S.Box4>
               <S.Text1>학년 | </S.Text1>
-              <S.Text2>&nbsp;휴학 중</S.Text2>
+              <S.Text2>{info.academic_status}</S.Text2>
             </S.Box4>
           </S.Box2>
         </S.Box1>
-        <S.Line></S.Line>
+
+        <S.Line />
+
         <S.Box5>
           <S.Text1>연락처 | </S.Text1>
-          <S.Text2>&nbsp;010-1234-5678</S.Text2>
+          <S.Text2>{info.phone}</S.Text2>
         </S.Box5>
         <S.Box5>
           <S.Text1>이메일 | </S.Text1>
-          <S.Text2>&nbsp;happyshare1234@gmail.com</S.Text2>
+          <S.Text2>{info.email}</S.Text2>
         </S.Box5>
         <S.Box5>
           <S.Text1>주소 | </S.Text1>
-          <S.Text2>&nbsp;성북구 화랑로 13길 60</S.Text2>
+          <S.Text2>{info.location}</S.Text2>
         </S.Box5>
-        <S.Line></S.Line>
+
+        <S.Line />
 
         <S.Box6>
           <S.Union1>
@@ -98,13 +160,7 @@ const BusiHelperClick = () => {
         </S.Box6>
 
         <S.TextBox>
-          200자 공백 포함. 안녕하세요. 저는 동덕여자대학교<br></br>
-          미디어디자인학과 휴학생입니다. 3학년 마치고 쉬면서<br></br>
-          저의 재능을 나누고 디벨롭하고자 합니다.<br></br>
-          미디어에 관련된 디자인 공부를 하고 있습니다.<br></br>
-          실무경험을 쌓고 소상공인에게 도움을 주고 싶습니다.<br></br>
-          저의 작은 도움이 큰 힘이 되었으면 합니다.<br></br>
-          감사합니다.
+          {portfolio.self_introduce || "자기소개가 없습니다."}
         </S.TextBox>
 
         <S.Union2>
@@ -116,26 +172,25 @@ const BusiHelperClick = () => {
         </S.Union2>
 
         <S.Title2>활동 이력</S.Title2>
-        <S.TextBox2>
-          <S.Text3>냠디저트 | 디자인 · 홍보/마케팅</S.Text3>
-          <S.Text4>월화수 4시간</S.Text4>
-          <S.Line2></S.Line2>
-          <S.Text5>
-            성북구 카페의 SNS 마케팅을 함께하며 촬영,운영,홍<br></br>보 실무를
-            경험하였습니다. 사장님과의 협업으로 마케<br></br>팅 감각과 현장
-            적응력을 키웠습니다. 저의 재능이 도<br></br>
-            움이 필요한 곳에 닿아 뿌듯하고 뜻 깊은 시간이었습<br></br>
-            니다.
-          </S.Text5>
-        </S.TextBox2>
 
-        <S.TextBox3>
-          <S.Text6>업체명 | 재능 분야</S.Text6>
-          <S.Text7>작업 기간/시간</S.Text7>
-          <S.Line3></S.Line3>
-          <S.Text8>120자 공백 포함</S.Text8>
-        </S.TextBox3>
-        <S.Line4></S.Line4>
+        {activities.length > 0 ? (
+          activities.map((act, idx) => (
+            <S.TextBox2 key={idx}>
+              <S.Text3>
+                {act.company_name} | {act.skills}
+              </S.Text3>
+              <S.Text4>{act.duration}</S.Text4>
+              <S.Line2 />
+              <S.Text5>{act.description}</S.Text5>
+            </S.TextBox2>
+          ))
+        ) : (
+          <S.TextBox3>
+            <S.Text8>등록된 활동 이력이 없습니다.</S.Text8>
+          </S.TextBox3>
+        )}
+
+        <S.Line4 />
 
         <S.Union3>
           <img
@@ -149,26 +204,23 @@ const BusiHelperClick = () => {
 
         <S.UrlInput
           type="text"
-          defaultValue="http://"
-          onFocus={(e) => {
-            if (e.target.value === "http://") e.target.select();
-          }}
+          value={portfolio.talent_url || "http://"}
+          readOnly
         />
 
         <S.Box7>
-          <img src={`${process.env.PUBLIC_URL}/images/pic.svg`} alt="pic" />
-          <img src={`${process.env.PUBLIC_URL}/images/pic.svg`} alt="pic" />
-          <img src={`${process.env.PUBLIC_URL}/images/pic.svg`} alt="pic" />
+          {portfolio.talent_images?.length > 0 ? (
+            portfolio.talent_images.map((img, idx) => (
+              <img key={idx} src={`${img}`} alt="portfolio" />
+            ))
+          ) : (
+            <p>등록된 포트폴리오 이미지가 없습니다.</p>
+          )}
         </S.Box7>
-
-        <S.Add>
-          <img src={`${process.env.PUBLIC_URL}/images/add.svg`} alt="Add" />
-        </S.Add>
 
         <S.Ok onClick={handleAccept}>재능 수락하기</S.Ok>
       </S.Background>
 
-      {/* 모달창 */}
       {showModal && (
         <S.Overlay onClick={() => setShowModal(false)}>
           <S.ModalBox onClick={(e) => e.stopPropagation()}>
@@ -179,7 +231,7 @@ const BusiHelperClick = () => {
               />
             </S.Icon2>
             <S.Info2>재능 수락이 완료되었습니다.</S.Info2>
-            <S.Line6></S.Line6>
+            <S.Line6 />
             <S.Ok2 onClick={handleConfirm}>확인</S.Ok2>
           </S.ModalBox>
         </S.Overlay>
