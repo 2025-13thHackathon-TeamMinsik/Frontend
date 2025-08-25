@@ -4,48 +4,120 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import * as P from "../styles/StyledPost";
 
+// 이 컴포넌트는 기업 리뷰 작성 페이지를 렌더링하고,
+// 별점 정보를 수집하여 가상의 API에 제출하는 기능을 구현합니다.
 const BusinessReview = () => {
+  // `useNavigate` 훅을 사용하여 페이지 이동을 관리합니다.
   const navigate = useNavigate();
+
+  // 현재 활성화된 하단 탭을 관리하는 상태입니다.
   const [tabBar, setTabBar] = useState("tabBar4");
-  const [rating, SetRating] = useState({
-    op1: 0, //참여도
-    op2: 0, //성실함
-    op3: 0, //시간 준수
-    op4: 0, //밝은 태도
-    op5: 0, //예의 바름
+
+  // 각 카테고리별 별점(1-5점)을 저장하는 상태입니다.
+  const [rating, setRating] = useState({
+    op1: 0, // 참여도
+    op2: 0, // 성실함
+    op3: 0, // 시간 준수
+    op4: 0, // 밝은 태도
+    op5: 0, // 예의 바름
   });
+
+  // 리뷰 제출 성공 시 모달 창 표시 여부를 관리하는 상태입니다.
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // 버튼 텍스트를 관리하는 상태입니다. (사용되지 않음)
   const [buttonText, setButtonText] = useState("재능 나누기");
+
+  // 지원 완료 상태를 관리하는 상태입니다. (사용되지 않음)
   const [isApplied, setIsApplied] = useState(false);
 
-  //탭 바
+  // API 호출 중 상태를 관리하여 중복 제출을 방지합니다.
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // API 호출 실패 시 에러 메시지를 저장하는 상태입니다.
+  const [errorMessage, setErrorMessage] = useState("");
+
+  // 실제 환경에서는 외부에서 동적으로 전달받아야 할 데이터입니다.
+  const token =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90e...omJ9.1OErEPKA4r9hoX0e74H6Rehc3JpKuKgAKdN-Ch1piOI";
+  const jobID = 14;
+
+  // 하단 탭 바 클릭 핸들러
   const handleTabBar = (menu) => {
     setTabBar(menu);
   };
 
-  //뒤로가기
+  // 이전 페이지로 돌아가기
   const goBack = () => {
     navigate(-1);
   };
 
-  //AI 공고
+  // AI 공고 페이지로 이동
   const goAiPosts = () => {
     navigate("/BusinessAiPosts");
   };
 
-  //모달 닫기
+  // 별점 클릭 핸들러
+  const handleStarClick = (category, idx) => {
+    setRating((prev) => ({
+      ...prev,
+      [category]: prev[category] === idx + 1 ? 0 : idx + 1,
+    }));
+  };
+
+  // 리뷰 제출 핸들러 (API 호출 시뮬레이션)
+  const handleSubmit = async () => {
+    // 제출 시작, 버튼 비활성화 및 에러 메시지 초기화
+    setIsSubmitting(true);
+    setErrorMessage("");
+
+    // API 명세서에 맞는 데이터 포맷으로 변환
+    const reviewData = {
+      job: jobID,
+      diligence: rating.op2, // 성실함
+      punctuality: rating.op3, // 시간 준수
+      cheerful_attitude: rating.op4, // 밝은 태도
+      politeness: rating.op5, // 예의 바름
+    };
+
+    // '참여도'에 해당하는 필드가 API 명세서에 없으므로 op1은 제외했습니다.
+
+    try {
+      // 실제 axios.post 호출을 주석 처리하고,
+      // setTimeout을 사용하여 가상의 비동기 API 호출을 시뮬레이션합니다.
+      // 실제 API 호출 시에는 이 부분을 주석 해제하고 사용하세요.
+      /*
+      const response = await axios.post("/reviews/employer/", reviewData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+      */
+      await new Promise((resolve) => setTimeout(resolve, 1000)); // 1초 지연
+
+      // 응답 데이터를 시뮬레이션
+      const mockResponse = {
+        data: { message: "Review submitted successfully!" },
+      };
+
+      console.log("리뷰 제출 성공:", mockResponse.data);
+      setIsModalOpen(true); // 성공 시 모달 열기
+    } catch (error) {
+      console.error("리뷰 제출 실패:", error);
+      // 에러 메시지 설정
+      setErrorMessage("리뷰 제출에 실패했습니다. 다시 시도해주세요.");
+    } finally {
+      // 제출 완료, 버튼 활성화
+      setIsSubmitting(false);
+    }
+  };
+
+  // 모달 닫기
   const handleModalClose = () => {
     setIsModalOpen(false);
     setButtonText("대기 중");
     setIsApplied(true);
-  };
-
-  //별점 클릭
-  const handleStarClick = (category, idx) => {
-    SetRating((prev) => ({
-      ...prev,
-      [category]: prev[category] === idx + 1 ? 0 : idx + 1,
-    }));
   };
 
   return (
@@ -167,7 +239,7 @@ const BusinessReview = () => {
             <P.ProfileTitle>솜사탕12</P.ProfileTitle>
             <P.ProfileLine></P.ProfileLine>
           </P.ProfileInfo>
-          <div class="RatingArea">
+          <div className="RatingArea">
             <P.RatingBox>
               <P.RatingText>참여도</P.RatingText>
               <P.StarBox>
@@ -184,7 +256,7 @@ const BusinessReview = () => {
               </P.StarBox>
             </P.RatingBox>
           </div>
-          <div class="RatingArea">
+          <div className="RatingArea">
             <P.RatingBox>
               <P.RatingText>성실함</P.RatingText>
               <P.StarBox>
@@ -201,7 +273,7 @@ const BusinessReview = () => {
               </P.StarBox>
             </P.RatingBox>
           </div>
-          <div class="RatingArea">
+          <div className="RatingArea">
             <P.RatingBox>
               <P.RatingText>시간 준수</P.RatingText>
               <P.StarBox>
@@ -218,7 +290,7 @@ const BusinessReview = () => {
               </P.StarBox>
             </P.RatingBox>
           </div>
-          <div class="RatingArea">
+          <div className="RatingArea">
             <P.RatingBox>
               <P.RatingText>밝은 태도</P.RatingText>
               <P.StarBox>
@@ -235,7 +307,7 @@ const BusinessReview = () => {
               </P.StarBox>
             </P.RatingBox>
           </div>
-          <div class="RatingArea">
+          <div className="RatingArea">
             <P.RatingBox>
               <P.RatingText>예의 바름</P.RatingText>
               <P.StarBox>
@@ -253,11 +325,24 @@ const BusinessReview = () => {
             </P.RatingBox>
           </div>
           <P.ReviewSubmit2
-            onClick={() => setIsModalOpen(true)}
+            onClick={handleSubmit}
+            disabled={isSubmitting}
             $active={isApplied}
           >
-            저장하기
+            {isSubmitting ? "저장 중..." : "저장하기"}
           </P.ReviewSubmit2>
+          {errorMessage && (
+            <p
+              style={{
+                color: "red",
+                textAlign: "center",
+                marginTop: "10px",
+                fontSize: "12px",
+              }}
+            >
+              {errorMessage}
+            </p>
+          )}
         </P.TextBox2>
       </P.StudentReviewBox>
       <P.TabBar>

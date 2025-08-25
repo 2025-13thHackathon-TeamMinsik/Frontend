@@ -13,7 +13,7 @@ const Login = () => {
   const [isError, setIsError] = useState(false);
 
   const handleLogin = async (event) => {
-    //폼 제출 시 페이지 새로고침 막기
+    // 폼 제출 시 페이지 새로고침 막기
     event.preventDefault();
     try {
       const email = `${emailId}@${emailDomain}`;
@@ -28,6 +28,7 @@ const Login = () => {
       // 토큰 디코딩
       const decoded = jwtDecode(accessToken);
       const userRole = decoded.role; // 여기서 student / owner 가져옴
+      const user = decoded.user; // 사용자 정보 (full_name, business_type 등)를 디코딩된 토큰에서 가져옴
 
       console.log("로그인 성공", response.data);
 
@@ -37,7 +38,20 @@ const Login = () => {
 
       setIsError(false);
 
-      //대학생, 소상공인 역할 따라서 각자 ver 메인페이지(AI 공고)로 이동
+      // owner 역할일 경우 'user_info'를 로컬스토리지에 저장
+      if (userRole === "owner") {
+        localStorage.setItem(
+          "user_info",
+          JSON.stringify({
+            full_name: user.full_name,
+            company_name: user.company_name,
+            business_type: user.business_type,
+            location: user.location,
+          })
+        );
+      }
+
+      // 대학생, 소상공인 역할 따라서 각자 ver 메인페이지(AI 공고)로 이동
       if (userRole === "student") {
         navigate(`/StudentAiPosts`);
       } else if (userRole === "owner") {
