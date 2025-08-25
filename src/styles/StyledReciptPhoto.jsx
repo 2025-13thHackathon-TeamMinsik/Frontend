@@ -136,3 +136,22 @@ flex-shrink: 0;
 margin-left: 38px;
 margin-top: 55px;
 `;
+
+export const UploadResult = styled.div`
+  margin-top: 20px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+`;
+export const CoinBtn = styled.button`
+  position: fixed; /* 위치 조정 */
+  bottom: 20px;
+  right: 20px;
+  background-color: #ffcc00;
+  border: none;
+  border-radius: 12px;
+  padding: 10px 20px;
+  font-weight: bold;
+  cursor: pointer;
+`;

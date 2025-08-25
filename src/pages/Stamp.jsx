@@ -1,104 +1,79 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import * as S from "../styles/StyledStamp";
-import { useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const Stamp = () => {
   const [tabBar, setTabBar] = useState("tabBar1");
-  const handleTabBar = (menu) => {
-    setTabBar(menu);
+  const handleTabBar = (menu) => setTabBar(menu);
+
+  const navigate = useNavigate();
+
+  const goTalCoin = () => {
+    navigate("/TalCoin");
   };
-    useEffect(() => {
+  const location = useLocation();
+
+  // 완료된 스탬프 번호 저장
+  const [completedStamps, setCompletedStamps] = useState([]);
+
+  useEffect(() => {
     window.scrollTo(0, document.body.scrollHeight);
-  }, []);
+
+    // ReciptPhoto에서 돌아온 후 완료 스탬프 추가
+    if (location.state?.completedStamp) {
+      setCompletedStamps((prev) => {
+        if (!prev.includes(location.state.completedStamp)) {
+          return [...prev, location.state.completedStamp];
+        }
+        return prev;
+      });
+    }
+  }, [location.state]);
+
+  const stamps = Array.from({ length: 10 }, (_, i) => 10 - i); // [10,9,...,1]
+
+  const handleStampClick = (stampNum) => {
+    navigate("/ReciptPhoto", { state: { stampNum } });
+  };
+
   return (
     <S.Container>
+      {/* 탭바 */}
       <S.TabBar>
         <div id="tabBarIcon">
-          <img
-            src={`${process.env.PUBLIC_URL}/images/${
-              tabBar === "tabBar1" ? "tabBar1_on.svg" : "tabBar1_off.svg"
-            }`}
-            alt="tabBar1"
-            width="41px"
-            height="60px"
-            onClick={() => handleTabBar("tabBar1")}
-          />
-          <img
-            src={`${process.env.PUBLIC_URL}/images/${
-              tabBar === "tabBar2" ? "tabBar2_on.svg" : "tabBar2_off.svg"
-            }`}
-            alt="tabBar2"
-            width="66px"
-            height="59px"
-            onClick={() => handleTabBar("tabBar2")}
-          />
-          <img
-            src={`${process.env.PUBLIC_URL}/images/${
-              tabBar === "tabBar3" ? "tabBar3_on.svg" : "tabBar3_off.svg"
-            }`}
-            alt="tabBar3"
-            width="32px"
-            height="58px"
-            onClick={() => handleTabBar("tabBar3")}
-          />
+          {["tabBar1", "tabBar2", "tabBar3"].map((tab, idx) => (
+            <img
+              key={tab}
+              src={`${process.env.PUBLIC_URL}/images/${
+                tabBar === tab ? `${tab}_on.svg` : `${tab}_off.svg`
+              }`}
+              alt={tab}
+              width={idx === 1 ? "66px" : idx === 2 ? "32px" : "41px"}
+              height={idx === 1 ? "59px" : idx === 2 ? "58px" : "60px"}
+              onClick={() => handleTabBar(tab)}
+            />
+          ))}
         </div>
       </S.TabBar>
 
-      <S.StampCircle10>       <img
-          src={`${process.env.PUBLIC_URL}/images/Circle10.svg`}
-          alt="Circle"
-        /></S.StampCircle10>
-      <S.StampCircle9>       <img
-          src={`${process.env.PUBLIC_URL}/images/Circle9.svg`}
-          alt="Circle"
-        /></S.StampCircle9>     
-             <S.StampCircle8>       <img
-          src={`${process.env.PUBLIC_URL}/images/Circle8.svg`}
-          alt="Circle"
-        /></S.StampCircle8>
-               <S.StampCircle7>       <img
-          src={`${process.env.PUBLIC_URL}/images/Circle7.svg`}
-          alt="Circle"
-        /></S.StampCircle7>
-        
-               <S.StampCircle6>       <img
-          src={`${process.env.PUBLIC_URL}/images/Circle6.svg`}
-          alt="Circle"
-        /></S.StampCircle6>
-        
-               <S.StampCircle5>       <img
-          src={`${process.env.PUBLIC_URL}/images/Circle5.svg`}
-          alt="Circle"
-        /></S.StampCircle5>
-        
-               <S.StampCircle4>       <img
-          src={`${process.env.PUBLIC_URL}/images/Circle4.svg`}
-          alt="Circle"
-        /></S.StampCircle4>
-        
-               <S.StampCircle3>       <img
-          src={`${process.env.PUBLIC_URL}/images/Circle3.svg`}
-          alt="Circle"
-        /></S.StampCircle3>
+      {/* 스탬프 */}
+      {stamps.map((num) => {
+        const StampComponent = S[`StampCircle${num}`];
+        const isDone = completedStamps.includes(num); // 완료 여부
+        return (
+          <StampComponent key={num} onClick={() => handleStampClick(num)}>
+            <img
+              src={`${process.env.PUBLIC_URL}/images/${isDone ? `done${num}` : `Circle${num}`}.svg`}
+              alt={`Circle${num}`}
+            />
+          </StampComponent>
+        );
+      })}
 
-                <S.StampCircle2>       <img
-          src={`${process.env.PUBLIC_URL}/images/Circle2.svg`}
-          alt="Circle"
-        /></S.StampCircle2>
-
-                <S.StampCircle1>       <img
-          src={`${process.env.PUBLIC_URL}/images/Circle1.svg`}
-          alt="Circle"
-        /></S.StampCircle1> 
-        {/* 영수증 검토 완료 시 이미지 /DoneCircleN(숫자)로 바뀌는 형식 */}
-        
-        <S.CoinBtn>코인</S.CoinBtn>
-        
-        <S.CoinNum>0/10</S.CoinNum>
-
-
+      {/* 코인 버튼 & 개수 */}
+      <S.CoinBtn onClick={goTalCoin}>코인</S.CoinBtn>
+      <S.CoinNum>0/10</S.CoinNum>
     </S.Container>
-
   );
 };
 
