@@ -1,7 +1,7 @@
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { createRoot } from "react-dom/client";
 import * as A from "../styles/StyledAiPosts";
 
 export const StudentAiPosts = () => {
@@ -27,6 +27,14 @@ export const StudentAiPosts = () => {
 
   const goAlert = () => {
     navigate(`/MyAlert`);
+  };
+
+  const goAiPortfolio = () => {
+    navigate("/StudentAiPortfolio");
+  };
+
+  const goStamp = () => {
+    navigate("/Stamp");
   };
 
   const handleToggle = () => {
@@ -178,14 +186,11 @@ export const StudentAiPosts = () => {
 
   const fetchRecommendedJobs = async () => {
     try {
-      const response = await axios.get(
-        "http://127.0.0.1:8000/matching/recommended/jobs/",
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-          },
-        }
-      );
+      const response = await axios.get("/matching/recommended/jobs/", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      });
       if (response.data.recommended_jobs.length > 0) {
         const adJob = {
           id: "ad",
@@ -193,7 +198,7 @@ export const StudentAiPosts = () => {
           company_name: "스윗케이크",
           description:
             "스윗케이크는 동네에서 운영되는 작은 베이커리예요.<br/> 가게를 알리고 홍보할 디자인 보조 도우미를 찾습니다!<br/><br/>- 주요업무 - <br/>SNS 게시물, 카드뉴스, 포스터 등 홍보용 디자인 제작과 이미지 편집<br/><br/> 작은 혜택: 매주 1회 스윗케이크 빵 제공<br/><br/> 빵러버들 환영 ^-^",
-          distance_m: null,
+          distance_m: 1500, // 목업 데이터에 거리 추가
           is_liked: false,
           is_ad: true,
         };
@@ -312,7 +317,7 @@ export const StudentAiPosts = () => {
               <div id="textBox">
                 <A.CardTitle>{job.company_name}</A.CardTitle>
                 <A.LocationText>
-                  {job.distance_m
+                  {job.distance_m != null
                     ? `현재 위치에서 ${job.distance_m}m`
                     : "거리 정보 없음"}
                 </A.LocationText>
@@ -398,7 +403,7 @@ export const StudentAiPosts = () => {
               <div id="textBox">
                 <A.CardTitle>{job.company_name}</A.CardTitle>
                 <A.LocationText>
-                  {job.distance_m
+                  {job.distance_m != null
                     ? `현재 위치에서 ${job.distance_m}m`
                     : "거리 정보 없음"}
                 </A.LocationText>
@@ -441,7 +446,7 @@ export const StudentAiPosts = () => {
             alt="tabBar2"
             width="66px"
             height="59px"
-            onClick={() => handleTabBar("tabBar2")}
+            onClick={goAiPortfolio}
           />
           <img
             src={`${process.env.PUBLIC_URL}/images/${
@@ -450,7 +455,7 @@ export const StudentAiPosts = () => {
             alt="tabBar3"
             width="32px"
             height="58px"
-            onClick={() => handleTabBar("tabBar3")}
+            onClick={goStamp}
           />
         </div>
       </A.TabBar>
@@ -479,4 +484,5 @@ export const StudentAiPosts = () => {
     </A.Container>
   );
 };
+
 export default StudentAiPosts;

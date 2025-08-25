@@ -47,15 +47,18 @@ const BusinessSignup1 = ({ formData, setFormData }) => {
       console.log("확인서 분석 성공", response.data);
 
       // 백엔드로부터 받은 데이터를 formData에 업데이트
-      const { ceo_name, company_name, business_number } = response.data;
+      const { 대표자명, 업체이름, 사업자등록번호 } = response.data;
+      console.log("확인서 분석 성공", response.data.ceo_name);
+      console.log("확인서 분석 성공", response.data.대표자명);
+      console.log("확인서 분석 성공", response.data);
 
       // 파일 정보와 백엔드에서 받은 데이터를 함께 저장
       const updatedFormData = {
         ...formData,
         business_cert: file,
-        ceo_name: ceo_name || "", // 값이 null이면 빈 문자열로
-        business_number: business_number || "", // 값이 null이면 빈 문자열로
-        company_name: company_name || formData.company_name, // API 값이 null이면 기존 값을 유지
+        ceo_name: 대표자명, // 값이 null이면 빈 문자열로
+        business_number: 업체이름 || "", // 값이 null이면 빈 문자열로
+        company_name: 사업자등록번호 || formData.company_name, // API 값이 null이면 기존 값을 유지
       };
       setFormData(updatedFormData);
       navigate("/BusinessSignup2", { state: { formData: updatedFormData } });

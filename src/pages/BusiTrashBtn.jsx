@@ -47,6 +47,16 @@ const BusiTrashBtn = () => {
     fetchPosts();
   }, []);
 
+  //AI 공고
+  const goAiPosts = () => {
+    navigate("/BusinessAiPosts");
+  };
+
+  //재능지원함
+  const goApplications = () => {
+    navigate("/BusinessApplications");
+  };
+
   // 탭바 핸들러
   const handleTabBar = (menu) => {
     setTabBar(menu);
@@ -150,7 +160,7 @@ const BusiTrashBtn = () => {
             alt="tabBar1"
             width="41px"
             height="60px"
-            onClick={() => handleTabBar("tabBar1")}
+            onClick={goAiPosts}
           />
           <img
             src={`${process.env.PUBLIC_URL}/images/${
@@ -159,7 +169,7 @@ const BusiTrashBtn = () => {
             alt="tabBar4"
             width="52px"
             height="57px"
-            onClick={() => handleTabBar("tabBar4")}
+            onClick={goApplications}
           />
           <img
             src={`${process.env.PUBLIC_URL}/images/${
