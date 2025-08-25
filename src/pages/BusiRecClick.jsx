@@ -3,10 +3,50 @@ import { useState } from "react";
 import axios from "axios";
 import * as S from "../styles/StyledBusiRecClick";
 
-const BusiRecClick= () => {
+const BusiRecClick = ({ jobPostId, helperId }) => {
   const [tabBar, setTabBar] = useState("tabBar1");
   const [showRequestBox, setShowRequestBox] = useState(false); // 모달 상태
   const [requestStatus, setRequestStatus] = useState("재능 요청하기"); // 버튼 상태
+  const [error, setError] = useState(null);
+
+  const sendTalentRequest = async () => {
+    // props로 받은 ID를 사용합니다.
+    const accessToken = localStorage.getItem("accessToken");
+
+    if (!accessToken) {
+      setError("로그인이 필요합니다.");
+      return;
+    }
+    // jobPostId와 helperId가 제대로 전달되었는지 확인합니다.
+    if (!jobPostId || !helperId) {
+      setError("재능 요청에 필요한 정보가 누락되었습니다.");
+      return;
+    }
+
+    try {
+      const response = await axios.post(
+        "/matching/request/", // 실제 API 엔드포인트 URL로 변경해야 합니다.
+        {
+          helper_id: helperId,
+          job_id: jobPostId,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+
+      if (response.status === 201) {
+        setRequestStatus("대기 중");
+        setShowRequestBox(true);
+      }
+    } catch (err) {
+      console.error("재능 요청 실패:", err);
+      setError("재능 요청에 실패했습니다. 다시 시도해 주세요.");
+    }
+  };
 
   //탭 바
   const handleTabBar = (menu) => {
@@ -168,11 +208,11 @@ const BusiRecClick= () => {
           <img src={`${process.env.PUBLIC_URL}/images/add.svg`} alt="Add" />
         </S.Add>
 
-          <S.TalRe onClick={() => setShowRequestBox(true)}>
+        <S.TalRe onClick={() => setShowRequestBox(true)}>
           {requestStatus}
         </S.TalRe>
 
-              {/* 모달 */}
+        {/* 모달 */}
         {showRequestBox && (
           <S.Overlay onClick={() => setShowRequestBox(false)}>
             <S.RequestBox onClick={(e) => e.stopPropagation()}>

@@ -125,7 +125,13 @@ const BusinessApplications = () => {
           </P.Box>
 
           <P.OptionBox>
-            <P.Option1>공고 수정하기</P.Option1>
+            <P.Option1
+              onClick={() =>
+                navigate("/NoticeUp", { state: { jobId: job.job_id } })
+              }
+            >
+              공고 수정하기
+            </P.Option1>
             <P.Option2>후기 작성하기</P.Option2>
           </P.OptionBox>
 

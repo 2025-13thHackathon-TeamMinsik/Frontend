@@ -1,10 +1,9 @@
 import { styled } from "styled-components";
 
-
 export const BackBtn = styled.div`
-position: absolute;
-top: 44px;
-left: 30px;
+  position: absolute;
+  top: 44px;
+  left: 30px;
 `;
 
 export const Container = styled.div`
@@ -12,25 +11,22 @@ export const Container = styled.div`
   flex-direction: column; /* 세로로 배치 */
   margin: 0 auto;
   width: 393px;
- height: 180vh;
+  height: 180vh;
   background: #fff;
-  outline: 1px solid black;
   align-items: center;
 
   position: relative;
 `;
 
 export const Background = styled.div`
-border-radius: 5.887px;
-border: 1.177px solid var(--200, #DFDFDF);
-background: var(--, #FFF);
-box-shadow: 0 0 11.773px 0 rgba(0, 0, 0, 0.15);
-width: 333px;
-height: 180vh;
-flex-shrink: 0;
-margin-top: 84px;
-
-
+  border-radius: 5.887px;
+  border: 1.177px solid var(--200, #dfdfdf);
+  background: var(--, #fff);
+  box-shadow: 0 0 11.773px 0 rgba(0, 0, 0, 0.15);
+  width: 333px;
+  height: 180vh;
+  flex-shrink: 0;
+  margin-top: 84px;
 `;
 
 export const TabBar = styled.div`
@@ -56,90 +52,87 @@ export const TabBar = styled.div`
 `;
 
 export const Box1 = styled.div`
-width: 333px;
-height: 180.032px;
-flex-shrink: 0;
-border-radius: 6.099px;
-background: #F6F6F6;
-margin-top: 137.32px;
+  width: 333px;
+  height: 180.032px;
+  flex-shrink: 0;
+  border-radius: 6.099px;
+  background: #f6f6f6;
+  margin-top: 137.32px;
 `;
 
 export const Input1 = styled.textarea`
-width: 301.286px;
-height: 82.815px;
-flex-shrink: 0;
+  width: 301.286px;
+  height: 82.815px;
+  flex-shrink: 0;
 
-color: #000;
-font-family: Pretendard;
-font-size: 14.637px;
-font-style: normal;
-font-weight: 400;
-resize: none;
-border: none;
-outline: none;
-background: #F6F6F6;
+  color: #000;
+  font-family: Pretendard;
+  font-size: 14.637px;
+  font-style: normal;
+  font-weight: 400;
+  resize: none;
+  border: none;
+  outline: none;
+  background: #f6f6f6;
 
-margin-left: 15.86px;
-margin-top: 6px;
+  margin-left: 15.86px;
+  margin-top: 6px;
 `;
 
 export const Box2 = styled.div`
-width: 333px;
-height: 180.032px;
-flex-shrink: 0;
-border-radius: 6.099px;
-background: #F6F6F6;
+  width: 333px;
+  height: 180.032px;
+  flex-shrink: 0;
+  border-radius: 6.099px;
+  background: #f6f6f6;
 
-margin-top: 12px;
+  margin-top: 12px;
 `;
 
-
 export const Input2 = styled.textarea`
-width: 301.286px;
-height: 82.815px;
-flex-shrink: 0;
+  width: 301.286px;
+  height: 82.815px;
+  flex-shrink: 0;
 
-color: #000;
-font-family: Pretendard;
-font-size: 14.637px;
-font-style: normal;
-font-weight: 400;
-resize: none;
-border: none;
-outline: none;
-background: #F6F6F6;
+  color: #000;
+  font-family: Pretendard;
+  font-size: 14.637px;
+  font-style: normal;
+  font-weight: 400;
+  resize: none;
+  border: none;
+  outline: none;
+  background: #f6f6f6;
 
-margin-left: 15.86px;
-margin-top: 6px;
+  margin-left: 15.86px;
+  margin-top: 6px;
 `;
 
 export const Name = styled.div`
-color: #000;
-font-family: Pretendard;
-font-size: 17.077px;
-font-style: normal;
-font-weight: 400;
+  color: #000;
+  font-family: Pretendard;
+  font-size: 17.077px;
+  font-style: normal;
+  font-weight: 400;
 
-margin-left: 15.86px;
-margin-top: 15.6px;
-
+  margin-left: 15.86px;
+  margin-top: 15.6px;
 `;
 export const Time = styled.div`
-color: var(--300, #A3A3A3);
-font-family: Pretendard;
-font-size: 14.637px;
-font-style: normal;
-font-weight: 400;
+  color: var(--300, #a3a3a3);
+  font-family: Pretendard;
+  font-size: 14.637px;
+  font-style: normal;
+  font-weight: 400;
 
-
-margin-left: 15.86px;
-margin-top: 3px;
+  margin-left: 15.86px;
+  margin-top: 3px;
 `;
 export const Line = styled.div`
-width: 301.286px;
-height: 0.5px;
-background: #DFDFDF;
+  width: 301.286px;
+  height: 0.5px;
+  background: #dfdfdf;
 
-margin-left: 15.86px;
-margin-top: 5px;
+  margin-left: 15.86px;
+  margin-top: 5px;
 `;
