@@ -150,18 +150,4 @@ export const CoinBtn = styled.button`
   font-weight: bold;
   cursor: pointer;
 `;
-=======
-  border-radius: 10px;
-  border: 1px solid #695739;
-  background: #fff;
-  display: flex;
-  width: 298px;
-  height: 54px;
-  padding: 8px 10px;
-  justify-content: center;
-  align-items: center;
-  flex-shrink: 0;
-  margin-left: 38px;
-  margin-top: 55px;
-`;
->>>>>>> c26d0fb2d01fb0088d2acf601643b56d35672706
+
