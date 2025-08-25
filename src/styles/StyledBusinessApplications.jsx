@@ -8,7 +8,6 @@ export const Container = styled.div`
   width: 393px;
   min-height: 100vh;
   background: #fff;
-  outline: 1px solid black;
   padding-bottom: 190px;
 
   #header {

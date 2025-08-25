@@ -32,7 +32,7 @@ const Login = () => {
       console.log("로그인 성공", response.data);
 
       localStorage.setItem("accessToken", response.data.access);
-      localStorage.setItem("refreshToken", response.data.refreshs);
+      localStorage.setItem("refreshToken", response.data.refresh);
       localStorage.setItem("userEmail", email);
 
       setIsError(false);

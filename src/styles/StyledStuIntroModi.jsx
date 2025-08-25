@@ -1,9 +1,9 @@
 import { styled } from "styled-components";
 
 export const BackBtn = styled.div`
-position: absolute;
-top: 44px;
-left: 30px;
+  position: absolute;
+  top: 44px;
+  left: 30px;
 `;
 
 export const Container = styled.div`
@@ -11,42 +11,35 @@ export const Container = styled.div`
   flex-direction: column; /* 세로로 배치 */
   margin: 0 auto;
   width: 393px;
- height: 180vh;
+  height: 180vh;
   background: #fff;
-  outline: 1px solid black;
   align-items: center;
 
   position: relative;
 `;
 
 export const Background = styled.textarea`
+  width: 333px;
+  height: 180.032px;
+  flex-shrink: 0;
 
+  border-radius: 6.099px;
+  background: #f6f6f6;
+  margin-top: 189.38px;
+  margin-left: 5px;
 
-
-width: 333px;
-height: 180.032px;
-flex-shrink: 0;
-
-border-radius: 6.099px;
-background: #F6F6F6;
-margin-top: 189.38px;
-margin-left: 5px;
-
-
-  border: none;             /* 모든 테두리 제거 */
-  outline: none; 
-  resize: none; 
+  border: none; /* 모든 테두리 제거 */
+  outline: none;
+  resize: none;
 
   color: #000;
 
-/* R16 */
-font-family: Pretendard;
-font-size: 16px;
-font-style: normal;
-font-weight: 400;
-
+  /* R16 */
+  font-family: Pretendard;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
 `;
-
 
 export const TabBar = styled.div`
   width: 393px;

@@ -160,6 +160,7 @@ function App() {
           element={<NoticeUp formData={formData} setFormData={setFormData} />} // ⭐️ formData prop 추가
         />
         <Route path="/BusiHelperClick" element={<BusiHelperClick />} />
+        <Route path="/BusiRecClick" element={<BusiRecClick />} />
         <Route path="/BusiTrashBtn" element={<BusiTrashBtn />} />
       </Routes>
     </BrowserRouter>
