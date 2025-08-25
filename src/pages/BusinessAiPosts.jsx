@@ -21,7 +21,6 @@ const BusinessAiPosts = () => {
   });
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState(null); // 검색 결과 상태 추가
-  // ⭐ 추천 대학생 데이터를 저장할 상태 추가
   const [recommendedStudents, setRecommendedStudents] = useState([]);
   const [isRecommendedLoading, setIsRecommendedLoading] = useState(true);
 
@@ -31,21 +30,37 @@ const BusinessAiPosts = () => {
     navigate(`/MyAlert`);
   };
 
+  // ✅ goNoticeUp 함수 수정
   const goNoticeUp = () => {
-    const userInfo = JSON.parse(localStorage.getItem("user_info"));
-    if (userInfo) {
+    try {
+      // localStorage에서 'user_info' 데이터 가져오기
+      const userInfoString = localStorage.getItem("user_info");
+
+      // 사용자 정보가 없으면 알림창을 띄우고 함수 종료
+      if (!userInfoString) {
+        alert("로그인 정보가 없습니다. 다시 로그인 해주세요.");
+        console.error("User info not found in localStorage");
+        return;
+      }
+
+      // JSON.parse를 사용하여 문자열을 객체로 변환
+      const userInfo = JSON.parse(userInfoString);
+
+      // NoticeUp 페이지로 이동하며 사용자 정보 전달
+      // 로그인 응답에 있는 'full_name', 'company_name', 'business_type', 'location'을 사용
       navigate(`/NoticeUp`, {
         state: {
           formData: {
-            name: userInfo.full_name, //full_name을 name으로 전달
+            name: userInfo.full_name,
             company_name: userInfo.company_name,
             business_type: userInfo.business_type,
             location: userInfo.location,
           },
         },
       });
-    } else {
-      console.error("User info not found in localStorage");
+    } catch (error) {
+      console.error("사용자 정보를 가져오는 중 오류 발생:", error);
+      alert("사용자 정보를 불러오는데 실패했습니다. 다시 시도해주세요.");
     }
   };
 

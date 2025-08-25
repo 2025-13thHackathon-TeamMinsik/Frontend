@@ -136,7 +136,10 @@ function App() {
         <Route path="/StudentReview" element={<StudentReview />} />
         <Route path="/BusinessAiPosts" element={<BusinessAiPosts />} />
         <Route path="/BusinessReview" element={<BusinessReview />} />
-        <Route path="/BusinessViewReview" element={<BusinessViewReview />} />
+        <Route
+          path="/BusiTrashBtn/:jobPostId"
+          element={<BusinessViewReview />}
+        />
         <Route
           path="/BusinessApplications"
           element={<BusinessApplications />}

@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import * as S from "../styles/StyledBusiTrashBtn";
 
 const BusiTrashBtn = () => {
+  const navigate = useNavigate(); // useNavigate 훅을 사용하여 네비게이션 기능을 추가합니다.
   const [tabBar, setTabBar] = useState("tabBar1");
   const [posts, setPosts] = useState([]); // 공고 이력 데이터를 저장할 상태
   const [loading, setLoading] = useState(true); // 로딩 상태
@@ -56,6 +58,11 @@ const BusiTrashBtn = () => {
     setShowModal(true);
   };
 
+  // '받은 후기 보기' 클릭 시 네비게이션
+  const handleViewReview = (jobPostId) => {
+    navigate(`/business-review/${jobPostId}`);
+  };
+
   // 삭제 확인 (프론트엔드에서만 처리)
   const confirmDelete = () => {
     if (selectedPost) {
@@ -98,7 +105,9 @@ const BusiTrashBtn = () => {
                 />
               </S.X>
               <S.Day>{formatDate(post.created_at)}</S.Day>
-              <S.SeeBox>받은 후기 보기</S.SeeBox>
+              <S.SeeBox onClick={() => handleViewReview(post.id)}>
+                받은 후기 보기
+              </S.SeeBox>
             </S.RowBox>
           </S.Box1>
         ))
