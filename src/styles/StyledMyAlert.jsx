@@ -119,3 +119,25 @@ export const Box2 = styled.div`
     transform: translateY(-50%); /* 아이콘 높이 절반 만큼 위로 이동 */
   }
 `;
+
+export const Box3 = styled.div`
+  position: relative;
+  margin: 0 auto;
+  margin-top: 10px;
+  width: 333px;
+  height: 138px;
+  flex-shrink: 0;
+  border-radius: 5.887px;
+  border: 1.177px solid var(--200, #dfdfdf);
+  background: var(--, #fff);
+  box-shadow: 0 0 11.773px 0 rgba(0, 0, 0, 0.15);
+
+  #alertIcon {
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+    right: 13px;
+    top: 50%;
+    transform: translateY(-50%); /* 아이콘 높이 절반 만큼 위로 이동 */
+  }
+`;

@@ -7,6 +7,7 @@ const BusinessSignup2 = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { formData } = location.state || {}; //이전 페이지에서 전달받은 formData
+  console.log("확인서 분석 성공", formData);
 
   const goBusinessSignup3 = () => {
     navigate(`/BusinessSignup3`, { state: { formData } });
