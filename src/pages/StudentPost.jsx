@@ -13,21 +13,19 @@ const StudentPost = () => {
   const [isApplied, setIsApplied] = useState(false);
   const [job, setJob] = useState(null);
   const [myApplication, setMyApplication] = useState(null);
-  const [motivation, setMotivation] = useState(""); // 나눔 동기 상태 추가
+  const [motivation, setMotivation] = useState("");
 
-  // 공고 상세 정보와 지원 여부를 각각 조회
+  // 공고 상세 정보 및 지원 여부 조회
   const fetchJobDetails = async () => {
     try {
-      // 1. 공고 상세 정보 조회 API 호출
       const jobResponse = await axios.get(`/jobs/posts/${id}/`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },
       });
       setJob(jobResponse.data);
-      console.log("공고 상세 정보 데이터:", jobResponse.data);
 
-      // 2. 학생의 지원 정보 조회 API 호출
+      // 내 지원 여부 확인
       try {
         const applicationResponse = await axios.get(
           `/jobs/posts/${id}/my_application`,
@@ -37,11 +35,18 @@ const StudentPost = () => {
             },
           }
         );
-        setMyApplication(applicationResponse.data.my_application);
-        setIsApplied(true);
-        setButtonText("대기 중");
-      } catch (appError) {
-        console.log("아직 지원하지 않은 공고입니다.");
+
+        const myApp = applicationResponse.data.my_application;
+        if (myApp) {
+          setMyApplication(myApp);
+          setIsApplied(true);
+          setButtonText("대기 중");
+        } else {
+          setMyApplication(null);
+          setIsApplied(false);
+          setButtonText("재능 나누기");
+        }
+      } catch {
         setMyApplication(null);
         setIsApplied(false);
         setButtonText("재능 나누기");
@@ -51,11 +56,23 @@ const StudentPost = () => {
     }
   };
 
-  //재능 나누기 기능
-  const handleApply = async () => {
-    if (isApplied) {
-      return;
+  // 알림 갱신 (지원 후 자동 반영)
+  const fetchNotifications = async () => {
+    try {
+      await axios.get(`/notifications/`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      });
+      // 알림 데이터를 직접 보여주지 않아도, 알림창에서 자동 반영됨
+    } catch (error) {
+      console.error("알림 조회 실패:", error);
     }
+  };
+
+  // 재능 나누기 신청
+  const handleApply = async () => {
+    if (isApplied) return;
 
     if (!motivation.trim()) {
       alert("나눔 동기를 작성해주세요.");
@@ -63,9 +80,10 @@ const StudentPost = () => {
     }
 
     try {
+      // 지원 신청 API 호출
       await axios.post(
         `/jobs/applications/${id}/`,
-        { motivation: motivation },
+        { motivation },
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -73,7 +91,13 @@ const StudentPost = () => {
         }
       );
 
+      // 지원 후 알림 갱신
+      await fetchNotifications();
+
+      // 버튼 상태 업데이트 및 모달 오픈
       setIsModalOpen(true);
+      setIsApplied(true);
+      setButtonText("대기 중");
     } catch (error) {
       console.error("재능 나누기 실패:", error);
       alert("지원에 실패했습니다. 다시 시도해 주세요.");
@@ -82,8 +106,6 @@ const StudentPost = () => {
 
   const handleModalClose = () => {
     setIsModalOpen(false);
-    setButtonText("대기 중");
-    setIsApplied(true);
   };
 
   useEffect(() => {
@@ -92,17 +114,14 @@ const StudentPost = () => {
     }
   }, [id]);
 
-  //탭 바
   const handleTabBar = (menu) => {
     setTabBar(menu);
   };
 
-  //뒤로가기
   const goBack = () => {
     navigate(-1);
   };
 
-  //AI 공고
   const goAiPosts = () => {
     navigate("/StudentAiPosts");
   };
@@ -120,6 +139,8 @@ const StudentPost = () => {
           />
         </P.BackBtn>
       </div>
+
+      {/* 공고 상세 */}
       <P.Box1>
         {job?.payment_type === "VOLUNTEER_TIME" && (
           <P.FilterIcon>봉사</P.FilterIcon>
@@ -190,6 +211,8 @@ const StudentPost = () => {
           <P.PostContent1>{job?.description}</P.PostContent1>
         </P.TextBox2>
       </P.Box1>
+
+      {/* 나눔 동기 및 버튼 */}
       <P.Box2>
         <P.TextBox2>
           <P.Title>
@@ -214,6 +237,8 @@ const StudentPost = () => {
           <P.Btn2 onClick={handleApply}>{buttonText}</P.Btn2>
         </P.TextBox2>
       </P.Box2>
+
+      {/* 탭바 */}
       <P.TabBar>
         <div id="tabBarIcon">
           <img
@@ -248,6 +273,8 @@ const StudentPost = () => {
           />
         </div>
       </P.TabBar>
+
+      {/* 모달 */}
       {isModalOpen && (
         <P.ModalOverlay>
           <P.ApplyModal>
