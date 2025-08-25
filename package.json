@@ -41,5 +41,6 @@
     ]
   },
   "proxy": "http://127.0.0.1:8000",
-  "proxy": "http://localhost:8000"
+  "proxy": "http://localhost:8000",
+  "proxy": "http://ec2-3-39-21-45.ap-northeast-2.compute.amazonaws.com:8000"
 }

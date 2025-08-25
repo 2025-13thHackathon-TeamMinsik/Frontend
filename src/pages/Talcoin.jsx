@@ -9,10 +9,7 @@ const TalCoin = () => {
   const [showQBox, setShowQBox] = useState(false);
   const [redeemHistory, setRedeemHistory] = useState([]); // 발급 내역
 
-
-  const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzU2MTIxNzUyLCJpYXQiOjE3NTYxMTgxNTIsImp0aSI6IjIzZTZjZGMyYzViNTQ1ZGE5M2NhMDM5NGI4MzgxN2ExIiwidXNlcl9pZCI6Niwicm9sZSI6InN0dWRlbnQiLCJlbWFpbCI6Im1pbmluYmxpc3NzQG5hdmVyLmNvbSJ9.TN34kQ8G76iY3gSqnhp85HBUK9QLoMTFq3wkS-V7KTk"; // 실제 로그인 시 받은 토큰 넣기
-
-  // 코인 잔액 가져오기
+const token = localStorage.getItem("accessToken");
   const fetchBalance = () => {
     fetch("/wallets/", {
       method: "GET",

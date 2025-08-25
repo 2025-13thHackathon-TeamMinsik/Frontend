@@ -80,6 +80,21 @@ const NoticeUp = ({ formData }) => {
       setImageSource("gallery");
     }
   };
+const login = async () => {
+  try {
+    const response = await axios.post("/auth/login/", {
+      email: "your_email@example.com",
+      password: "your_password",
+    });
+    const token = response.data.access; // API에서 반환하는 토큰 필드명 확인
+    const email = response.data.userEmail; // 이메일도 필요하면 저장
+    localStorage.setItem("accessToken", token);
+    localStorage.setItem("userEmail", email);
+    console.log("로그인 성공, 토큰 저장 완료 ✅");
+  } catch (error) {
+    console.error("로그인 실패 ❌", error);
+  }
+};
 
   //공고 작성
   const postJob = async () => {

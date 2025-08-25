@@ -7,7 +7,7 @@ const ReciptPhoto = () => {
   const [tabBar, setTabBar] = useState("tabBar1");
   const [uploadResult, setUploadResult] = useState(null);
 
-  const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzU2MTIxNzUyLCJpYXQiOjE3NTYxMTgxNTIsImp0aSI6IjIzZTZjZGMyYzViNTQ1ZGE5M2NhMDM5NGI4MzgxN2ExIiwidXNlcl9pZCI6Niwicm9sZSI6InN0dWRlbnQiLCJlbWFpbCI6Im1pbmluYmxpc3NzQG5hdmVyLmNvbSJ9.TN34kQ8G76iY3gSqnhp85HBUK9QLoMTFq3wkS-V7KTk"; // 실제 토큰으로 교체
+  const token = localStorage.getItem("accessToken");
   const fileInputRef = useRef(null);
 
   const handleTabBar = (menu) => setTabBar(menu);
