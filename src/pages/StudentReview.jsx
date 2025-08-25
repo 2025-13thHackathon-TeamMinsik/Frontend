@@ -1,20 +1,81 @@
 import React from "react";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import axios from "axios";
 import * as P from "../styles/StyledPost";
 
 const StudentReview = () => {
   const navigate = useNavigate();
+  const { jobId } = useParams(); // URL에서 job_id 가져오기
   const [tabBar, setTabBar] = useState("tabBar1");
+  const [rating, setRating] = useState(0); // SetRating을 setRating으로 변경
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [buttonText, setButtonText] = useState("재능 나누기");
+  const [isApplied, setIsApplied] = useState(false);
+  const [content, setContent] = useState(""); // 리뷰 내용 상태 추가
 
-  //탭 바
+  // 탭 바
   const handleTabBar = (menu) => {
     setTabBar(menu);
   };
 
-  //뒤로가기
+  // 뒤로가기
   const goBack = () => {
     navigate(-1);
+  };
+
+  // AI 공고
+  const goAiPosts = () => {
+    navigate("/StudentAiPosts");
+  };
+
+  // 모달 닫기
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+    setButtonText("대기 중");
+    setIsApplied(true);
+  };
+
+  // ⭐ API 연동 함수 추가
+  const handleSubmitReview = async () => {
+    if (!jobId) {
+      alert("리뷰를 작성할 공고 정보가 없습니다.");
+      return;
+    }
+
+    if (!rating || content.trim() === "") {
+      alert("별점과 리뷰 내용을 모두 작성해주세요.");
+      return;
+    }
+
+    try {
+      const accessToken = localStorage.getItem("accessToken");
+      if (!accessToken) {
+        alert("로그인이 필요합니다.");
+        navigate("/login"); // 로그인 페이지로 리디렉션
+        return;
+      }
+
+      const reviewData = {
+        job_post: jobId, // URL에서 가져온 job_id 사용
+        rating: rating,
+        content: content,
+      };
+
+      const response = await axios.post(`/reviews/employee/`, reviewData, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "application/json",
+        },
+      });
+
+      console.log("리뷰 작성 성공:", response.data);
+      alert("후기가 성공적으로 작성되었습니다.");
+      setIsModalOpen(true); // 성공 시 모달 열기
+    } catch (error) {
+      console.error("리뷰 작성 실패:", error);
+      alert("리뷰 작성에 실패했습니다. 다시 시도해주세요.");
+    }
   };
 
   return (
@@ -123,40 +184,41 @@ const StudentReview = () => {
             후기 작성하기
           </P.Title>
           <P.StarReview>
-            <img
-              src={`${process.env.PUBLIC_URL}/images/Star-off.svg`}
-              alt="star-off"
-              width="35px"
-              height="auto"
-            />
-            <img
-              src={`${process.env.PUBLIC_URL}/images/Star-off.svg`}
-              alt="star-off"
-              width="35px"
-              height="auto"
-            />
-            <img
-              src={`${process.env.PUBLIC_URL}/images/Star-off.svg`}
-              alt="star-off"
-              width="35px"
-              height="auto"
-            />
-            <img
-              src={`${process.env.PUBLIC_URL}/images/Star-off.svg`}
-              alt="star-off"
-              width="35px"
-              height="auto"
-            />
-            <img
-              src={`${process.env.PUBLIC_URL}/images/Star-off.svg`}
-              alt="star-off"
-              width="35px"
-              height="auto"
-            />
+            {Array.from({ length: 5 }, (_, idx) => (
+              <P.StarImage
+                key={idx}
+                src={`${process.env.PUBLIC_URL}/images/Star-${
+                  idx < rating ? "on" : "off"
+                }.svg`}
+                alt="star"
+                onClick={() => setRating(idx + 1)} // ⭐ 별점 클릭 로직 수정
+              ></P.StarImage>
+            ))}
           </P.StarReview>
-          <P.PostContent2></P.PostContent2>
-          <P.Btn1>포트폴리오 수정하기</P.Btn1>
-          <P.Btn2>재능 나누기</P.Btn2>
+          <P.ReviewContent
+            placeholder="어떤 작업을 했는지 상세히 적어주세요."
+            value={content}
+            onChange={(e) => setContent(e.target.value)} // ⭐ 입력 값 상태에 저장
+          ></P.ReviewContent>
+          <P.Title>
+            <img
+              src={`${process.env.PUBLIC_URL}/images/titleIcon.svg`}
+              alt="titleIcon"
+              id="titleIcon"
+            />
+            급여 방식 선택하기
+            <P.SubTitle>(필수 택 1)</P.SubTitle>
+          </P.Title>
+          <P.PayOptionBox>
+            <P.PayOption1>지역화폐</P.PayOption1>
+            <P.PayOption2>봉사시간</P.PayOption2>
+          </P.PayOptionBox>
+          <P.ReviewSubmit
+            $active={isApplied}
+            onClick={handleSubmitReview} // ⭐ API 연동 함수 연결
+          >
+            후기 보내기
+          </P.ReviewSubmit>
         </P.TextBox2>
       </P.StudentReviewBox>
       <P.TabBar>
@@ -168,7 +230,10 @@ const StudentReview = () => {
             alt="tabBar1"
             width="41px"
             height="60px"
-            onClick={() => handleTabBar("tabBar1")}
+            onClick={() => {
+              handleTabBar("tabBar1");
+              goAiPosts();
+            }}
           />
           <img
             src={`${process.env.PUBLIC_URL}/images/${
@@ -190,6 +255,26 @@ const StudentReview = () => {
           />
         </div>
       </P.TabBar>
+      {isModalOpen && (
+        <P.ModalOverlay>
+          <P.ApplyModal>
+            <img
+              src={`${process.env.PUBLIC_URL}/images/modalIcon.svg`}
+              alt="modalIcon"
+              width="29px"
+              height="auto"
+              id="modalIcon"
+            />
+            <div id="modalTextBox">
+              <P.ModalTitle>재능 나눔 지원이 완료되었습니다.</P.ModalTitle>
+              <P.ModalLine></P.ModalLine>
+              <P.ModalBtn onClick={handleModalClose} $active={isModalOpen}>
+                확인
+              </P.ModalBtn>
+            </div>
+          </P.ApplyModal>
+        </P.ModalOverlay>
+      )}
     </P.Container>
   );
 };

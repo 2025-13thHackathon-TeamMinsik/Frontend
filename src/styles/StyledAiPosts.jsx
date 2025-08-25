@@ -8,7 +8,6 @@ export const Container = styled.div`
   width: 393px;
   min-height: 100vh;
   background: #fff;
-  outline: 1px solid black;
   padding-bottom: 190px;
 
   #header {
@@ -59,7 +58,15 @@ export const Title = styled.div`
 export const CategoryBox = styled.div`
   position: relative;
   margin-top: 43px;
-  right: 10px;
+  margin-left: -10px;
+  display: flex;
+  gap: 8px;
+`;
+
+export const CategoryBox2 = styled.div`
+  position: relative;
+  margin-top: 43px;
+  right: 20px;
   display: flex;
   gap: 8px;
 `;
@@ -181,6 +188,28 @@ export const InfoToggle = styled.div`
   font-style: normal;
   font-weight: 600;
   line-height: normal;
+  letter-spacing: -0.4px;
+`;
+
+export const InfoToggle2 = styled.div`
+  position: absolute;
+  right: 70px;
+  bottom: 29px;
+  display: flex;
+  padding: 8.5px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 5px 5px 5px 0;
+  background: #bfb3a0;
+  color: #fff;
+
+  /* B14 */
+  font-family: Pretendard;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 1.3;
   letter-spacing: -0.4px;
 `;
 
@@ -380,6 +409,30 @@ export const FilterIcon = styled.div`
   line-height: normal;
 `;
 
+export const FilterIcon2 = styled.div`
+  display: flex;
+  width: 39px;
+  height: 22px;
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  gap: 3.893px;
+  flex-shrink: 0;
+  border-radius: 3.893px;
+  border: 1px solid #dfdfdf;
+  background: #fff;
+  color: var(--100, #dfdfdf);
+  right: 10px;
+  bottom: 10px;
+
+  /* B12 */
+  font-family: Pretendard;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+`;
+
 export const FilterToggle = styled.div`
   position: absolute;
   padding: 14px 19px;
@@ -401,4 +454,209 @@ export const FilterToggle = styled.div`
   font-style: normal;
   font-weight: 400;
   line-height: 1.8; /* 0 */
+`;
+
+export const ModalOverlay = styled.div`
+  position: absolute;
+  display: flex;
+  flex-items: center;
+  justify-content: center;
+  width: 393px;
+  height: 1364px;
+  flex-shrink: 0;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 150;
+`;
+
+export const ApplyModal = styled.div`
+  display: flex;
+  position: relative;
+  flex-items: center;
+  justify-content: center;
+  margin-top: 242px;
+  width: 333px;
+  height: 194px;
+  flex-shrink: 0;
+  border-radius: 5.887px;
+  border: 1.177px solid var(--200, #dfdfdf);
+  background: #fff;
+
+  #modalIcon {
+    position: absolute;
+    top: 35px;
+  }
+
+  #modalTextBox {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+
+  #modalLogoutText {
+    display: flex;
+    align-self: center;
+    gap: 120px;
+    margin-top: 60px;
+  }
+`;
+
+export const ModalTitle = styled.div`
+  color: #000;
+  posiiton: relative;
+  margin-top: 75px;
+  align-self: center;
+
+  /* B20 */
+  font-family: Pretendard;
+  font-size: 19px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+`;
+
+export const ModalLine = styled.div`
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 283px;
+  border-top: 1.5px solid #dfdfdf;
+  bottom: 61px;
+`;
+
+export const ModalBtn1 = styled.div`
+  color: #000;
+
+  /* R16 */
+  font-family: Pretendard;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 0%; /* 0 */
+`;
+
+export const ModalBtn2 = styled.div`
+  color: #000;
+  position: relative;
+  left: 15px;
+
+  /* R16 */
+  font-family: Pretendard;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 0%; /* 0 */
+`;
+
+export const ModalLine2 = styled.div`
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 40px;
+  border-right: 1.5px solid #dfdfdf;
+`;
+
+export const ProfileList = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  gap: 9.7px;
+  overflow-x: auto;
+  overflow-y: visible;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  padding-top: 15px;
+  padding-bottom: 13px;
+  padding-left: 30px;
+`;
+
+export const Profile = styled.div`
+  position: relative;
+  z-index: 10;
+  width: 145px;
+  height: 196px;
+  flex-shrink: 0;
+  border-radius: 5.887px;
+  border: 1.177px solid #dfdfdf;
+  background: #fff;
+  box-shadow: 0 0 11.773px 0 rgba(0, 0, 0, 0.15);
+
+  #profileHeart {
+    position: absolute;
+    right: 0;
+    top: 12px;
+    right: 10px;
+  }
+`;
+
+export const ProfileInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+`;
+
+export const ProfileImage = styled.div`
+  position: relative;
+  top: 16px;
+  width: 51px;
+  height: 51px;
+  border-radius: 50%;
+  overflow: hidden;
+`;
+
+export const MyProfileImage = styled.div`
+  width: 100%;
+  height: 100%;
+`;
+
+export const ProfileTitle = styled.div`
+  color: #000;
+  margin-top: 25px;
+  margin-bottom: 15px;
+
+  /* B14 */
+  font-family: Pretendard;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+`;
+
+export const ProfileLine = styled.div`
+  position: relative;
+  width: 108px;
+  border-top: 1.5px solid #dfdfdf;
+  margin-bottom: 4.5px;
+`;
+
+export const RatingBox = styled.div`
+  display: flex;
+  justify-content: center;
+  justify-content: space-between;
+  padding: 0px 15px;
+  margin-bottom: 0.5px;
+`;
+
+export const RatingText = styled.div`
+  display: flex;
+  align-items: center;
+  color: var(--300, #a3a3a3);
+  font-family: Pretendard;
+  font-size: 9.5px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+`;
+
+export const Star = styled.div`
+  display: flex;
+  gap: 4.5px;
+`;
+
+export const WriteBtn = styled.div`
+  z-index: 100;
+  position: fixed;
+  bottom: 155px;
+  margin-left: 320px;
 `;

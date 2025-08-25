@@ -1,7 +1,51 @@
 import React from "react";
+import { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import axios from "axios";
 import * as P from "../styles/StyledPost";
 
 const BusinessPost = () => {
+  const navigate = useNavigate();
+  const { id } = useParams();
+  const [tabBar, setTabBar] = useState("tabBar1");
+  const [job, setJob] = useState(null);
+
+  // 공고 상세 조회(소상공인)
+  const fetchJobDetails = async () => {
+    try {
+      const response = await axios.get(`/jobs/posts/${id}/`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      });
+      setJob(response.data);
+      console.log("공고 상세 데이터:", response.data);
+    } catch (error) {
+      console.error("공고 상세 조회 실패:", error);
+    }
+  };
+
+  useEffect(() => {
+    if (id) {
+      fetchJobDetails();
+    }
+  }, [id]); //ID가 바뀔 때마다 API 호출
+
+  //탭 바
+  const handleTabBar = (menu) => {
+    setTabBar(menu);
+  };
+
+  //뒤로가기
+  const goBack = () => {
+    navigate(-1);
+  };
+
+  //AI 공고
+  const goAiPosts = () => {
+    navigate("/BusinessAiPosts");
+  };
+
   return (
     <P.Container>
       <div id="header">
@@ -11,15 +55,18 @@ const BusinessPost = () => {
             alt="backBtn"
             width="19.5px"
             height="39px"
+            onClick={goBack}
           />
         </P.BackBtn>
       </div>
       <P.Box1>
-        <P.FilterIcon>봉사</P.FilterIcon>
+        {job?.payment_type === "VOLUNTEER_TIME" && (
+          <P.FilterIcon>봉사</P.FilterIcon>
+        )}
         <P.TextBox1>
           <P.Pic>
             <img
-              src={`${process.env.PUBLIC_URL}/images/ex-pic.jpg`}
+              src={job?.image}
               alt="pic"
               width="124px"
               height="165.333px"
@@ -27,20 +74,24 @@ const BusinessPost = () => {
             />
           </P.Pic>
           <div id="info-section">
-            <P.StoreName>짱베이커리</P.StoreName>
-            <P.LocationText>현재 위치에서 93m</P.LocationText>
+            <P.StoreName>{job?.company_name}</P.StoreName>
+            <P.LocationText>
+              {job?.distance_m
+                ? `현재 위치에서 ${job.distance_m}m`
+                : "거리 정보 없음"}
+            </P.LocationText>
             <P.InfoText>
               <span id="infoText1">대표자명 | </span>
-              <span id="infoText2">김제빵</span>
+              <span id="infoText2">{job?.ceo_name}</span>
               <br />
               <span id="infoText1">업종 | </span>
-              <span id="infoText2">음식점·카페</span>
+              <span id="infoText2">{job?.business_type}</span>
               <br />
               <span id="infoText1">위치 | </span>
-              <span id="infoText2">화랑로 13길 28</span>
+              <span id="infoText2">{job?.address}</span>
               <br />
               <span id="infoText1">연락처 | </span>
-              <span id="infoText2">010-1234-5678</span>
+              <span id="infoText2">{job?.phone_number}</span>
             </P.InfoText>
           </div>
         </P.TextBox1>
@@ -63,7 +114,7 @@ const BusinessPost = () => {
               id="subTextIcon"
             />
             <span id="subText1">기간/시간 | </span>
-            <span id="subText2">월화수 4시간/ 기간 1달 협의</span>
+            <span id="subText2">{job?.duration_time}</span>
             <br />
             <img
               src={`${process.env.PUBLIC_URL}/images/subTextIcon.svg`}
@@ -73,40 +124,43 @@ const BusinessPost = () => {
               id="subTextIcon"
             />
             <span id="subText1">급여 방식 | </span>
-            <span id="subText2">시급 11,000원</span>
+            <span id="subText2">{job?.payment_info}</span>
           </P.SubText>
-          <P.PostContent1>
-            저희 카페의 감성 있는 디저트와 공간을 널리
-            <br /> 알릴 홍보 및 디자인 도우미를 찾습니다.
-            <br /> SNS 콘텐츠 제작, 포스터·배너 디자인, 이벤
-            <br />트 홍보에 관심 있는 분 환영! 포토샵, 일러스
-            <br />트 등 기본 디자인 툴 사용 가능자 우대.성실
-            <br />
-            하고 밝은 성향의 분이면 누구나 지원 가능. <br />
-            함께 카페의 매력을 세상에 보여주세요!
-          </P.PostContent1>
+          <P.PostContent1>{job?.description}</P.PostContent1>
         </P.TextBox2>
       </P.Box1>
 
       <P.TabBar>
         <div id="tabBarIcon">
           <img
-            src={`${process.env.PUBLIC_URL}/images/tabBar1_on.svg`}
+            src={`${process.env.PUBLIC_URL}/images/${
+              tabBar === "tabBar1" ? "tabBar1_on.svg" : "tabBar1_off.svg"
+            }`}
             alt="tabBar1"
             width="41px"
             height="60px"
+            onClick={() => {
+              handleTabBar("tabBar1");
+              goAiPosts();
+            }}
           />
           <img
-            src={`${process.env.PUBLIC_URL}/images/tabBar2_off.svg`}
-            alt="tabBar2"
-            width="66px"
-            height="59px"
+            src={`${process.env.PUBLIC_URL}/images/${
+              tabBar === "tabBar4" ? "tabBar4_on.svg" : "tabBar4_off.svg"
+            }`}
+            alt="tabBar4"
+            width="52px"
+            height="57px"
+            onClick={() => handleTabBar("tabBar4")}
           />
           <img
-            src={`${process.env.PUBLIC_URL}/images/tabBar3_off.svg`}
-            alt="tabBar3"
-            width="32px"
-            height="58px"
+            src={`${process.env.PUBLIC_URL}/images/${
+              tabBar === "tabBar5" ? "tabBar5_on.svg" : "tabBar5_off.svg"
+            }`}
+            alt="tabBar5"
+            width="45px"
+            height="56px"
+            onClick={() => handleTabBar("tabBar5")}
           />
         </div>
       </P.TabBar>

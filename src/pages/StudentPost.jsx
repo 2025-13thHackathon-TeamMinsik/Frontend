@@ -1,11 +1,96 @@
 import React from "react";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import axios from "axios";
 import * as P from "../styles/StyledPost";
 
 const StudentPost = () => {
   const navigate = useNavigate();
+  const { id } = useParams();
   const [tabBar, setTabBar] = useState("tabBar1");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [buttonText, setButtonText] = useState("재능 나누기");
+  const [isApplied, setIsApplied] = useState(false);
+  const [job, setJob] = useState(null);
+  const [myApplication, setMyApplication] = useState(null);
+  const [motivation, setMotivation] = useState(""); // 나눔 동기 상태 추가
+
+  // 공고 상세 정보와 지원 여부를 각각 조회
+  const fetchJobDetails = async () => {
+    try {
+      // 1. 공고 상세 정보 조회 API 호출
+      const jobResponse = await axios.get(`/jobs/posts/${id}/`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      });
+      setJob(jobResponse.data);
+      console.log("공고 상세 정보 데이터:", jobResponse.data);
+
+      // 2. 학생의 지원 정보 조회 API 호출
+      try {
+        const applicationResponse = await axios.get(
+          `/jobs/posts/${id}/my_application`,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+            },
+          }
+        );
+        setMyApplication(applicationResponse.data.my_application);
+        setIsApplied(true);
+        setButtonText("대기 중");
+      } catch (appError) {
+        console.log("아직 지원하지 않은 공고입니다.");
+        setMyApplication(null);
+        setIsApplied(false);
+        setButtonText("재능 나누기");
+      }
+    } catch (error) {
+      console.error("데이터 조회 실패:", error);
+    }
+  };
+
+  //재능 나누기 기능
+  const handleApply = async () => {
+    if (isApplied) {
+      return;
+    }
+
+    if (!motivation.trim()) {
+      alert("나눔 동기를 작성해주세요.");
+      return;
+    }
+
+    try {
+      await axios.post(
+        `/jobs/applications/${id}/`,
+        { motivation: motivation },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        }
+      );
+
+      setIsModalOpen(true);
+    } catch (error) {
+      console.error("재능 나누기 실패:", error);
+      alert("지원에 실패했습니다. 다시 시도해 주세요.");
+    }
+  };
+
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+    setButtonText("대기 중");
+    setIsApplied(true);
+  };
+
+  useEffect(() => {
+    if (id) {
+      fetchJobDetails();
+    }
+  }, [id]);
 
   //탭 바
   const handleTabBar = (menu) => {
@@ -15,6 +100,11 @@ const StudentPost = () => {
   //뒤로가기
   const goBack = () => {
     navigate(-1);
+  };
+
+  //AI 공고
+  const goAiPosts = () => {
+    navigate("/StudentAiPosts");
   };
 
   return (
@@ -31,11 +121,13 @@ const StudentPost = () => {
         </P.BackBtn>
       </div>
       <P.Box1>
-        <P.FilterIcon>봉사</P.FilterIcon>
+        {job?.payment_type === "VOLUNTEER_TIME" && (
+          <P.FilterIcon>봉사</P.FilterIcon>
+        )}
         <P.TextBox1>
           <P.Pic>
             <img
-              src={`${process.env.PUBLIC_URL}/images/ex-pic.jpg`}
+              src={job?.image}
               alt="pic"
               width="124px"
               height="165.333px"
@@ -43,20 +135,24 @@ const StudentPost = () => {
             />
           </P.Pic>
           <div id="info-section">
-            <P.StoreName>짱베이커리</P.StoreName>
-            <P.LocationText>현재 위치에서 93m</P.LocationText>
+            <P.StoreName>{job?.company_name}</P.StoreName>
+            <P.LocationText>
+              {job?.distance_m
+                ? `현재 위치에서 ${job.distance_m}m`
+                : "거리 정보 없음"}
+            </P.LocationText>
             <P.InfoText>
               <span id="infoText1">대표자명 | </span>
-              <span id="infoText2">김제빵</span>
+              <span id="infoText2">{job?.ceo_name}</span>
               <br />
               <span id="infoText1">업종 | </span>
-              <span id="infoText2">음식점·카페</span>
+              <span id="infoText2">{job?.business_type}</span>
               <br />
               <span id="infoText1">위치 | </span>
-              <span id="infoText2">화랑로 13길 28</span>
+              <span id="infoText2">{job?.address}</span>
               <br />
               <span id="infoText1">연락처 | </span>
-              <span id="infoText2">010-1234-5678</span>
+              <span id="infoText2">{job?.phone_number}</span>
             </P.InfoText>
           </div>
         </P.TextBox1>
@@ -79,7 +175,7 @@ const StudentPost = () => {
               id="subTextIcon"
             />
             <span id="subText1">기간/시간 | </span>
-            <span id="subText2">월화수 4시간/ 기간 1달 협의</span>
+            <span id="subText2">{job?.duration_time}</span>
             <br />
             <img
               src={`${process.env.PUBLIC_URL}/images/subTextIcon.svg`}
@@ -89,18 +185,9 @@ const StudentPost = () => {
               id="subTextIcon"
             />
             <span id="subText1">급여 방식 | </span>
-            <span id="subText2">시급 11,000원</span>
+            <span id="subText2">{job?.payment_info}</span>
           </P.SubText>
-          <P.PostContent1>
-            저희 카페의 감성 있는 디저트와 공간을 널리
-            <br /> 알릴 홍보 및 디자인 도우미를 찾습니다.
-            <br /> SNS 콘텐츠 제작, 포스터·배너 디자인, 이벤
-            <br />트 홍보에 관심 있는 분 환영! 포토샵, 일러스
-            <br />트 등 기본 디자인 툴 사용 가능자 우대.성실
-            <br />
-            하고 밝은 성향의 분이면 누구나 지원 가능. <br />
-            함께 카페의 매력을 세상에 보여주세요!
-          </P.PostContent1>
+          <P.PostContent1>{job?.description}</P.PostContent1>
         </P.TextBox2>
       </P.Box1>
       <P.Box2>
@@ -113,9 +200,18 @@ const StudentPost = () => {
             />
             나눔 동기 작성하기
           </P.Title>
-          <P.PostContent2></P.PostContent2>
+          {isApplied ? (
+            <P.PostContent2>{myApplication?.motivation}</P.PostContent2>
+          ) : (
+            <P.PostContent2
+              as="textarea"
+              placeholder="나눔 동기를 작성해주세요."
+              value={motivation}
+              onChange={(e) => setMotivation(e.target.value)}
+            />
+          )}
           <P.Btn1>포트폴리오 수정하기</P.Btn1>
-          <P.Btn2>재능 나누기</P.Btn2>
+          <P.Btn2 onClick={handleApply}>{buttonText}</P.Btn2>
         </P.TextBox2>
       </P.Box2>
       <P.TabBar>
@@ -127,7 +223,10 @@ const StudentPost = () => {
             alt="tabBar1"
             width="41px"
             height="60px"
-            onClick={() => handleTabBar("tabBar1")}
+            onClick={() => {
+              handleTabBar("tabBar1");
+              goAiPosts();
+            }}
           />
           <img
             src={`${process.env.PUBLIC_URL}/images/${
@@ -149,6 +248,24 @@ const StudentPost = () => {
           />
         </div>
       </P.TabBar>
+      {isModalOpen && (
+        <P.ModalOverlay>
+          <P.ApplyModal>
+            <img
+              src={`${process.env.PUBLIC_URL}/images/modalIcon.svg`}
+              alt="modalIcon"
+              width="29px"
+              height="auto"
+              id="modalIcon"
+            />
+            <div id="modalTextBox">
+              <P.ModalTitle>재능 나눔 지원이 완료되었습니다.</P.ModalTitle>
+              <P.ModalLine></P.ModalLine>
+              <P.ModalBtn onClick={handleModalClose}>확인</P.ModalBtn>
+            </div>
+          </P.ApplyModal>
+        </P.ModalOverlay>
+      )}
     </P.Container>
   );
 };

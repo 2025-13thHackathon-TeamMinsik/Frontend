@@ -1,7 +1,28 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import * as S from "../styles/StyledStudentSignup";
 
-const StudentSignup3 = () => {
+const StudentSignup3 = ({ formData, setFormData }) => {
+  const navigate = useNavigate();
+
+  //입력창 값 변경될 때마다 formData 업데이트
+  const handleMajor = (e) => {
+    setFormData({ ...formData, major: e.target.value });
+  };
+
+  const goNext = () => {
+    if (!formData.major) {
+      alert("전공을 입력해주세요.");
+    } else {
+      navigate(`/StudentSignup4`);
+    }
+  };
+
+  const goBack = () => {
+    navigate(-1);
+  };
+
   return (
     <S.Container>
       <S.Bar>
@@ -21,8 +42,12 @@ const StudentSignup3 = () => {
         />
       </S.Background>
       <S.Title>전공은 무엇인가요?</S.Title>
-      <S.SchoolInput type="text"></S.SchoolInput>
-      <S.BackBtn>
+      <S.MajorInput
+        type="text"
+        value={formData.major}
+        onChange={handleMajor}
+      ></S.MajorInput>
+      <S.BackBtn onClick={goBack}>
         <img
           src={`${process.env.PUBLIC_URL}/images/backBtn.svg`}
           alt="backBtn"
@@ -30,6 +55,14 @@ const StudentSignup3 = () => {
           height="39px"
         />
       </S.BackBtn>
+      <S.NextBtn onClick={goNext}>
+        <img
+          src={`${process.env.PUBLIC_URL}/images/nextBtn.svg`}
+          alt="nextBtn"
+          width="19.5px"
+          height="39px"
+        />
+      </S.NextBtn>
     </S.Container>
   );
 };

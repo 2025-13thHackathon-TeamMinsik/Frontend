@@ -8,7 +8,6 @@ export const Container = styled.div`
   width: 393px;
   min-height: 100vh;
   background: #fff;
-  outline: 1px solid black;
   padding-bottom: 190px;
 
   #header {
@@ -155,6 +154,7 @@ export const Title = styled.div`
   color: #000;
   display: flex;
   align-items: center;
+  position: relative;
   gap: 7px;
 
   /* B20 */
@@ -344,7 +344,322 @@ export const StudentReviewBox = styled.div`
   box-shadow: 0 0 11.773px 0 rgba(0, 0, 0, 0.15);
 `;
 
+export const ViewReviewBox = styled.div`
+  display: flex;
+  position: relative;
+  top: 10px;
+  flex-direction: column; /* 세로로 배치 */
+  margin: 0 auto;
+  width: 333px;
+  height: 262px;
+  flex-shrink: 0;
+  border-radius: 5.887px;
+  border: 1.177px solid var(--200, #dfdfdf);
+  background: var(--, #fff);
+  box-shadow: 0 0 11.773px 0 rgba(0, 0, 0, 0.15);
+`;
+
 export const StarReview = styled.div`
   display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 17px;
+  padding: 28px 0px;
+`;
+
+export const StarImage = styled.img`
+  width: 30px;
+  height: auto;
+`;
+
+export const ReviewContent = styled.textarea`
+  width: 244px;
+  height: 76.286px;
+  flex-shrink: 0;
+  border-radius: 5px;
+  background: var(--100, #f6f6f6);
+  border: none;
+  outline: none;
+  resize: none;
+  color: var(--, #000);
+  padding: 13px 14.5px;
+  margin-top: px;
+  margin-bottom: 15px;
+
+  /* R14 */
+  font-family: Pretendard;
+  font-size: 13.5px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.25;
+  letter-spacing: -0.1px;
+
+  &::placeholder {
+    color: var(--300, #a3a3a3);
+  }
+`;
+
+export const ReviewContent2 = styled.div`
+  width: 244px;
+  height: 76.286px;
+  flex-shrink: 0;
+  border-radius: 5px;
+  background: var(--100, #f6f6f6);
+  border: none;
+  outline: none;
+  resize: none;
+  color: var(--, #000);
+  padding: 13px 14.5px;
+  margin-top: px;
+  margin-bottom: 15px;
+
+  /* R14 */
+  font-family: Pretendard;
+  font-size: 13.5px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.25;
+  letter-spacing: -0.1px;
+`;
+
+export const SubTitle = styled.div`
+  color: #000;
+  position: relative;
+  top: 2px;
+  right: 4px;
+
+  /* R16 */
+  font-family: Pretendard;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 0%;
+`;
+
+export const PayOptionBox = styled.div`
+  display: flex;
+  padding: 19px 0px;
+  gap: 11px;
+  /* R16 */
+  font-family: Pretendard;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 0%; /* 0 */
+`;
+
+export const PayOption1 = styled.div`
+  display: flex;
+  width: 131px;
+  padding: 18px 8px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 10px;
+  border: 1px solid #695739;
+  background: var(--, #fff);
+  color: var(--, #000);
+`;
+
+export const PayOption2 = styled.div`
+  display: flex;
+  width: 131px;
+  padding: 18px 8px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 10px;
+  border-radius: 10px;
+  border: 1px solid #dfdfdf;
+  background: var(--, #fff);
+  color: var(--200, #dfdfdf);
+`;
+
+export const ReviewSubmit = styled.div`
+  display: flex;
   margin: 0 auto;
+  width: 273px;
+  height: 49.679px;
+
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  border: 1px solid ${({ $active }) => ($active ? "#DFDFDF" : "#695739")};
+  background: ${({ $active }) => ($active ? "#fff" : "#695739")};
+  color: ${({ $active }) => ($active ? "#DFDFDF" : "#fff")};
+
+  /* B16 */
+  font-family: Pretendard;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 0%; /* 0 */
+`;
+
+export const ReviewSubmit2 = styled.div`
+  display: flex;
+  margin: 0 auto;
+  width: 273px;
+  height: 49.679px;
+  margin-top: 22px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  border: 1px solid ${({ $active }) => ($active ? "#DFDFDF" : "#695739")};
+  background: ${({ $active }) => ($active ? "#fff" : "#695739")};
+  color: ${({ $active }) => ($active ? "#DFDFDF" : "#fff")};
+  /* B16 */
+  font-family: Pretendard;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 0%; /* 0 */
+`;
+
+export const ModalOverlay = styled.div`
+  position: absolute;
+  display: flex;
+  flex-items: center;
+  justify-content: center;
+  width: 393px;
+  height: 1364px;
+  flex-shrink: 0;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 150;
+`;
+
+export const ApplyModal = styled.div`
+  display: flex;
+  position: relative;
+  flex-items: center;
+  justify-content: center;
+  margin-top: 242px;
+  width: 333px;
+  height: 194px;
+  flex-shrink: 0;
+  border-radius: 5.887px;
+  border: 1.177px solid var(--200, #dfdfdf);
+  background: #fff;
+
+  #modalIcon {
+    position: absolute;
+    top: 35px;
+  }
+
+  #modalTextBox {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+`;
+
+export const ModalTitle = styled.div`
+  color: #000;
+  posiiton: relative;
+  margin-top: 75px;
+  align-self: center;
+
+  /* B20 */
+  font-family: Pretendard;
+  font-size: 19px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+`;
+
+export const ModalLine = styled.div`
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 283px;
+  border-top: 1.5px solid #dfdfdf;
+  bottom: 61px;
+`;
+
+export const ModalBtn = styled.div`
+  position: absolute;
+  bottom: 31px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #000;
+
+  /* R16 */
+  font-family: Pretendard;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 0%; /* 0 */
+`;
+
+export const ProfileInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+`;
+
+export const ProfileImage = styled.div`
+  position: relative;
+  top: 27px;
+  width: 79.746px;
+  height: 79.746px;
+  border-radius: 50%;
+  overflow: hidden;
+`;
+
+export const MyProfileImage = styled.div`
+  width: 100%;
+  height: 100%;
+`;
+
+export const ProfileTitle = styled.div`
+  color: #000;
+  margin-top: 43px;
+  margin-bottom: 23px;
+
+  /* B14 */
+  font-family: Pretendard;
+  font-size: 21px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+`;
+
+export const ProfileLine = styled.div`
+  position: relative;
+  width: 168.873px;
+  border-top: 1.5px solid #dfdfdf;
+  margin-bottom: 4.5px;
+`;
+
+export const RatingBox = styled.div`
+  display: flex;
+  justify-content: center;
+  justify-content: space-between;
+  padding: 0px 45px;
+  margin-bottom: 0.5px;
+`;
+
+export const RatingText = styled.div`
+  display: flex;
+  align-items: center;
+  color: var(--300, #a3a3a3);
+  font-family: Pretendard;
+  font-size: 14.6px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+`;
+
+export const StarBox = styled.div`
+  display: flex;
+  gap: 6.9px;
+`;
+
+export const Star = styled.img`
+  width: 15px;
 `;
