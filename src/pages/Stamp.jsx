@@ -1,13 +1,24 @@
 import React, { useState } from "react";
 import * as S from "../styles/StyledStamp";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Stamp = () => {
-  const [tabBar, setTabBar] = useState("tabBar1");
+  const navigate = useNavigate();
+
+  const goAiPosts = () => {
+    navigate("/StudentAiPosts");
+  };
+
+  const goAiPortfolio = () => {
+    navigate("/StudentAiPortfolio");
+  };
+
+  const [tabBar, setTabBar] = useState("tabBar3");
   const handleTabBar = (menu) => {
     setTabBar(menu);
   };
-    useEffect(() => {
+  useEffect(() => {
     window.scrollTo(0, document.body.scrollHeight);
   }, []);
   return (
@@ -21,7 +32,7 @@ const Stamp = () => {
             alt="tabBar1"
             width="41px"
             height="60px"
-            onClick={() => handleTabBar("tabBar1")}
+            onClick={goAiPosts}
           />
           <img
             src={`${process.env.PUBLIC_URL}/images/${
@@ -30,7 +41,7 @@ const Stamp = () => {
             alt="tabBar2"
             width="66px"
             height="59px"
-            onClick={() => handleTabBar("tabBar2")}
+            onClick={goAiPortfolio}
           />
           <img
             src={`${process.env.PUBLIC_URL}/images/${
@@ -44,61 +55,88 @@ const Stamp = () => {
         </div>
       </S.TabBar>
 
-      <S.StampCircle10>       <img
+      <S.StampCircle10>
+        {" "}
+        <img
           src={`${process.env.PUBLIC_URL}/images/Circle10.svg`}
           alt="Circle"
-        /></S.StampCircle10>
-      <S.StampCircle9>       <img
+        />
+      </S.StampCircle10>
+      <S.StampCircle9>
+        {" "}
+        <img
           src={`${process.env.PUBLIC_URL}/images/Circle9.svg`}
           alt="Circle"
-        /></S.StampCircle9>     
-             <S.StampCircle8>       <img
+        />
+      </S.StampCircle9>
+      <S.StampCircle8>
+        {" "}
+        <img
           src={`${process.env.PUBLIC_URL}/images/Circle8.svg`}
           alt="Circle"
-        /></S.StampCircle8>
-               <S.StampCircle7>       <img
+        />
+      </S.StampCircle8>
+      <S.StampCircle7>
+        {" "}
+        <img
           src={`${process.env.PUBLIC_URL}/images/Circle7.svg`}
           alt="Circle"
-        /></S.StampCircle7>
-        
-               <S.StampCircle6>       <img
+        />
+      </S.StampCircle7>
+
+      <S.StampCircle6>
+        {" "}
+        <img
           src={`${process.env.PUBLIC_URL}/images/Circle6.svg`}
           alt="Circle"
-        /></S.StampCircle6>
-        
-               <S.StampCircle5>       <img
+        />
+      </S.StampCircle6>
+
+      <S.StampCircle5>
+        {" "}
+        <img
           src={`${process.env.PUBLIC_URL}/images/Circle5.svg`}
           alt="Circle"
-        /></S.StampCircle5>
-        
-               <S.StampCircle4>       <img
+        />
+      </S.StampCircle5>
+
+      <S.StampCircle4>
+        {" "}
+        <img
           src={`${process.env.PUBLIC_URL}/images/Circle4.svg`}
           alt="Circle"
-        /></S.StampCircle4>
-        
-               <S.StampCircle3>       <img
+        />
+      </S.StampCircle4>
+
+      <S.StampCircle3>
+        {" "}
+        <img
           src={`${process.env.PUBLIC_URL}/images/Circle3.svg`}
           alt="Circle"
-        /></S.StampCircle3>
+        />
+      </S.StampCircle3>
 
-                <S.StampCircle2>       <img
+      <S.StampCircle2>
+        {" "}
+        <img
           src={`${process.env.PUBLIC_URL}/images/Circle2.svg`}
           alt="Circle"
-        /></S.StampCircle2>
+        />
+      </S.StampCircle2>
 
-                <S.StampCircle1>       <img
+      <S.StampCircle1>
+        {" "}
+        <img
           src={`${process.env.PUBLIC_URL}/images/Circle1.svg`}
           alt="Circle"
-        /></S.StampCircle1> 
-        {/* 영수증 검토 완료 시 이미지 /DoneCircleN(숫자)로 바뀌는 형식 */}
-        
-        <S.CoinBtn>코인</S.CoinBtn>
-        
-        <S.CoinNum>0/10</S.CoinNum>
+        />
+      </S.StampCircle1>
+      {/* 영수증 검토 완료 시 이미지 /DoneCircleN(숫자)로 바뀌는 형식 */}
 
+      <S.CoinBtn>코인</S.CoinBtn>
 
+      <S.CoinNum>0/10</S.CoinNum>
     </S.Container>
-
   );
 };
 

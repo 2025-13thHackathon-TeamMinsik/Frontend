@@ -8,6 +8,8 @@ const BusinessSignup3 = ({ formData, setFormData }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const { formData: initialFormData } = location.state || {};
+  console.log("첫번째 페이지", formData.대표자명);
+  console.log("첫번째 페이지", formData);
 
   const categories = {
     디자인: "design",
@@ -40,6 +42,8 @@ const BusinessSignup3 = ({ formData, setFormData }) => {
 
   const goNext = () => {
     if (formData.skill_1 && formData.skill_2) {
+      console.log("확인서 분석 성공", formData);
+
       navigate(`/BusinessSignup4`);
     } else {
       alert("2개를 선택해주세요.");

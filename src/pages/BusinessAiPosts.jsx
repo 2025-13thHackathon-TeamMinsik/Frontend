@@ -23,45 +23,41 @@ const BusinessAiPosts = () => {
   const [searchResults, setSearchResults] = useState(null); // 검색 결과 상태 추가
   const [recommendedStudents, setRecommendedStudents] = useState([]);
   const [isRecommendedLoading, setIsRecommendedLoading] = useState(true);
+  const [userSkills, setUserSkills] = useState([]);
 
   const sorts = ["최신순", "인기순", "거리순", "찜 콕"];
+
+  const skillCategories = {
+    design: "디자인",
+    photo_video: "영상/사진",
+    craft: "공예",
+    coding: "코딩/개발",
+    language: "외국어/번역",
+    marketing: "홍보/마케팅",
+    document: "문서 작성",
+    counsel: "상담",
+    volunteer: "자원봉사",
+  };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const goAlert = () => {
     navigate(`/MyAlert`);
   };
 
-  // ✅ goNoticeUp 함수 수정
   const goNoticeUp = () => {
-    try {
-      // localStorage에서 'user_info' 데이터 가져오기
-      const userInfoString = localStorage.getItem("user_info");
+    navigate(`/NoticeUp`);
+  };
 
-      // 사용자 정보가 없으면 알림창을 띄우고 함수 종료
-      if (!userInfoString) {
-        alert("로그인 정보가 없습니다. 다시 로그인 해주세요.");
-        console.error("User info not found in localStorage");
-        return;
-      }
+  //재능지원함으로 이동
+  const goApplications = () => {
+    navigate(`/BusinessApplications`);
+  };
 
-      // JSON.parse를 사용하여 문자열을 객체로 변환
-      const userInfo = JSON.parse(userInfoString);
-
-      // NoticeUp 페이지로 이동하며 사용자 정보 전달
-      // 로그인 응답에 있는 'full_name', 'company_name', 'business_type', 'location'을 사용
-      navigate(`/NoticeUp`, {
-        state: {
-          formData: {
-            name: userInfo.full_name,
-            company_name: userInfo.company_name,
-            business_type: userInfo.business_type,
-            location: userInfo.location,
-          },
-        },
-      });
-    } catch (error) {
-      console.error("사용자 정보를 가져오는 중 오류 발생:", error);
-      alert("사용자 정보를 불러오는데 실패했습니다. 다시 시도해주세요.");
-    }
+  const goBusiTrash = () => {
+    navigate(`/BusiTrashBtn`);
   };
 
   const handleToggle = () => {
@@ -559,7 +555,7 @@ const BusinessAiPosts = () => {
             alt="tabBar4"
             width="52px"
             height="57px"
-            onClick={() => handleTabBar("tabBar4")}
+            onClick={goApplications}
           />
           <img
             src={`${process.env.PUBLIC_URL}/images/${
@@ -568,7 +564,7 @@ const BusinessAiPosts = () => {
             alt="tabBar5"
             width="45px"
             height="56px"
-            onClick={() => handleTabBar("tabBar5")}
+            onClick={goBusiTrash}
           />
         </div>
       </A.TabBar>

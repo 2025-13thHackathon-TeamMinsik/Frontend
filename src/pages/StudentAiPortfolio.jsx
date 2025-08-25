@@ -5,16 +5,28 @@ import * as S from "../styles/StyledStudentAiPortfolio";
 import { useNavigate } from "react-router-dom";
 
 const StudentAiPortfolio = () => {
-  const [tabBar, setTabBar] = useState("tabBar1");
+  const [tabBar, setTabBar] = useState("tabBar2");
   const [portfolioData, setPortfolioData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   const navigate = useNavigate();
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   //탭 바
   const handleTabBar = (menu) => {
     setTabBar(menu);
+  };
+
+  const goAiPosts = () => {
+    navigate("/StudentAiPosts");
+  };
+
+  const goStamp = () => {
+    navigate("/Stamp");
   };
 
   const Modi1Click = () => navigate("/StuInfoModi");
@@ -247,7 +259,7 @@ const StudentAiPortfolio = () => {
             alt="tabBar1"
             width="41px"
             height="60px"
-            onClick={() => handleTabBar("tabBar1")}
+            onClick={goAiPosts}
           />
           <img
             src={`${process.env.PUBLIC_URL}/images/${
@@ -265,7 +277,7 @@ const StudentAiPortfolio = () => {
             alt="tabBar3"
             width="32px"
             height="58px"
-            onClick={() => handleTabBar("tabBar3")}
+            onClick={goStamp}
           />
         </div>
       </S.TabBar>

@@ -58,6 +58,26 @@ const MyAlert = () => {
           id="alertIcon"
         />
       </M.Box2>
+      <M.Box3>
+        <M.TextBox>
+          <M.AlertTime>10분 전</M.AlertTime>
+          <M.AlertText>
+            <span id="bold">업체명 </span>작업을 마치셨나요?
+            <br />
+            후기를 작성해보세요.
+            <br />
+            <br />
+            010-1212-3456
+          </M.AlertText>
+        </M.TextBox>
+        <img
+          src={`${process.env.PUBLIC_URL}/images/titleIcon.svg`}
+          alt="titleIcon"
+          width="15.272px"
+          height="15px"
+          id="alertIcon"
+        />
+      </M.Box3>
     </M.Container>
   );
 };

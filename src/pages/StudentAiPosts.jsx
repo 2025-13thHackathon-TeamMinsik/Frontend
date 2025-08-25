@@ -29,6 +29,14 @@ export const StudentAiPosts = () => {
     navigate(`/MyAlert`);
   };
 
+  const goAiPortfolio = () => {
+    navigate("/StudentAiPortfolio");
+  };
+
+  const goStamp = () => {
+    navigate("/Stamp");
+  };
+
   const handleToggle = () => {
     setIsMenuOpen(!isMenuOpen);
   };
@@ -441,7 +449,7 @@ export const StudentAiPosts = () => {
             alt="tabBar2"
             width="66px"
             height="59px"
-            onClick={() => handleTabBar("tabBar2")}
+            onClick={goAiPortfolio}
           />
           <img
             src={`${process.env.PUBLIC_URL}/images/${
@@ -450,7 +458,7 @@ export const StudentAiPosts = () => {
             alt="tabBar3"
             width="32px"
             height="58px"
-            onClick={() => handleTabBar("tabBar3")}
+            onClick={goStamp}
           />
         </div>
       </A.TabBar>
