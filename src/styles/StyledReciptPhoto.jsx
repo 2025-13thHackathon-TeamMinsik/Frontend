@@ -8,7 +8,6 @@ export const Container = styled.div`
   width: 393px;
   height: 100vh;
   background: #fff;
-  outline: 1px solid black;
 
   #CategoryBox {
     margin-top: 77px;
@@ -50,7 +49,6 @@ export const Background3 = styled.div`
   top: 425.61px;
 `;
 
-
 export const TabBar = styled.div`
   width: 393px;
   height: 143px;
@@ -74,55 +72,52 @@ export const TabBar = styled.div`
 `;
 
 export const CoinIcon = styled.div`
-position: absolute;
-top:275px;
-left: 48px;
-
+  position: absolute;
+  top: 275px;
+  left: 48px;
 `;
 export const Title = styled.div`
-color: #000;
+  color: #000;
 
-/* B24 */
-font-family: Pretendard;
-font-size: 24px;
-font-style: normal;
-font-weight: 700;
-line-height: normal;
+  /* B24 */
+  font-family: Pretendard;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
 
-margin-left: 48px;
-margin-top: 331px;
+  margin-left: 48px;
+  margin-top: 331px;
 `;
 
 export const Info = styled.div`
-color: #A3A3A3;
+  color: #a3a3a3;
 
-/* R12 */
-font-family: Pretendard;
-font-size: 12px;
-font-style: normal;
-font-weight: 400;
-
+  /* R12 */
+  font-family: Pretendard;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
 `;
 
 export const Box1 = styled.div`
-display: flex;
-flex-direction: row;
-margin-top: 118px;
-margin-left: 48px;
+  display: flex;
+  flex-direction: row;
+  margin-top: 118px;
+  margin-left: 48px;
 `;
 
-export const GreenCheck = styled.div`
-
-`;
+export const GreenCheck = styled.div``;
 
 export const Box2 = styled.div`
-display: flex;
-flex-direction: row;
-margin-left: 48px;
-margin-top: 11px;
+  display: flex;
+  flex-direction: row;
+  margin-left: 48px;
+  margin-top: 11px;
 `;
 
 export const CameraBox = styled.div`
+<<<<<<< HEAD
 border-radius: 10px;
 border: 1px solid #695739;
 background: #FFF;
@@ -155,3 +150,18 @@ export const CoinBtn = styled.button`
   font-weight: bold;
   cursor: pointer;
 `;
+=======
+  border-radius: 10px;
+  border: 1px solid #695739;
+  background: #fff;
+  display: flex;
+  width: 298px;
+  height: 54px;
+  padding: 8px 10px;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  margin-left: 38px;
+  margin-top: 55px;
+`;
+>>>>>>> c26d0fb2d01fb0088d2acf601643b56d35672706

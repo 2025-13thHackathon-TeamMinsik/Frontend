@@ -5,13 +5,11 @@ export const Container = styled.div`
   flex-direction: column; /* 세로로 배치 */
   margin: 0 auto;
   width: 393px;
- height: 300vh;
+  height: 300vh;
   background: #fff;
-  outline: 1px solid black;
 
   position: relative;
 `;
-
 
 export const TabBar = styled.div`
   width: 393px;
@@ -36,74 +34,70 @@ export const TabBar = styled.div`
 `;
 
 export const Career = styled.div`
-    color: #000;
+  color: #000;
 
-    /* B24 */
-    font-family: Pretendard;
-    font-size: 24px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-    
-    margin-left: 50px;
-    margin-top: 94px;
+  /* B24 */
+  font-family: Pretendard;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
 
+  margin-left: 50px;
+  margin-top: 94px;
 `;
 
 export const Box1 = styled.div`
-width: 333px;
-height: 55px;
-flex-shrink: 0;
-border-radius: 5.887px;
-border: 1.177px solid #DFDFDF;
-background: var(--, #FFF);
-box-shadow: 0 0 11.773px 0 rgba(0, 0, 0, 0.15);
+  width: 333px;
+  height: 55px;
+  flex-shrink: 0;
+  border-radius: 5.887px;
+  border: 1.177px solid #dfdfdf;
+  background: var(--, #fff);
+  box-shadow: 0 0 11.773px 0 rgba(0, 0, 0, 0.15);
 
-margin-top: 14px;
-margin-left: 30px;
+  margin-top: 14px;
+  margin-left: 30px;
 `;
 
 export const X = styled.div`
-margin-top: 14px;
-margin-left: 3px;
+  margin-top: 14px;
+  margin-left: 3px;
 `;
-
 
 export const Day = styled.div`
-color: #000;
+  color: #000;
 
-/* R16 */
-font-family: Pretendard;
-font-size: 16px;
-font-style: normal;
-font-weight: 400;
+  /* R16 */
+  font-family: Pretendard;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
 
-
-margin-top: 13px;
-margin-left: 7px;
+  margin-top: 13px;
+  margin-left: 7px;
 `;
 
-
 export const SeeBox = styled.div`
-border-radius: 5px;
-border: 0.664px solid #695739;
-background: #FFF;
-display: flex;
-width: 115px;
-height: 28px;
-padding: 3.64px;
-justify-content: center;
-align-items: center;
-gap: 6.64px;
-flex-shrink: 0;
+  border-radius: 5px;
+  border: 0.664px solid #695739;
+  background: #fff;
+  display: flex;
+  width: 115px;
+  height: 28px;
+  padding: 3.64px;
+  justify-content: center;
+  align-items: center;
+  gap: 6.64px;
+  flex-shrink: 0;
 
-margin-top: 7.5px;
-margin-left: 97px;
+  margin-top: 7.5px;
+  margin-left: 97px;
 `;
 
 export const RowBox = styled.div`
-display: flex;
-flex-direction: row;
+  display: flex;
+  flex-direction: row;
 `;
 
 /* 모달 오버레이 (뒷배경 흐리게) */
@@ -122,14 +116,14 @@ export const ModalOverlay = styled.div`
 
 /* 모달 내용 */
 export const ModalContent = styled.div`
-    background: #fff;
-    padding: 5px;
-    width: 333px;
-    height: 194px;
-    border-radius: 5.887px;
-    border: 1.177px solid  #DFDFDF;
-    text-align: center;
-    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+  background: #fff;
+  padding: 5px;
+  width: 333px;
+  height: 194px;
+  border-radius: 5.887px;
+  border: 1.177px solid #dfdfdf;
+  text-align: center;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
 
   p {
     margin-bottom: 20px;
@@ -151,78 +145,72 @@ export const ModalButtons = styled.div`
     border: none;
     cursor: pointer;
     font-size: 14px;
-  background: transparent; /* 투명 배경 */
+    background: transparent; /* 투명 배경 */
   }
 
   button:child {
-  color: #000;
-text-align: center;
+    color: #000;
+    text-align: center;
 
-/* R16 */
-font-family: Pretendard;
-font-size: 16px;
-font-style: normal;
-font-weight: 400;
-line-height: 0%; /* 0 */
-}
-
-
+    /* R16 */
+    font-family: Pretendard;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 0%; /* 0 */
+  }
 `;
 
 export const MIcon = styled.div`
-margin-top: 20px;
+  margin-top: 20px;
 `;
 
 export const MDay = styled.div`
-color: #000;
+  color: #000;
 
-/* B20 */
-font-family: Pretendard;
-font-size: 20px;
-font-style: normal;
-font-weight: 700;
-line-height: normal;
-margin-top: 5px;
+  /* B20 */
+  font-family: Pretendard;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  margin-top: 5px;
 `;
 
 export const MInfo = styled.div`
-color: #A3A3A3;
+  color: #a3a3a3;
 
-/* R16 */
-font-family: Pretendard;
-font-size: 16px;
-font-style: normal;
-font-weight: 400;
+  /* R16 */
+  font-family: Pretendard;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
 
-margin-top: 7px;
+  margin-top: 7px;
 `;
 
 export const RowLine = styled.div`
-width: 293px;
-height: 0.5px;
-background: #DFDFDF;
-margin-top: 20px;
-margin-left: 20px;
+  width: 293px;
+  height: 0.5px;
+  background: #dfdfdf;
+  margin-top: 20px;
+  margin-left: 20px;
 `;
-
 
 export const ColLine = styled.div`
-width: 0.5px;
-height: 47px;
-background: #DFDFDF;
-margin-left: 15px;
+  width: 0.5px;
+  height: 47px;
+  background: #dfdfdf;
+  margin-left: 15px;
 `;
-
 
 export const Btn1 = styled.div`
-margin-top:6px;
-margin-left: 31px;
+  margin-top: 6px;
+  margin-left: 31px;
 `;
-
 
 export const Btn2 = styled.div`
-margin-top:6px;
+  margin-top: 6px;
 
-margin-right: 30px;
+  margin-right: 30px;
 `;
-

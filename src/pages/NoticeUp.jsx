@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import * as S from "../styles/StyledNoticeUp";
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const NoticeUp = ({ formData }) => {
   const [tabBar, setTabBar] = useState("tabBar1");
@@ -37,6 +37,9 @@ const NoticeUp = ({ formData }) => {
   const [locationIndex, setLocationIndex] = useState(0);
 
   const navigate = useNavigate();
+
+  const location = useLocation();
+  const { jobId } = location.state || {};
 
   //오늘 날짜
   const getFormattedDate = () => {
@@ -127,7 +130,9 @@ const NoticeUp = ({ formData }) => {
       });
 
       console.log("공고 작성 성공");
+      const createdDate = response.data.created_at;
       setPostId(response.data.id);
+      localStorage.setItem("posted_date", createdDate);
       setShowModal(true);
       setModalType("post");
       setIsPosted(true);
@@ -208,6 +213,36 @@ const NoticeUp = ({ formData }) => {
       console.error("공고 삭제 실패:", error);
     }
   };
+
+  // 공고 상세 정보 불러오기
+  const fetchJobDetails = async (id) => {
+    try {
+      const response = await axios.get(`/jobs/posts/${id}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      });
+      const data = response.data;
+
+      // 불러온 데이터로 state 업데이트
+      setDurationTime(data.duration_time);
+      setPaymentInfo(data.payment_info);
+      setPaymentType(data.payment_type);
+      setDescription(data.description);
+      setPreviewImage(`${data.image}`); // API 명세서에 따르면 image 필드에 경로가 있음
+      setPostId(data.id);
+      setIsPosted(true); // 수정/삭제 버튼이 보이도록 상태 변경
+    } catch (error) {
+      console.error("공고 상세 정보 조회 실패:", error);
+    }
+  };
+
+  useEffect(() => {
+    if (jobId) {
+      // jobId가 있을 때만 상세 정보 불러오기
+      fetchJobDetails(jobId);
+    }
+  }, [jobId]); // jobId가 변경될 때마다 실행
 
   return (
     <S.Container>

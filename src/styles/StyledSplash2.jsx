@@ -8,43 +8,38 @@ export const Container = styled.div`
   width: 393px;
   height: 100vh;
   background: #fff;
-  outline: 1px solid black;
-
 `;
 
 export const Background = styled.div`
   position: absolute;
   display: flex;
- top: 400px;
- 
+  top: 400px;
 `;
 
 export const Title = styled.div`
-color: #000;
+  color: #000;
 
-/* B24 */
-font-family: Pretendard;
-font-size: 24px;
-font-style: normal;
-font-weight: 700;
-line-height: normal;
+  /* B24 */
+  font-family: Pretendard;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
 
-margin-top: 240px;
-margin-left: 60px;
-
+  margin-top: 240px;
+  margin-left: 60px;
 `;
 
 export const Text = styled.div`
-color: var(--400, #6C6C6C);
+  color: var(--400, #6c6c6c);
 
-/* R16 */
-font-family: Pretendard;
-font-size: 16px;
-font-style: normal;
-font-weight: 400;
+  /* R16 */
+  font-family: Pretendard;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
 
-
-margin-top: 19px;
-margin-left: 60px;
-display: block;
+  margin-top: 19px;
+  margin-left: 60px;
+  display: block;
 `;

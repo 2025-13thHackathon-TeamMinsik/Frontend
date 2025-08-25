@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import * as S from "../styles/StyledBusiTrashBtn";
 
 const BusiTrashBtn = () => {
+  const navigate = useNavigate(); // useNavigate 훅을 사용하여 네비게이션 기능을 추가합니다.
   const [tabBar, setTabBar] = useState("tabBar1");
   const [posts, setPosts] = useState([]); // 공고 이력 데이터를 저장할 상태
   const [loading, setLoading] = useState(true); // 로딩 상태
@@ -45,6 +47,16 @@ const BusiTrashBtn = () => {
     fetchPosts();
   }, []);
 
+  //AI 공고
+  const goAiPosts = () => {
+    navigate("/BusinessAiPosts");
+  };
+
+  //재능지원함
+  const goApplications = () => {
+    navigate("/BusinessApplications");
+  };
+
   // 탭바 핸들러
   const handleTabBar = (menu) => {
     setTabBar(menu);
@@ -54,6 +66,11 @@ const BusiTrashBtn = () => {
   const handleDeleteClick = (post) => {
     setSelectedPost(post);
     setShowModal(true);
+  };
+
+  // '받은 후기 보기' 클릭 시 네비게이션
+  const handleViewReview = (jobPostId) => {
+    navigate(`/business-review/${jobPostId}`);
   };
 
   // 삭제 확인 (프론트엔드에서만 처리)
@@ -98,7 +115,9 @@ const BusiTrashBtn = () => {
                 />
               </S.X>
               <S.Day>{formatDate(post.created_at)}</S.Day>
-              <S.SeeBox>받은 후기 보기</S.SeeBox>
+              <S.SeeBox onClick={() => handleViewReview(post.id)}>
+                받은 후기 보기
+              </S.SeeBox>
             </S.RowBox>
           </S.Box1>
         ))
@@ -141,7 +160,7 @@ const BusiTrashBtn = () => {
             alt="tabBar1"
             width="41px"
             height="60px"
-            onClick={() => handleTabBar("tabBar1")}
+            onClick={goAiPosts}
           />
           <img
             src={`${process.env.PUBLIC_URL}/images/${
@@ -150,7 +169,7 @@ const BusiTrashBtn = () => {
             alt="tabBar4"
             width="52px"
             height="57px"
-            onClick={() => handleTabBar("tabBar4")}
+            onClick={goApplications}
           />
           <img
             src={`${process.env.PUBLIC_URL}/images/${

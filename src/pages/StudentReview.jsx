@@ -1,37 +1,81 @@
 import React from "react";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import * as P from "../styles/StyledPost";
 
 const StudentReview = () => {
   const navigate = useNavigate();
+  const { jobId } = useParams(); // URL에서 job_id 가져오기
   const [tabBar, setTabBar] = useState("tabBar1");
-  const [rating, SetRating] = useState(0);
+  const [rating, setRating] = useState(0); // SetRating을 setRating으로 변경
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [buttonText, setButtonText] = useState("재능 나누기");
   const [isApplied, setIsApplied] = useState(false);
+  const [content, setContent] = useState(""); // 리뷰 내용 상태 추가
 
-  //탭 바
+  // 탭 바
   const handleTabBar = (menu) => {
     setTabBar(menu);
   };
 
-  //뒤로가기
+  // 뒤로가기
   const goBack = () => {
     navigate(-1);
   };
 
-  //AI 공고
+  // AI 공고
   const goAiPosts = () => {
     navigate("/StudentAiPosts");
   };
 
-  //모달 닫기
+  // 모달 닫기
   const handleModalClose = () => {
     setIsModalOpen(false);
     setButtonText("대기 중");
     setIsApplied(true);
+  };
+
+  // ⭐ API 연동 함수 추가
+  const handleSubmitReview = async () => {
+    if (!jobId) {
+      alert("리뷰를 작성할 공고 정보가 없습니다.");
+      return;
+    }
+
+    if (!rating || content.trim() === "") {
+      alert("별점과 리뷰 내용을 모두 작성해주세요.");
+      return;
+    }
+
+    try {
+      const accessToken = localStorage.getItem("accessToken");
+      if (!accessToken) {
+        alert("로그인이 필요합니다.");
+        navigate("/login"); // 로그인 페이지로 리디렉션
+        return;
+      }
+
+      const reviewData = {
+        job_post: jobId, // URL에서 가져온 job_id 사용
+        rating: rating,
+        content: content,
+      };
+
+      const response = await axios.post(`/reviews/employee/`, reviewData, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "application/json",
+        },
+      });
+
+      console.log("리뷰 작성 성공:", response.data);
+      alert("후기가 성공적으로 작성되었습니다.");
+      setIsModalOpen(true); // 성공 시 모달 열기
+    } catch (error) {
+      console.error("리뷰 작성 실패:", error);
+      alert("리뷰 작성에 실패했습니다. 다시 시도해주세요.");
+    }
   };
 
   return (
@@ -147,11 +191,15 @@ const StudentReview = () => {
                   idx < rating ? "on" : "off"
                 }.svg`}
                 alt="star"
-                onClick={() => SetRating(idx + 1 === rating ? 0 : idx + 1)}
+                onClick={() => setRating(idx + 1)} // ⭐ 별점 클릭 로직 수정
               ></P.StarImage>
             ))}
           </P.StarReview>
-          <P.ReviewContent placeholder="어떤 작업을 했는지 상세히 적어주세요."></P.ReviewContent>
+          <P.ReviewContent
+            placeholder="어떤 작업을 했는지 상세히 적어주세요."
+            value={content}
+            onChange={(e) => setContent(e.target.value)} // ⭐ 입력 값 상태에 저장
+          ></P.ReviewContent>
           <P.Title>
             <img
               src={`${process.env.PUBLIC_URL}/images/titleIcon.svg`}
@@ -167,7 +215,7 @@ const StudentReview = () => {
           </P.PayOptionBox>
           <P.ReviewSubmit
             $active={isApplied}
-            onClick={() => setIsModalOpen(true)}
+            onClick={handleSubmitReview} // ⭐ API 연동 함수 연결
           >
             후기 보내기
           </P.ReviewSubmit>

@@ -8,7 +8,6 @@ export const Container = styled.div`
   width: 393px;
   min-height: 100vh;
   background: #fff;
-  outline: 1px solid black;
   padding-bottom: 190px;
 
   #header {
@@ -61,13 +60,11 @@ export const TabBar = styled.div`
   }
 `;
 
-
 export const BackBtn = styled.div`
-position: absolute;
-top: 44px;
-left: 30px;
+  position: absolute;
+  top: 44px;
+  left: 30px;
 `;
-
 
 export const Title = styled.div`
   color: #000;
@@ -182,59 +179,57 @@ export const Toggle = styled.div`
   z-index: 4;
 `;
 
-
 export const TextBox = styled.div`
-margin-left: 54px;
-margin-top: 26px;
-display: flex;
-gap: 8px;
-flex-direction: column
+  margin-left: 54px;
+  margin-top: 26px;
+  display: flex;
+  gap: 8px;
+  flex-direction: column;
 `;
 
 export const Text = styled.div`
-color: #695739;
+  color: #695739;
 
-/* R20 */
-font-family: Pretendard;
-font-size: 20px;
-font-style: normal;
-font-weight: 400;
-line-height: normal;
+  /* R20 */
+  font-family: Pretendard;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 `;
 
 export const Input = styled.input`
-color: var(--, #000);
+  color: var(--, #000);
 
-
-/* R20 */
-font-family: Pretendard;
-font-size: 20px;
-font-style: normal;
-font-weight: 400;
-line-height: normal;
+  /* R20 */
+  font-family: Pretendard;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 
   background: transparent; /* 배경 투명 */
-  border: none;           /* 테두리 없앰 */
-  outline: none;   
-  border-bottom:solid #695739 1px;
+  border: none; /* 테두리 없앰 */
+  outline: none;
+  border-bottom: solid #695739 1px;
   padding-bottom: 7px;
   width: 139px;
 `;
 
 export const Input2 = styled.input`
-color: var(--, #000);
+  color: var(--, #000);
 
-/* R20 */
-font-family: Pretendard;
-font-size: 20px;
-font-style: normal;
-font-weight: 400;
-line-height: normal;
+  /* R20 */
+  font-family: Pretendard;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 
   background: transparent; /* 배경 투명 */
-  border: none;           /* 테두리 없앰 */
-  outline: none;   
-  border-bottom:solid #695739 1px;
+  border: none; /* 테두리 없앰 */
+  outline: none;
+  border-bottom: solid #695739 1px;
   padding-bottom: 7px;
   width: 204px;
 `;
@@ -254,159 +249,150 @@ export const Title2 = styled.div`
   line-height: 1.3;
 `;
 export const Box1 = styled.div`
-display: flex;
-gap: 93px;
+  display: flex;
+  gap: 93px;
 `;
 
 export const Box2 = styled.div`
-display: flex;
-gap: 25px;
+  display: flex;
+  gap: 25px;
 `;
 
 export const Btn2 = styled.div`
-color: var(--300, #A3A3A3);
+  color: var(--300, #a3a3a3);
 
-/* R20 */
-font-family: Pretendard;
-font-size: 20px;
-font-style: normal;
-font-weight: 400;
-line-height: normal;
+  /* R20 */
+  font-family: Pretendard;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 
   span {
     cursor: pointer;
     transition: all 0.2s;
   }
 
-  .selected { /* 클릭 시 배경 검정 */
-    color: black;            /* 글자 흰색 */
+  .selected {
+    /* 클릭 시 배경 검정 */
+    color: black; /* 글자 흰색 */
   }
 
-display: flex;
-gap: 5px;
+  display: flex;
+  gap: 5px;
 `;
 
-export const email = styled.div`
-`;
+export const email = styled.div``;
 
 export const emailInput = styled.input`
-color: var(--, #000);
+  color: var(--, #000);
 
-
-/* R20 */
-font-family: Pretendard;
-font-size: 20px;
-font-style: normal;
-font-weight: 400;
-line-height: normal;
+  /* R20 */
+  font-family: Pretendard;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 
   background: transparent; /* 배경 투명 */
-  border: none;           /* 테두리 없앰 */
-  outline: none;   
-  border-bottom:solid #695739 1px;
+  border: none; /* 테두리 없앰 */
+  outline: none;
+  border-bottom: solid #695739 1px;
   padding-bottom: 7px;
   width: 92px;
 `;
 
 export const emailBox = styled.div`
-display: flex;
-gap: 10px;
-
-
+  display: flex;
+  gap: 10px;
 `;
 
 export const Box3 = styled.div`
-display: flex;
-flex-direction: row;
-gap: 175px;
+  display: flex;
+  flex-direction: row;
+  gap: 175px;
 `;
 
 export const Box4 = styled.div`
-display: flex;
-flex-direction: row;
-gap: 10px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
 `;
-
-
 
 export const Title3 = styled.div`
-color: #000;
+  color: #000;
 
-/* B24 */
-font-family: Pretendard;
-font-size: 24px;
-font-style: normal;
-font-weight: 700;
-line-height: normal;
+  /* B24 */
+  font-family: Pretendard;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
 
-margin-top: 201px;
-margin-left: 66px;
+  margin-top: 201px;
+  margin-left: 66px;
 `;
 
-export const Box5 = styled.div` 
-//세로 
-display: flex; 
-flex-direction: column
-
-
+export const Box5 = styled.div`
+  //세로
+  display: flex;
+  flex-direction: column;
 `;
-
 
 export const Bbtn = styled.div`
-margin-top: 20px;
+  margin-top: 20px;
 `;
 
 export const Pic = styled.div`
-margin-top: 20px;
-margin-left: 54px;
+  margin-top: 20px;
+  margin-left: 54px;
 `;
 
 export const PicT = styled.div`
-margin-top: 165px;
-margin-left: 54px;
+  margin-top: 165px;
+  margin-left: 54px;
 
-color:  #695739;
+  color: #695739;
 
-/* R20 */
-font-family: Pretendard;
-font-size: 20px;
-font-style: normal;
-font-weight: 400;
-line-height: normal;
+  /* R20 */
+  font-family: Pretendard;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 `;
 
 export const Line = styled.div`
-width: 286px;
-height: 0.5px;
-background: #DFDFDF;
-margin-top: 35px;
-margin-left: 54px;
+  width: 286px;
+  height: 0.5px;
+  background: #dfdfdf;
+  margin-top: 35px;
+  margin-left: 54px;
 `;
 export const Text3 = styled.div`
-color: #695739;
+  color: #695739;
 
-/* R14 */
-font-family: Pretendard;
-font-size: 14px;
-font-style: normal;
-font-weight: 400;
-line-height: 0%;
-margin-top: 15px;
+  /* R14 */
+  font-family: Pretendard;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 0%;
+  margin-top: 15px;
 `;
 
 export const Box6 = styled.div`
-display: flex;
-flex-direction: row;
+  display: flex;
+  flex-direction: row;
 `;
 
-
 export const Box7 = styled.div`
-display: flex;
-flex-direction: row;
+  display: flex;
+  flex-direction: row;
 
-margin-left: 54px;
-margin-top: 7px;
-gap: 7px;
+  margin-left: 54px;
+  margin-top: 7px;
+  gap: 7px;
 `;
 export const SelBox = styled.div`
   color: #dfdfdf;
@@ -432,43 +418,42 @@ export const SelBox = styled.div`
 `;
 
 export const Text2 = styled.div`
-color: #000;
+  color: #000;
 
-/* B20 */
-font-family: Pretendard;
-font-size: 20px;
-font-style: normal;
-font-weight: 700;
-line-height: normal;
+  /* B20 */
+  font-family: Pretendard;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
 
-margin-top: 30px;
+  margin-top: 30px;
 `;
 
-
 export const Unclick = styled.div`
-color: #000;
+  color: #000;
 
-/* B20 */
-font-family: Pretendard;
-font-size: 20px;
-font-style: normal;
-font-weight: 700;
-line-height: normal;
+  /* B20 */
+  font-family: Pretendard;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
 
-margin-top: 32px;
-margin-left: 5px;
+  margin-top: 32px;
+  margin-left: 5px;
 `;
 
 export const Info = styled.div`
-color: #A3A3A3;
+  color: #a3a3a3;
 
-/* R14 */
-font-family: Pretendard;
-font-size: 14px;
-font-style: normal;
-font-weight: 400;
-line-height: 0%; /* 0 */
+  /* R14 */
+  font-family: Pretendard;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 0%; /* 0 */
 
-margin-left: 54px;
-margin-top: 15px;
+  margin-left: 54px;
+  margin-top: 15px;
 `;

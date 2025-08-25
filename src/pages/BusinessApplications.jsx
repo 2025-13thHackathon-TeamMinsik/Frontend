@@ -7,6 +7,10 @@ const BusinessApplications = () => {
   const navigate = useNavigate();
   const [tabBar, setTabBar] = useState("tabBar4");
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   // API에서 불러온 공고 + 지원자 데이터
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -46,6 +50,10 @@ const BusinessApplications = () => {
   // AI 공고 페이지로 이동
   const goAiPosts = () => {
     navigate("/BusinessAiPosts");
+  };
+
+  const goBusiTrash = () => {
+    navigate(`/BusiTrashBtn`);
   };
 
   // 별점 렌더링 함수
@@ -125,7 +133,13 @@ const BusinessApplications = () => {
           </P.Box>
 
           <P.OptionBox>
-            <P.Option1>공고 수정하기</P.Option1>
+            <P.Option1
+              onClick={() =>
+                navigate("/NoticeUp", { state: { jobId: job.job_id } })
+              }
+            >
+              공고 수정하기
+            </P.Option1>
             <P.Option2>후기 작성하기</P.Option2>
           </P.OptionBox>
 
@@ -232,7 +246,7 @@ const BusinessApplications = () => {
             alt="tabBar5"
             width="45px"
             height="56px"
-            onClick={() => handleTabBar("tabBar5")}
+            onClick={goBusiTrash}
           />
         </div>
       </P.TabBar>

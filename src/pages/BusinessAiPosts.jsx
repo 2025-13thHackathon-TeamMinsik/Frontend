@@ -21,29 +21,43 @@ const BusinessAiPosts = () => {
   });
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState(null); // 검색 결과 상태 추가
+  const [recommendedStudents, setRecommendedStudents] = useState([]);
+  const [isRecommendedLoading, setIsRecommendedLoading] = useState(true);
+  const [userSkills, setUserSkills] = useState([]);
 
   const sorts = ["최신순", "인기순", "거리순", "찜 콕"];
+
+  const skillCategories = {
+    design: "디자인",
+    photo_video: "영상/사진",
+    craft: "공예",
+    coding: "코딩/개발",
+    language: "외국어/번역",
+    marketing: "홍보/마케팅",
+    document: "문서 작성",
+    counsel: "상담",
+    volunteer: "자원봉사",
+  };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const goAlert = () => {
     navigate(`/MyAlert`);
   };
 
   const goNoticeUp = () => {
-    const userInfo = JSON.parse(localStorage.getItem("user_info"));
-    if (userInfo) {
-      navigate(`/NoticeUp`, {
-        state: {
-          formData: {
-            name: userInfo.full_name, //full_name을 name으로 전달
-            company_name: userInfo.company_name,
-            business_type: userInfo.business_type,
-            location: userInfo.location,
-          },
-        },
-      });
-    } else {
-      console.error("User info not found in localStorage");
-    }
+    navigate(`/NoticeUp`);
+  };
+
+  //재능지원함으로 이동
+  const goApplications = () => {
+    navigate(`/BusinessApplications`);
+  };
+
+  const goBusiTrash = () => {
+    navigate(`/BusiTrashBtn`);
   };
 
   const handleToggle = () => {
@@ -87,6 +101,7 @@ const BusinessAiPosts = () => {
     setIsApplied(true);
   };
 
+  // ⭐ 별점 렌더링 함수를 학생 평점 데이터에 맞춰 수정
   const renderStars = (rating) => {
     const stars = [];
     let i;
@@ -219,11 +234,42 @@ const BusinessAiPosts = () => {
     }
   };
 
+  // ⭐ 추천 대학생 데이터를 불러오는 새로운 함수
+  const fetchRecommendedStudents = async () => {
+    setIsRecommendedLoading(true);
+    try {
+      const accessToken = localStorage.getItem("accessToken");
+      if (!accessToken) {
+        console.error("Access token not found. Please log in.");
+        setIsRecommendedLoading(false);
+        return;
+      }
+      const response = await axios.get(`/matching/recommend/students/`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      // API 응답 데이터를 상태에 저장합니다.
+      setRecommendedStudents(response.data.recommended_students);
+      console.log("추천 대학생 조회 성공:", response.data.recommended_students);
+    } catch (error) {
+      console.error("추천 대학생 조회 실패:", error);
+      setRecommendedStudents([]);
+    } finally {
+      setIsRecommendedLoading(false);
+    }
+  };
+
   useEffect(() => {
     if (searchTerm.trim() === "") {
       fetchJobs(selectedFilter, selected);
     }
   }, [selectedFilter, selected, searchTerm]);
+
+  // ⭐ 컴포넌트 마운트 시 추천 대학생 목록을 불러옵니다.
+  useEffect(() => {
+    fetchRecommendedStudents();
+  }, []);
 
   const jobsToDisplay = searchResults !== null ? searchResults : jobs;
   const noResultsFound =
@@ -316,165 +362,72 @@ const BusinessAiPosts = () => {
           />
         </A.AiTitle>
         <A.ProfileList>
-          <A.Profile>
-            <A.ProfileInfo>
-              <A.ProfileImage>
-                <A.MyProfileImage>
-                  <img
-                    src={`${process.env.PUBLIC_URL}/images/defaultProfile.svg`}
-                    alt="defaultProfile"
-                    width="51px"
-                    height="auto"
-                  />
-                </A.MyProfileImage>
-              </A.ProfileImage>
-              <A.ProfileTitle>솜사탕12</A.ProfileTitle>
-              <A.ProfileLine></A.ProfileLine>
-            </A.ProfileInfo>
-            <div class="RatingArea">
-              <A.RatingBox>
-                <A.RatingText>참여도</A.RatingText>
-                <A.Star>{renderStars(5)}</A.Star>
-              </A.RatingBox>
-            </div>
-            <div class="RatingArea">
-              <A.RatingBox>
-                <A.RatingText>성실함</A.RatingText>
-                <A.Star>{renderStars(3)}</A.Star>
-              </A.RatingBox>
-            </div>
-            <div class="RatingArea">
-              <A.RatingBox>
-                <A.RatingText>시간 준수</A.RatingText>
-                <A.Star>{renderStars(5)}</A.Star>
-              </A.RatingBox>
-            </div>
-            <div class="RatingArea">
-              <A.RatingBox>
-                <A.RatingText>밝은 태도</A.RatingText>
-                <A.Star>{renderStars(4)}</A.Star>
-              </A.RatingBox>
-            </div>
-            <div class="RatingArea">
-              <A.RatingBox>
-                <A.RatingText>예의 바름</A.RatingText>
-                <A.Star>{renderStars(4)}</A.Star>
-              </A.RatingBox>
-            </div>
-            <img
-              src={`${process.env.PUBLIC_URL}/images/heart-off.svg`}
-              alt="heart-off"
-              width="19.5px"
-              height="auto"
-              id="profileHeart"
-            />
-          </A.Profile>
-          <A.Profile>
-            <A.ProfileInfo>
-              <A.ProfileImage>
-                <A.MyProfileImage>
-                  <img
-                    src={`${process.env.PUBLIC_URL}/images/defaultProfile.svg`}
-                    alt="defaultProfile"
-                    width="51px"
-                    height="auto"
-                  />
-                </A.MyProfileImage>
-              </A.ProfileImage>
-              <A.ProfileTitle>솜사탕12</A.ProfileTitle>
-              <A.ProfileLine></A.ProfileLine>
-            </A.ProfileInfo>
-            <div class="RatingArea">
-              <A.RatingBox>
-                <A.RatingText>참여도</A.RatingText>
-                <A.Star>{renderStars(5)}</A.Star>
-              </A.RatingBox>
-            </div>
-            <div class="RatingArea">
-              <A.RatingBox>
-                <A.RatingText>성실함</A.RatingText>
-                <A.Star>{renderStars(3)}</A.Star>
-              </A.RatingBox>
-            </div>
-            <div class="RatingArea">
-              <A.RatingBox>
-                <A.RatingText>시간 준수</A.RatingText>
-                <A.Star>{renderStars(5)}</A.Star>
-              </A.RatingBox>
-            </div>
-            <div class="RatingArea">
-              <A.RatingBox>
-                <A.RatingText>밝은 태도</A.RatingText>
-                <A.Star>{renderStars(4)}</A.Star>
-              </A.RatingBox>
-            </div>
-            <div class="RatingArea">
-              <A.RatingBox>
-                <A.RatingText>예의 바름</A.RatingText>
-                <A.Star>{renderStars(4)}</A.Star>
-              </A.RatingBox>
-            </div>
-            <img
-              src={`${process.env.PUBLIC_URL}/images/heart-off.svg`}
-              alt="heart-off"
-              width="19.5px"
-              height="auto"
-              id="profileHeart"
-            />
-          </A.Profile>
-          <A.Profile>
-            <A.ProfileInfo>
-              <A.ProfileImage>
-                <A.MyProfileImage>
-                  <img
-                    src={`${process.env.PUBLIC_URL}/images/defaultProfile.svg`}
-                    alt="defaultProfile"
-                    width="51px"
-                    height="auto"
-                  />
-                </A.MyProfileImage>
-              </A.ProfileImage>
-              <A.ProfileTitle>솜사탕12</A.ProfileTitle>
-              <A.ProfileLine></A.ProfileLine>
-            </A.ProfileInfo>
-            <div class="RatingArea">
-              <A.RatingBox>
-                <A.RatingText>참여도</A.RatingText>
-                <A.Star>{renderStars(5)}</A.Star>
-              </A.RatingBox>
-            </div>
-            <div class="RatingArea">
-              <A.RatingBox>
-                <A.RatingText>성실함</A.RatingText>
-                <A.Star>{renderStars(3)}</A.Star>
-              </A.RatingBox>
-            </div>
-            <div class="RatingArea">
-              <A.RatingBox>
-                <A.RatingText>시간 준수</A.RatingText>
-                <A.Star>{renderStars(5)}</A.Star>
-              </A.RatingBox>
-            </div>
-            <div class="RatingArea">
-              <A.RatingBox>
-                <A.RatingText>밝은 태도</A.RatingText>
-                <A.Star>{renderStars(4)}</A.Star>
-              </A.RatingBox>
-            </div>
-            <div class="RatingArea">
-              <A.RatingBox>
-                <A.RatingText>예의 바름</A.RatingText>
-                <A.Star>{renderStars(4)}</A.Star>
-              </A.RatingBox>
-            </div>
-            <img
-              src={`${process.env.PUBLIC_URL}/images/heart-off.svg`}
-              alt="heart-off"
-              width="19.5px"
-              height="auto"
-              id="profileHeart"
-            />
-          </A.Profile>
+          {/* ⭐ 로딩 상태와 데이터 유무에 따른 조건부 렌더링 */}
+          {isRecommendedLoading ? (
+            <p>추천 대학생 목록을 불러오는 중입니다...</p>
+          ) : recommendedStudents.length > 0 ? (
+            // ⭐ API에서 받은 데이터로 동적으로 프로필 카드 생성
+            recommendedStudents.map((student) => (
+              <A.Profile key={student.id}>
+                <A.ProfileInfo>
+                  <A.ProfileImage>
+                    <A.MyProfileImage>
+                      <img
+                        src={
+                          student.profile_image ||
+                          `${process.env.PUBLIC_URL}/images/defaultProfile.svg`
+                        }
+                        alt="defaultProfile"
+                        width="51px"
+                        height="auto"
+                      />
+                    </A.MyProfileImage>
+                  </A.ProfileImage>
+                  <A.ProfileTitle>{student.name}</A.ProfileTitle>
+                  <A.ProfileLine></A.ProfileLine>
+                </A.ProfileInfo>
+                <div class="RatingArea">
+                  <A.RatingBox>
+                    <A.RatingText>참여도</A.RatingText>
+                    <A.Star>{renderStars(student.participation)}</A.Star>
+                  </A.RatingBox>
+                </div>
+                <div class="RatingArea">
+                  <A.RatingBox>
+                    <A.RatingText>성실함</A.RatingText>
+                    <A.Star>{renderStars(student.diligence)}</A.Star>
+                  </A.RatingBox>
+                </div>
+                <div class="RatingArea">
+                  <A.RatingBox>
+                    <A.RatingText>시간 준수</A.RatingText>
+                    <A.Star>{renderStars(student.punctuality)}</A.Star>
+                  </A.RatingBox>
+                </div>
+                <div class="RatingArea">
+                  <A.RatingBox>
+                    <A.RatingText>밝은 태도</A.RatingText>
+                    <A.Star>{renderStars(student.cheerful_attitude)}</A.Star>
+                  </A.RatingBox>
+                </div>
+                <div class="RatingArea">
+                  <A.RatingBox>
+                    <A.RatingText>예의 바름</A.RatingText>
+                    <A.Star>{renderStars(student.politeness)}</A.Star>
+                  </A.RatingBox>
+                </div>
+                <img
+                  src={`${process.env.PUBLIC_URL}/images/heart-off.svg`}
+                  alt="heart-off"
+                  width="19.5px"
+                  height="auto"
+                  id="profileHeart"
+                />
+              </A.Profile>
+            ))
+          ) : (
+            <p>추천 대학생 프로필이 없습니다.</p>
+          )}
         </A.ProfileList>
       </A.StudentAiCardBox>
       <A.Line2></A.Line2>
@@ -602,7 +555,7 @@ const BusinessAiPosts = () => {
             alt="tabBar4"
             width="52px"
             height="57px"
-            onClick={() => handleTabBar("tabBar4")}
+            onClick={goApplications}
           />
           <img
             src={`${process.env.PUBLIC_URL}/images/${
@@ -611,7 +564,7 @@ const BusinessAiPosts = () => {
             alt="tabBar5"
             width="45px"
             height="56px"
-            onClick={() => handleTabBar("tabBar5")}
+            onClick={goBusiTrash}
           />
         </div>
       </A.TabBar>
